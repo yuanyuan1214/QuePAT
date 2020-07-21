@@ -1,13 +1,13 @@
-*user*(<u>ID</u>, login_name, password, reg_time, phone, email, company, address)
+*usr*(<u>id</u>, login_name, password, reg_time, phone, email, company, address)
 
-*message*(<u>ID</u>, sender _id, receiver_id, title, content, type, send_time, is_read, is_delete)
-FK: sender _id, receiver_id (from *user*)
+*message*(<u>msg_id</u>, sender _id, receiver_id, title, content, msg_type, send_time, is_read, is_delete)
+FK: sender _id, receiver_id (from *usr*)
 
-*feedback*(<u>ID</u>, user_ID, time, content)
-FK: user_ID (from *user*)
+*feedback*(<u>msg_id</u>, user_id, time, content)
+FK: user_id (from *usr*)
 
 *discussion*(<u>ID</u>, put_up_user_ID, topic, content, init_time)
-FK: put_up_user_ID (from *user*)
+FK: put_up_user_ID (from *usr*)
 
 *related_filed*(<u>discussion_ID</u>, <u>rela_field</u>)
 FK: discussion_ID (from *discussion*)
