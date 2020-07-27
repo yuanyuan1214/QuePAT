@@ -1,4 +1,4 @@
-*usr*(<u>id</u>, login_name, password, reg_time, phone, email, company, address)
+*usr*(<u>usr_id</u>, login_name, password, reg_time, phone, email, company, address)
 
 *message*(<u>msg_id</u>, sender _id, receiver_id, title, content, msg_type, send_time, is_read, is_delete)
 FK: sender _id, receiver_id (from *usr*)
@@ -17,17 +17,17 @@ FK: disc_id (from *discussion*), user_id (from *usr*)
 
 *classification*(<u>code</u>, first_dir, first\_dir\_name, sec_dir, sec\_dir\_name, third_dir, third\_dir\_name)
 
-*company*(<u>ID</u>, name, address, abstract, patent_num)
+*company*(<u>name</u>, address, abstract)
 
-*patent_of_year*(<u>company_ID</u>, <u>year</u>, patent_num)
-FK: company_ID (from *company*)
+*patent_of_year*(<u>name</u>, <u>year</u>, patent_num)
+FK: name (from *company*)
 
 *person*(<u>ID</u>, name, address, phone_num, email)
 
 *province*(<u>code</u>, name)
 
-*patent*(<u>app_num</u>, name, type, classification_code, designer_id, patentee_ID, proposer_ID, place_code, app_date, public_num, public_data, current_status, abstract, main_cliam, claim, prio_app_country, age, is_valid)
-FK: classification_code (from *classification*), designer_id (from *person*), patentee_ID, proposer_ID (from *company*), place_code (from *province*)
+*patent*(<u>app_num</u>, name, patent_type, class_code, designer_id, patentee_name, proposer_name, place_code, app_date, public_num, public_date, current_status, abstract, main_cliam, claim, prio_app_country, age, is_valid)
+FK: class_code (from *classification*), designer_id (from *person*), patentee_name, proposer_name (from *company*), place_code (from *province*)
 
 *family*(<u>basic\_patent\_app\_num</u>, <u>app_num</u>)
 FK: basic\_patent\_app\_num, app_num (from *patent*)
