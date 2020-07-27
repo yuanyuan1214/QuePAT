@@ -3,16 +3,17 @@
 *message*(<u>msg_id</u>, sender _id, receiver_id, title, content, msg_type, send_time, is_read, is_delete)
 FK: sender _id, receiver_id (from *usr*)
 
-*feedback*(<u>msg_id</u>, user_id, time, content)
+*feedback*(<u>fb_id</u>, usr_id, fb_time, content)
 FK: user_id (from *usr*)
 
-*discussion*(<u>ID</u>, put_up_user_ID, topic, content, init_time)
-FK: put_up_user_ID (from *usr*)
+*discussion*(<u>disc_id</u>, put_up_usr_id, topic, content, init_time)
+FK: put_up_usr_id (from *usr*)
 
-*related_filed*(<u>discussion_ID</u>, <u>rela_field</u>)
-FK: discussion_ID (from *discussion*)
+*related_filed*(<u>disc_id</u>, <u>rela_field</u>)
+FK: disc_id (from *discussion*)
 
-*comment*(<u>discussion_ID</u>, <u>user_ID</u>, <u>time</u>, content, is_delete)
+*comment*(<u>disc_id</u>, <u>usr_id</u>, <u>cmnt_time</u>, content, is_delete)
+FK: disc_id (from *discussion*), user_id (from *usr*)
 
 *classification*(<u>code</u>, first_dir, first\_dir\_name, sec_dir, sec\_dir\_name, third_dir, third\_dir\_name)
 
