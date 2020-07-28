@@ -16,11 +16,11 @@ CREATE TABLE usr (
 -- 信息表
 CREATE TABLE message (
 	msg_id INTEGER, -- 信息 ID
-	sender_id INTEGER, -- 发送者
-	receiver_id INTEGER, -- 接收者
+	sender_id INTEGER NOT NULL, -- 发送者
+	receiver_id INTEGER NOT NULL, -- 接收者
 	title VARCHAR(20) NOT NULL, -- 信息标题
-	content VARCHAR(255), -- 信息正文
-	msg_type VARCHAR(20), -- 信息类型
+	content VARCHAR(255) NOT NULL, -- 信息正文
+	msg_type VARCHAR(20), -- 信息类型 /*->SMALLINT?*/
 	send_time TIMESTAMP NOT NULL, -- 发送时间
 	is_read CHAR(1) NOT NULL, -- 是否已读
 	is_delete CHAR(1) NOT NULL, -- 是否已删除
@@ -32,9 +32,9 @@ CREATE TABLE message (
 -- 反馈表
 CREATE TABLE feedback (
 	fb_id INTEGER, -- 反馈 ID
-	usr_id INTEGER, -- 用户ID
+	usr_id INTEGER NOT NULL, -- 用户ID
 	fb_time TIMESTAMP NOT NULL, -- 反馈时间
-	content VARCHAR(255), -- 正文
+	content VARCHAR(255) NOT NULL, -- 正文
 	PRIMARY KEY (fb_id),
 	FOREIGN KEY (usr_id) REFERENCES usr
 );
@@ -42,9 +42,9 @@ CREATE TABLE feedback (
 -- 议题表
 CREATE TABLE discussion (
 	disc_id INTEGER, -- 议题 ID
-	put_up_usr_id INTEGER, -- 发起者 ID
+	put_up_usr_id INTEGER NOT NULL, -- 发起者 ID
 	topic VARCHAR(20) NOT NULL, -- 主题
-	content VARCHAR(255), -- 议题正文
+	content VARCHAR(255) NOT NULL, -- 议题正文
 	init_time TIMESTAMP NOT NULL, -- 发起时间
 	PRIMARY KEY (disc_id),
 	FOREIGN KEY (put_up_usr_id) REFERENCES usr
@@ -61,9 +61,9 @@ CREATE TABLE related_filed (
 -- 评论表
 CREATE TABLE cmnt (
 	disc_id INTEGER, -- 议题 ID
-	usr_id INTEGER, -- 用户 ID
+	usr_id INTEGER NOT NULL, -- 用户 ID
 	cmnt_time TIMESTAMP NOT NULL, -- 评论时间
-	content VARCHAR(255),  -- 正文
+	content VARCHAR(255) NOT NULL,  -- 正文
 	is_delete CHAR(1) NOT NULL, -- 是否已删除
 	PRIMARY KEY (disc_id, usr_id, cmnt_time),
 	FOREIGN KEY (disc_id) REFERENCES discussion,
@@ -120,16 +120,21 @@ CREATE TABLE province (
 CREATE TABLE patent (
 	app_num CHAR(14), -- 申请号
 	name VARCHAR(255) NOT NULL, -- 专利名称
-	patent_type VARCHAR(8) NOT NULL, -- 专利类型 /*->INTEGER?*/
+	/*
+	 * 0: 发明
+	 * 1: 实用新型
+	 * 2: 外观
+	 */
+	patent_type SMALLINT NOT NULL, -- 专利类型 
 	class_code VARCHAR(12) NOT NULL, -- 专利分类号
-	designer_id VARCHAR(20), -- 发明人
-	patentee_name VARCHAR(20), -- 专利权人
-	proposer_name VARCHAR(20), -- 申请机构
-	place_code CHAR(6), -- 所在行政区划代码
+	designer_id VARCHAR(20) NOT NULL, -- 发明人 ID
+	patentee_name VARCHAR(20) NOT NULL, -- 专利权人
+	proposer_name VARCHAR(20) NOT NULL, -- 申请机构
+	place_code CHAR(6) NOT NULL, -- 所在行政区划代码
 	app_date DATE NOT NULL, -- 申请日
 	public_num CHAR(14) NOT NULL, -- 公开号
 	public_date DATE NOT NULL, -- 公开日
-	current_status VARCHAR(8) NOT NULL, -- 当前法律状态 /*->INTEGER?*/
+	-- current_status SMALLINT NOT NULL, -- 当前法律状态  /*冗余?*/
 	abstract VARCHAR(255), -- 摘要
 	main_cliam VARCHAR(255), -- 主权利要求
 	claim VARCHAR(255), -- 权利要求
@@ -142,4 +147,55 @@ CREATE TABLE patent (
 	FOREIGN KEY (patentee_name) REFERENCES company,
 	FOREIGN KEY (proposer_name) REFERENCES company,
 	FOREIGN KEY (place_code) REFERENCES province
+);
+
+-- 同族专利表
+CREATE TABLE family (
+	basic_app_num CHAR(14), -- 基本专利申请号
+	app_num CHAR(14), -- 同族专利申请号
+	PRIMARY KEY (basic_app_num, app_num),
+	FOREIGN KEY (basic_app_num) REFERENCES patent,
+	FOREIGN KEY (app_num) REFERENCES patent
+);
+
+-- 法律状态表
+CREATE TABLE law_status (
+	app_num CHAR(14), -- 申请号
+	announce_date DATE, -- 公告日
+	due_date DATE, -- 到期日
+	/*
+	 * 0: 申请
+	 * 1: 受理
+	 * 2: 初审合格
+	 * 3: 实审
+	 * 4: 公布
+	 * 5: 审查意见
+	 * 6: 授权
+	 * 7: 下证
+	 */
+	status SMALLINT NOT NULL, -- 法律状态
+	msg VARCHAR(20), -- 法律状态信息
+	detail VARCHAR(255), -- 详细信息
+	PRIMARY KEY (app_num, announce_date),
+	FOREIGN KEY (app_num) REFERENCES patent
+);
+
+-- 引用专利表
+CREATE TABLE cite (
+	citing_app_num CHAR(14), -- 引用专利申请号
+	cited_app_num CHAR(14), -- 被引专利申请号
+	PRIMARY KEY (citing_app_num, cited_app_num),
+	FOREIGN KEY (citing_app_num) REFERENCES patent,
+	FOREIGN KEY (cited_app_num) REFERENCES patent
+);
+
+-- 代理表
+CREATE TABLE proxy (
+	app_num CHAR(14), -- 专利申请号
+	agent_id VARCHAR(20), -- 代理人 ID
+	agency VARCHAR(255) NOT NULL, -- 代理机构名称
+	PRIMARY KEY (app_num, agent_id),
+	FOREIGN KEY (app_num) REFERENCES patent,
+	FOREIGN KEY (agent_id) REFERENCES person,
+	FOREIGN KEY (agency) REFERENCES company
 );
