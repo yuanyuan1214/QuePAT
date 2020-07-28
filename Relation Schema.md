@@ -12,10 +12,10 @@ FK: put_up_usr_id (from *usr*)
 *related_filed*(<u>disc_id</u>, <u>rela_field</u>)
 FK: disc_id (from *discussion*)
 
-*comment*(<u>disc_id</u>, <u>usr_id</u>, <u>cmnt_time</u>, content, is_delete)
+*cmnt*(<u>disc_id</u>, <u>usr_id</u>, <u>cmnt_time</u>, content, is_delete)
 FK: disc_id (from *discussion*), user_id (from *usr*)
 
-*classification*(<u>code</u>, first_dir, first\_dir\_name, sec_dir, sec\_dir\_name, third_dir, third\_dir\_name)
+*classification*(<u>code</u>, sec\_name, class\_title, subclass\_title, group\_title, subgroup\_title)
 
 *company*(<u>name</u>, address, abstract)
 
@@ -26,17 +26,16 @@ FK: name (from *company*)
 
 *province*(<u>code</u>, name)
 
-*patent*(<u>app_num</u>, name, patent_type, class_code, designer_id, patentee_name, proposer_name, place_code, app_date, public_num, public_date, current_status, abstract, main_cliam, claim, prio_app_country, age, is_valid)
+*patent*(<u>app_num</u>, name, patent_type, class_code, designer_id, patentee_name, proposer_name, place_code, app_date, public_num, public_date, current_status, abstract, main_cliam, claim, age, is_valid)
 FK: class_code (from *classification*), designer_id (from *person*), patentee_name, proposer_name (from *company*), place_code (from *province*)
 
-*family*(<u>basic\_app\_num</u>, <u>app_num</u>)
-FK: basic\_app\_num, app_num (from *patent*)
+*family*(<u>basic\_public\_num</u>, <u>public_num</u>)
 
 *law_status*(<u>app_num</u>, <u>announce_date</u>, due_date, status, msg, detail)
 FK: app_num (from *patent*)
 
 *cite*(<u>citing\_app\_num</u>, <u>cited\_app\_num</u>)
-FK: citing_app_num, cited_app_num (from *patent*)
+FK: citing_app_num (from *patent*)
 
 *proxy*(<u>app_num</u>, <u>agent</u>, agency)
 FK: app_num (from *patent*), agent (from *person*), agency (from *company*)

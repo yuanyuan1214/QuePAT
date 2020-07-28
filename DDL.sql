@@ -72,24 +72,21 @@ CREATE TABLE cmnt (
 
 -- 专利模块 --
 
-/*
- * TODO: 化为第一范式
 -- 分类表
 CREATE TABLE classification (
-	code VARCHAR(12), -- 分类号
-	sec_sym CHAR(1) NOT NULL, -- 部号
+	code VARCHAR(12), -- 分类号，保留空格和斜杠
+	-- sec_sym CHAR(1) NOT NULL, -- 部号
+	-- class_sym CHAR(2) NOT NULL, -- 大类号
+	-- subclass_sym CHAR(1) NOT NULL, -- 小类号
+	-- group_sym VARCHAR(3) NOT NULL, -- 大组号
+	-- subgroup_sym VARCHAR(3) NOT NULL, -- 小组号
 	sec_title VARCHAR(50) NOT NULL, -- 部名称
-	class_sym CHAR(2) NOT NULL, -- 大类号
 	class_title VARCHAR(50) NOT NULL, -- 大类名称
-	subclass_sym CHAR(1) NOT NULL, -- 小类号
 	subclass_title VARCHAR(255) NOT NULL, -- 小类名称
-	group_sym VARCHAR(3) NOT NULL, -- 大组号
 	group_title VARCHAR(255) NOT NULL, -- 大组名称
-	subgroup_sym VARCHAR(3) NOT NULL, -- 小组号
 	subgroup_title VARCHAR(255) NOT NULL, -- 小组名称
 	PRIMARY KEY (code)
 );
-*/
 
 -- 公司表
 CREATE TABLE company (
@@ -101,7 +98,7 @@ CREATE TABLE company (
 
 -- 自然人表
 CREATE TABLE person (
-	id VARCHAR(20), -- 身份证号码
+	id VARCHAR(20), -- 证件号码
 	name VARCHAR(20) NOT NULL, -- 姓名
 	address VARCHAR(255), -- 住址
 	phone_num CHAR(11), -- 联系电话
@@ -118,7 +115,7 @@ CREATE TABLE province (
 
 -- 专利表
 CREATE TABLE patent (
-	app_num CHAR(14), -- 申请号
+	app_num CHAR(14), -- 申请号，"ZL88201465.X" 存储为 "88201465X"
 	name VARCHAR(255) NOT NULL, -- 专利名称
 	/*
 	 * 0: 发明
@@ -132,17 +129,16 @@ CREATE TABLE patent (
 	proposer_name VARCHAR(20) NOT NULL, -- 申请机构
 	place_code CHAR(6) NOT NULL, -- 所在行政区划代码
 	app_date DATE NOT NULL, -- 申请日
-	public_num CHAR(14) NOT NULL, -- 公开号
+	public_num CHAR(12) NOT NULL, -- 公开号，格式为 "CN 100378906 A"
 	public_date DATE NOT NULL, -- 公开日
-	-- current_status SMALLINT NOT NULL, -- 当前法律状态  /*冗余?*/
 	abstract VARCHAR(255), -- 摘要
 	main_cliam VARCHAR(255), -- 主权利要求
 	claim VARCHAR(255), -- 权利要求
-	prio_app_country CHAR(3), -- 优先权受理国国家代码
+	-- prio_app_country CHAR(3), -- 优先权受理国国家代码
 	age SMALLINT NOT NULL, -- 专利年龄
 	is_valid CHAR(1) NOT NULL, -- 有效位
 	PRIMARY KEY (app_num),
-	-- FOREIGN KEY (class_code) REFERENCES classification,
+	FOREIGN KEY (class_code) REFERENCES classification,
 	FOREIGN KEY (designer_id) REFERENCES person,
 	FOREIGN KEY (patentee_name) REFERENCES company,
 	FOREIGN KEY (proposer_name) REFERENCES company,
@@ -151,11 +147,9 @@ CREATE TABLE patent (
 
 -- 同族专利表
 CREATE TABLE family (
-	basic_app_num CHAR(14), -- 基本专利申请号
-	app_num CHAR(14), -- 同族专利申请号
-	PRIMARY KEY (basic_app_num, app_num),
-	FOREIGN KEY (basic_app_num) REFERENCES patent,
-	FOREIGN KEY (app_num) REFERENCES patent
+	basic_public_num VARCHAR(20), -- 基本专利公开号，保留空格和横杠
+	public_num VARCHAR(20), -- 同族专利公开号，保留空格和横杠
+	PRIMARY KEY (basic_public_num, public_num)
 );
 
 -- 法律状态表
@@ -183,10 +177,9 @@ CREATE TABLE law_status (
 -- 引用专利表
 CREATE TABLE cite (
 	citing_app_num CHAR(14), -- 引用专利申请号
-	cited_app_num CHAR(14), -- 被引专利申请号
+	cited_app_num CHAR(14) NOT NULL, -- 被引专利申请号
 	PRIMARY KEY (citing_app_num, cited_app_num),
-	FOREIGN KEY (citing_app_num) REFERENCES patent,
-	FOREIGN KEY (cited_app_num) REFERENCES patent
+	FOREIGN KEY (citing_app_num) REFERENCES patent
 );
 
 -- 代理表

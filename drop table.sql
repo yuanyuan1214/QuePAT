@@ -6,7 +6,7 @@ DROP TABLE patent;
 DROP TABLE province;
 DROP TABLE person;
 DROP TABLE company;
--- DROP TABLE classification;
+DROP TABLE classification;
 DROP TABLE cmnt;
 DROP TABLE related_filed;
 DROP TABLE discussion;
