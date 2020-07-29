@@ -134,9 +134,9 @@ CREATE TABLE patent (
 	abstract VARCHAR(255), -- 摘要
 	main_cliam VARCHAR(255), -- 主权利要求
 	claim VARCHAR(255), -- 权利要求
-	-- prio_app_country CHAR(3), -- 优先权受理国国家代码
 	age SMALLINT NOT NULL, -- 专利年龄
 	is_valid CHAR(1) NOT NULL, -- 有效位
+	link VARCHAR(255), -- 全文链接
 	PRIMARY KEY (app_num),
 	FOREIGN KEY (class_code) REFERENCES classification,
 	FOREIGN KEY (designer_id) REFERENCES person,
