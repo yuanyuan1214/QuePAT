@@ -19,7 +19,7 @@ CREATE TABLE message (
 	sender_id INTEGER NOT NULL, -- 发送者
 	receiver_id INTEGER NOT NULL, -- 接收者
 	title VARCHAR(20) NOT NULL, -- 信息标题
-	content VARCHAR(255) NOT NULL, -- 信息正文
+	content VARCHAR(4000) NOT NULL, -- 信息正文
 	msg_type VARCHAR(20), -- 信息类型 /*->SMALLINT?*/
 	send_time TIMESTAMP NOT NULL, -- 发送时间
 	is_read CHAR(1) NOT NULL, -- 是否已读
@@ -34,7 +34,7 @@ CREATE TABLE feedback (
 	fb_id INTEGER, -- 反馈 ID
 	usr_id INTEGER NOT NULL, -- 用户ID
 	fb_time TIMESTAMP NOT NULL, -- 反馈时间
-	content VARCHAR(255) NOT NULL, -- 正文
+	content VARCHAR(4000) NOT NULL, -- 正文
 	PRIMARY KEY (fb_id),
 	FOREIGN KEY (usr_id) REFERENCES usr
 );
@@ -44,7 +44,7 @@ CREATE TABLE discussion (
 	disc_id INTEGER, -- 议题 ID
 	put_up_usr_id INTEGER NOT NULL, -- 发起者 ID
 	topic VARCHAR(20) NOT NULL, -- 主题
-	content VARCHAR(255) NOT NULL, -- 议题正文
+	content VARCHAR(4000) NOT NULL, -- 议题正文
 	init_time TIMESTAMP NOT NULL, -- 发起时间
 	PRIMARY KEY (disc_id),
 	FOREIGN KEY (put_up_usr_id) REFERENCES usr
@@ -63,7 +63,7 @@ CREATE TABLE cmnt (
 	disc_id INTEGER, -- 议题 ID
 	usr_id INTEGER NOT NULL, -- 用户 ID
 	cmnt_time TIMESTAMP NOT NULL, -- 评论时间
-	content VARCHAR(255) NOT NULL,  -- 正文
+	content VARCHAR(4000) NOT NULL,  -- 正文
 	is_delete CHAR(1) NOT NULL, -- 是否已删除
 	PRIMARY KEY (disc_id, usr_id, cmnt_time),
 	FOREIGN KEY (disc_id) REFERENCES discussion,
@@ -80,11 +80,11 @@ CREATE TABLE classification (
 	-- subclass_sym CHAR(1) NOT NULL, -- 小类号
 	-- group_sym VARCHAR(3) NOT NULL, -- 大组号
 	-- subgroup_sym VARCHAR(3) NOT NULL, -- 小组号
-	sec_title VARCHAR(50) NOT NULL, -- 部名称
-	class_title VARCHAR(50) NOT NULL, -- 大类名称
+	sec_title VARCHAR(255) NOT NULL, -- 部名称
+	class_title VARCHAR(255) NOT NULL, -- 大类名称
 	subclass_title VARCHAR(255) NOT NULL, -- 小类名称
 	group_title VARCHAR(255) NOT NULL, -- 大组名称
-	subgroup_title VARCHAR(255) NOT NULL, -- 小组名称
+	subgroup_title VARCHAR(255), -- 小组名称
 	PRIMARY KEY (code)
 );
 
@@ -92,7 +92,7 @@ CREATE TABLE classification (
 CREATE TABLE company (
 	name VARCHAR(255), -- 公司名
 	address VARCHAR(255), -- 地址
-	abstract VARCHAR(255), -- 公司简介
+	abstract VARCHAR(4000), -- 公司简介
 	PRIMARY KEY (name)
 );
 
@@ -130,10 +130,9 @@ CREATE TABLE patent (
 	place_code CHAR(6) NOT NULL, -- 所在行政区划代码
 	app_date DATE NOT NULL, -- 申请日
 	public_num VARCHAR(20) NOT NULL, -- 公开号，格式为 "CN100378906A"
-	public_date DATE NOT NULL, -- 公开日
-	abstract VARCHAR(255), -- 摘要
-	main_cliam VARCHAR(255), -- 主权利要求
-	claim VARCHAR(255), -- 权利要求
+	abstract VARCHAR(4000), -- 摘要
+	main_claim VARCHAR(4000), -- 主权利要求
+	claim VARCHAR(4000), -- 权利要求
 	age SMALLINT NOT NULL, -- 专利年龄
 	is_valid CHAR(1) NOT NULL, -- 有效位
 	link VARCHAR(255), -- 全文链接
@@ -166,10 +165,12 @@ CREATE TABLE law_status (
 	 * 5: 审查意见
 	 * 6: 授权
 	 * 7: 下证
+	 * 8: 撤回
+	 * 9: 其他
 	 */
 	status SMALLINT NOT NULL, -- 法律状态
-	msg VARCHAR(20), -- 法律状态信息
-	detail VARCHAR(255), -- 详细信息
+	msg VARCHAR(255), -- 法律状态信息
+	detail VARCHAR(4000), -- 详细信息
 	PRIMARY KEY (app_num, announce_date),
 	FOREIGN KEY (app_num) REFERENCES patent
 );
