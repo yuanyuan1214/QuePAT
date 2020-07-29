@@ -147,8 +147,8 @@ CREATE TABLE patent (
 
 -- 同族专利表
 CREATE TABLE family (
-	basic_app_num VARCHAR(20), -- 基本专利公开号，保留空格和横杠
-	app_num VARCHAR(20), -- 同族专利公开号，保留空格和横杠
+	basic_app_num VARCHAR(20), -- 基本专利申请号
+	app_num VARCHAR(20), -- 同族专利申请号
 	PRIMARY KEY (basic_app_num, app_num)
 );
 
