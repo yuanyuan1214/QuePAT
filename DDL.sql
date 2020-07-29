@@ -115,7 +115,7 @@ CREATE TABLE province (
 
 -- 专利表
 CREATE TABLE patent (
-	app_num CHAR(14), -- 申请号，"ZL88201465.X" 存储为 "88201465X"
+	app_num VARCHAR(20), -- 申请号，中国专利"ZL88201465.X" 存储为 "CN88201465"
 	name VARCHAR(255) NOT NULL, -- 专利名称
 	/*
 	 * 0: 发明
@@ -129,7 +129,7 @@ CREATE TABLE patent (
 	proposer_name VARCHAR(20) NOT NULL, -- 申请机构
 	place_code CHAR(6) NOT NULL, -- 所在行政区划代码
 	app_date DATE NOT NULL, -- 申请日
-	public_num CHAR(12) NOT NULL, -- 公开号，格式为 "CN 100378906 A"
+	public_num VARCHAR(20) NOT NULL, -- 公开号，格式为 "CN100378906A"
 	public_date DATE NOT NULL, -- 公开日
 	abstract VARCHAR(255), -- 摘要
 	main_cliam VARCHAR(255), -- 主权利要求
@@ -147,14 +147,14 @@ CREATE TABLE patent (
 
 -- 同族专利表
 CREATE TABLE family (
-	basic_public_num VARCHAR(20), -- 基本专利公开号，保留空格和横杠
-	public_num VARCHAR(20), -- 同族专利公开号，保留空格和横杠
-	PRIMARY KEY (basic_public_num, public_num)
+	basic_app_num VARCHAR(20), -- 基本专利公开号，保留空格和横杠
+	app_num VARCHAR(20), -- 同族专利公开号，保留空格和横杠
+	PRIMARY KEY (basic_app_num, app_num)
 );
 
 -- 法律状态表
 CREATE TABLE law_status (
-	app_num CHAR(14), -- 申请号
+	app_num VARCHAR(20), -- 申请号
 	announce_date DATE, -- 公告日
 	due_date DATE, -- 到期日
 	/*
@@ -176,15 +176,15 @@ CREATE TABLE law_status (
 
 -- 引用专利表
 CREATE TABLE cite (
-	citing_app_num CHAR(14), -- 引用专利申请号
-	cited_app_num CHAR(14) NOT NULL, -- 被引专利申请号
+	citing_app_num VARCHAR(20), -- 引用专利申请号
+	cited_app_num VARCHAR(20) NOT NULL, -- 被引专利申请号
 	PRIMARY KEY (citing_app_num, cited_app_num),
 	FOREIGN KEY (citing_app_num) REFERENCES patent
 );
 
 -- 代理表
 CREATE TABLE proxy (
-	app_num CHAR(14), -- 专利申请号
+	app_num VARCHAR(20), -- 专利申请号
 	agent_id VARCHAR(20), -- 代理人 ID
 	agency VARCHAR(255) NOT NULL, -- 代理机构名称
 	PRIMARY KEY (app_num, agent_id),
