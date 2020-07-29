@@ -90,8 +90,8 @@ CREATE TABLE classification (
 
 -- 公司表
 CREATE TABLE company (
-	name VARCHAR(20), -- 公司名
-	address VARCHAR(255) NOT NULL, -- 地址
+	name VARCHAR(255), -- 公司名
+	address VARCHAR(255), -- 地址
 	abstract VARCHAR(255), -- 公司简介
 	PRIMARY KEY (name)
 );
@@ -125,8 +125,8 @@ CREATE TABLE patent (
 	patent_type SMALLINT NOT NULL, -- 专利类型 
 	class_code VARCHAR(12) NOT NULL, -- 专利分类号
 	designer_id VARCHAR(20) NOT NULL, -- 发明人 ID
-	patentee_name VARCHAR(20) NOT NULL, -- 专利权人
-	proposer_name VARCHAR(20) NOT NULL, -- 申请机构
+	patentee_name VARCHAR(255) NOT NULL, -- 专利权人
+	proposer_name VARCHAR(255) NOT NULL, -- 申请机构
 	place_code CHAR(6) NOT NULL, -- 所在行政区划代码
 	app_date DATE NOT NULL, -- 申请日
 	public_num VARCHAR(20) NOT NULL, -- 公开号，格式为 "CN100378906A"
