@@ -135,6 +135,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LAW_STATUSController.cs" />
     <Compile Include="Controllers\PATENTsController.cs" />
     <Compile Include="Controllers\PROVINCEsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -265,6 +266,11 @@
     <Content Include="Views\PROVINCEs\Details.cshtml" />
     <Content Include="Views\PROVINCEs\Edit.cshtml" />
     <Content Include="Views\PROVINCEs\Index.cshtml" />
+    <Content Include="Views\LAW_STATUS\Create.cshtml" />
+    <Content Include="Views\LAW_STATUS\Delete.cshtml" />
+    <Content Include="Views\LAW_STATUS\Details.cshtml" />
+    <Content Include="Views\LAW_STATUS\Edit.cshtml" />
+    <Content Include="Views\LAW_STATUS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

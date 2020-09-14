@@ -1,0 +1,58 @@
+﻿@model QuePAT.Models.LAW_STATUS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LAW_STATUS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DUE_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DUE_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.STATUS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.STATUS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MSG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MSG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DETAIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DETAIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PATENT.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PATENT.NAME)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
