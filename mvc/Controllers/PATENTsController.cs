@@ -14,6 +14,180 @@ namespace QuePAT.Controllers
     {
         private Entities db = new Entities();
 
+        // Find patent with name containing string str.
+        public IQueryable<PATENT> FindByNameContains(string str)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str))
+                .Include(p => p.CLASSIFICATION)
+                .Include(p => p.COMPANY)
+                .Include(p => p.COMPANY1)
+                .Include(p => p.PERSON)
+                .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by apply number.
+        public IQueryable<PATENT> FindByApplyNumber(string app_num)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num))
+                .Include(p => p.CLASSIFICATION)
+                .Include(p => p.COMPANY)
+                .Include(p => p.COMPANY1)
+                .Include(p => p.PERSON)
+                .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by classification code.
+        public IQueryable<PATENT> FindByClassCode(string code)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.CLASS_CODE.Equals(code))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by designer name.
+        public IQueryable<PATENT> FindByDesignerName(string name)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PERSON.NAME.Equals(name))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by patentee name.
+        public IQueryable<PATENT> FindByPatenteeName(string name)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PATENTEE_NAME.Equals(name))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent with patentee name containing str.
+        public IQueryable<PATENT> FindByPatenteeNameContains(string name)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PATENTEE_NAME.Contains(name))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by proposer name.
+        public IQueryable<PATENT> FindByProposerName(string name)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PROPOSER_NAME.Equals(name))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent with proposer name containing str.
+        public IQueryable<PATENT> FindByProposerNameContains(string name)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PROPOSER_NAME.Contains(name))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by province code.
+        public IQueryable<PATENT> FindByProvinceCode(string code)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PLACE_CODE.Equals(code))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by province name.
+        public IQueryable<PATENT> FindByProvinceName(string name)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PROVINCE.NAME.Equals(name))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by apply date.
+        public IQueryable<PATENT> FindByApplyDate(DateTime date)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.APP_DATE.Date.Equals(date.Date))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by abstract containing str.
+        public IQueryable<PATENT> FindByAbstractContains(string str)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.ABSTRACT.Contains(str))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent with main claim containing str.
+        public IQueryable<PATENT> FindByMainClaimContains(string str)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.MAIN_CLAIM.Contains(str))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent with claim containing str.
+        public IQueryable<PATENT> FindByClaimContains(string str)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.CLAIM.Contains(str))
+                    .Include(p => p.CLASSIFICATION)
+                    .Include(p => p.COMPANY)
+                    .Include(p => p.COMPANY1)
+                    .Include(p => p.PERSON)
+                    .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent by keyword (name + abstract).
+        public IQueryable<PATENT> FindByKeyword(string str)
+        {
+            return FindByNameContains(str).Union(FindByAbstractContains(str));
+        }
+
         // GET: PATENTs
         public ActionResult Index()
         {
