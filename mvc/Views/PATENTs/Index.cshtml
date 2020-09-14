@@ -1,0 +1,117 @@
+﻿@model IEnumerable<QuePAT.Models.PATENT>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PATENT_TYPE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.APP_DATE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PUBLIC_NUM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ABSTRACT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MAIN_CLAIM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLAIM)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AGE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IS_VALID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LINK)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLASSIFICATION.SEC_TITLE)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMPANY.ADDRESS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.COMPANY1.ADDRESS)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PERSON.NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PROVINCE.NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PATENT_TYPE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.APP_DATE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PUBLIC_NUM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ABSTRACT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MAIN_CLAIM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLAIM)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AGE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IS_VALID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LINK)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CLASSIFICATION.SEC_TITLE)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMPANY.ADDRESS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.COMPANY1.ADDRESS)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PERSON.NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PROVINCE.NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.APP_NUM }) |
+            @Html.ActionLink("Details", "Details", new { id=item.APP_NUM }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.APP_NUM })
+        </td>
+    </tr>
+}
+
+</table>

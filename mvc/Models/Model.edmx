@@ -1,0 +1,1111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="18.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CITE">
+          <Key>
+            <PropertyRef Name="CITING_APP_NUM" />
+            <PropertyRef Name="CITED_APP_NUM" />
+          </Key>
+          <Property Name="CITING_APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="CITED_APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="SEC_TITLE" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="CLASS_TITLE" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="SUBCLASS_TITLE" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="GROUP_TITLE" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="SUBGROUP_TITLE" Type="varchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CMNT">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+            <PropertyRef Name="USR_ID" />
+            <PropertyRef Name="CMNT_TIME" />
+          </Key>
+          <Property Name="DISC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CMNT_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar2" MaxLength="4000" Nullable="false" />
+          <Property Name="IS_DELETE" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COMPANY">
+          <Key>
+            <PropertyRef Name="NAME" />
+          </Key>
+          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="255" />
+          <Property Name="ABSTRACT" Type="varchar2" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="DISCUSSION">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+          </Key>
+          <Property Name="DISC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PUT_UP_USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TOPIC" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar2" MaxLength="4000" Nullable="false" />
+          <Property Name="INIT_TIME" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAMILY">
+          <Key>
+            <PropertyRef Name="BASIC_APP_NUM" />
+            <PropertyRef Name="APP_NUM" />
+          </Key>
+          <Property Name="BASIC_APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FEEDBACK">
+          <Key>
+            <PropertyRef Name="FB_ID" />
+          </Key>
+          <Property Name="FB_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FB_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar2" MaxLength="4000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HELP">
+          <Key>
+            <PropertyRef Name="TOPIC" />
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="TOPIC" Type="varchar2" MaxLength="50" Nullable="false" />
+          <Property Name="SEQ" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="INFO" Type="varchar2" MaxLength="80" />
+        </EntityType>
+        <EntityType Name="LAW_STATUS">
+          <Key>
+            <PropertyRef Name="APP_NUM" />
+            <PropertyRef Name="ANNOUNCE_DATE" />
+          </Key>
+          <Property Name="APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ANNOUNCE_DATE" Type="date" Nullable="false" />
+          <Property Name="DUE_DATE" Type="date" />
+          <Property Name="STATUS" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MSG" Type="varchar2" MaxLength="255" />
+          <Property Name="DETAIL" Type="varchar2" MaxLength="4000" />
+        </EntityType>
+        <EntityType Name="MESSAGE">
+          <Key>
+            <PropertyRef Name="MSG_ID" />
+          </Key>
+          <Property Name="MSG_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SENDER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="RECEIVER_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TITLE" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar2" MaxLength="4000" Nullable="false" />
+          <Property Name="MSG_TYPE" Type="varchar2" MaxLength="20" />
+          <Property Name="SEND_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="IS_READ" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IS_DELETE" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PATENT">
+          <Key>
+            <PropertyRef Name="APP_NUM" />
+          </Key>
+          <Property Name="APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PATENT_TYPE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLASS_CODE" Type="varchar2" MaxLength="12" Nullable="false" />
+          <Property Name="DESIGNER_ID" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="PATENTEE_NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PROPOSER_NAME" Type="varchar2" MaxLength="255" Nullable="false" />
+          <Property Name="PLACE_CODE" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="APP_DATE" Type="date" Nullable="false" />
+          <Property Name="PUBLIC_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ABSTRACT" Type="varchar2" MaxLength="4000" />
+          <Property Name="MAIN_CLAIM" Type="varchar2" MaxLength="4000" />
+          <Property Name="CLAIM" Type="varchar2" MaxLength="4000" />
+          <Property Name="AGE" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IS_VALID" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="LINK" Type="varchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="255" />
+          <Property Name="PHONE_NUM" Type="char" MaxLength="11" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PROVINCE">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PROXY">
+          <Key>
+            <PropertyRef Name="APP_NUM" />
+            <PropertyRef Name="AGENT_ID" />
+          </Key>
+          <Property Name="APP_NUM" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="AGENT_ID" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="AGENCY" Type="varchar2" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USR">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LOGIN_NAME" Type="varchar2" MaxLength="20" />
+          <Property Name="PASSWORD" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="REG_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="20" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="255" />
+          <Property Name="COMPANY" Type="varchar2" MaxLength="255" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="255" />
+        </EntityType>
+        <Association Name="SYS_C008311">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="MESSAGE" Type="Self.MESSAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="MESSAGE">
+              <PropertyRef Name="SENDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008312">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="MESSAGE" Type="Self.MESSAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="MESSAGE">
+              <PropertyRef Name="RECEIVER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008317">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="FEEDBACK" Type="Self.FEEDBACK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="FEEDBACK">
+              <PropertyRef Name="USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008323">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="DISCUSSION">
+              <PropertyRef Name="PUT_UP_USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008331">
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISCUSSION">
+              <PropertyRef Name="DISC_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="DISC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008332">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008356">
+          <End Role="CLASSIFICATION" Type="Self.CLASSIFICATION" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASSIFICATION">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="CLASS_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008357">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="DESIGNER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008358">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="NAME" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="PATENTEE_NAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008359">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="NAME" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="PROPOSER_NAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008360">
+          <End Role="PROVINCE" Type="Self.PROVINCE" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVINCE">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="PLACE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008364">
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="1" />
+          <End Role="LAW_STATUS" Type="Self.LAW_STATUS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATENT">
+              <PropertyRef Name="APP_NUM" />
+            </Principal>
+            <Dependent Role="LAW_STATUS">
+              <PropertyRef Name="APP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008367">
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="1" />
+          <End Role="CITE" Type="Self.CITE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATENT">
+              <PropertyRef Name="APP_NUM" />
+            </Principal>
+            <Dependent Role="CITE">
+              <PropertyRef Name="CITING_APP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008370">
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="1" />
+          <End Role="PROXY" Type="Self.PROXY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATENT">
+              <PropertyRef Name="APP_NUM" />
+            </Principal>
+            <Dependent Role="PROXY">
+              <PropertyRef Name="APP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008371">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="PROXY" Type="Self.PROXY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROXY">
+              <PropertyRef Name="AGENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008372">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="PROXY" Type="Self.PROXY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="NAME" />
+            </Principal>
+            <Dependent Role="PROXY">
+              <PropertyRef Name="AGENCY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="CITE" EntityType="Self.CITE" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="CLASSIFICATION" EntityType="Self.CLASSIFICATION" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="CMNT" EntityType="Self.CMNT" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="COMPANY" EntityType="Self.COMPANY" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="DISCUSSION" EntityType="Self.DISCUSSION" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="FAMILY" EntityType="Self.FAMILY" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="FEEDBACK" EntityType="Self.FEEDBACK" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="HELP" EntityType="Self.HELP" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="LAW_STATUS" EntityType="Self.LAW_STATUS" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="MESSAGE" EntityType="Self.MESSAGE" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="PATENT" EntityType="Self.PATENT" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="PROVINCE" EntityType="Self.PROVINCE" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="PROXY" EntityType="Self.PROXY" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="USR" EntityType="Self.USR" Schema="SYSTEM" store:Type="Tables" />
+          <AssociationSet Name="SYS_C008311" Association="Self.SYS_C008311">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="MESSAGE" EntitySet="MESSAGE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008312" Association="Self.SYS_C008312">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="MESSAGE" EntitySet="MESSAGE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008317" Association="Self.SYS_C008317">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="FEEDBACK" EntitySet="FEEDBACK" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008323" Association="Self.SYS_C008323">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008331" Association="Self.SYS_C008331">
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008332" Association="Self.SYS_C008332">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008356" Association="Self.SYS_C008356">
+            <End Role="CLASSIFICATION" EntitySet="CLASSIFICATION" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008357" Association="Self.SYS_C008357">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008358" Association="Self.SYS_C008358">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008359" Association="Self.SYS_C008359">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008360" Association="Self.SYS_C008360">
+            <End Role="PROVINCE" EntitySet="PROVINCE" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008364" Association="Self.SYS_C008364">
+            <End Role="PATENT" EntitySet="PATENT" />
+            <End Role="LAW_STATUS" EntitySet="LAW_STATUS" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008367" Association="Self.SYS_C008367">
+            <End Role="PATENT" EntitySet="PATENT" />
+            <End Role="CITE" EntitySet="CITE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008370" Association="Self.SYS_C008370">
+            <End Role="PATENT" EntitySet="PATENT" />
+            <End Role="PROXY" EntitySet="PROXY" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008371" Association="Self.SYS_C008371">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="PROXY" EntitySet="PROXY" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008372" Association="Self.SYS_C008372">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="PROXY" EntitySet="PROXY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CITE">
+          <Key>
+            <PropertyRef Name="CITING_APP_NUM" />
+            <PropertyRef Name="CITED_APP_NUM" />
+          </Key>
+          <Property Name="CITING_APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CITED_APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008367" FromRole="CITE" ToRole="PATENT" />
+        </EntityType>
+        <EntityType Name="CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SEC_TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CLASS_TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SUBCLASS_TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GROUP_TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SUBGROUP_TITLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008356" FromRole="CLASSIFICATION" ToRole="PATENT" />
+        </EntityType>
+        <EntityType Name="CMNT">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+            <PropertyRef Name="USR_ID" />
+            <PropertyRef Name="CMNT_TIME" />
+          </Key>
+          <Property Name="DISC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CMNT_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_DELETE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DISCUSSION" Relationship="Self.SYS_C008331" FromRole="CMNT" ToRole="DISCUSSION" />
+          <NavigationProperty Name="USR" Relationship="Self.SYS_C008332" FromRole="CMNT" ToRole="USR" />
+        </EntityType>
+        <EntityType Name="COMPANY">
+          <Key>
+            <PropertyRef Name="NAME" />
+          </Key>
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ABSTRACT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008358" FromRole="COMPANY" ToRole="PATENT" />
+          <NavigationProperty Name="PATENT1" Relationship="Self.SYS_C008359" FromRole="COMPANY" ToRole="PATENT" />
+          <NavigationProperty Name="PROXY" Relationship="Self.SYS_C008372" FromRole="COMPANY" ToRole="PROXY" />
+        </EntityType>
+        <EntityType Name="DISCUSSION">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+          </Key>
+          <Property Name="DISC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PUT_UP_USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TOPIC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INIT_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="CMNT" Relationship="Self.SYS_C008331" FromRole="DISCUSSION" ToRole="CMNT" />
+          <NavigationProperty Name="USR" Relationship="Self.SYS_C008323" FromRole="DISCUSSION" ToRole="USR" />
+        </EntityType>
+        <EntityType Name="FAMILY">
+          <Key>
+            <PropertyRef Name="BASIC_APP_NUM" />
+            <PropertyRef Name="APP_NUM" />
+          </Key>
+          <Property Name="BASIC_APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FEEDBACK">
+          <Key>
+            <PropertyRef Name="FB_ID" />
+          </Key>
+          <Property Name="FB_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="FB_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USR" Relationship="Self.SYS_C008317" FromRole="FEEDBACK" ToRole="USR" />
+        </EntityType>
+        <EntityType Name="HELP">
+          <Key>
+            <PropertyRef Name="TOPIC" />
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="TOPIC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SEQ" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="INFO" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LAW_STATUS">
+          <Key>
+            <PropertyRef Name="APP_NUM" />
+            <PropertyRef Name="ANNOUNCE_DATE" />
+          </Key>
+          <Property Name="APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ANNOUNCE_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="DUE_DATE" Type="DateTime" />
+          <Property Name="STATUS" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="MSG" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DETAIL" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008364" FromRole="LAW_STATUS" ToRole="PATENT" />
+        </EntityType>
+        <EntityType Name="MESSAGE">
+          <Key>
+            <PropertyRef Name="MSG_ID" />
+          </Key>
+          <Property Name="MSG_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="SENDER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="RECEIVER_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TITLE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MSG_TYPE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SEND_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="IS_READ" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IS_DELETE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USR" Relationship="Self.SYS_C008311" FromRole="MESSAGE" ToRole="USR" />
+          <NavigationProperty Name="USR1" Relationship="Self.SYS_C008312" FromRole="MESSAGE" ToRole="USR" />
+        </EntityType>
+        <EntityType Name="PATENT">
+          <Key>
+            <PropertyRef Name="APP_NUM" />
+          </Key>
+          <Property Name="APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATENT_TYPE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CLASS_CODE" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESIGNER_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PATENTEE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PROPOSER_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PLACE_CODE" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="APP_DATE" Type="DateTime" Nullable="false" />
+          <Property Name="PUBLIC_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ABSTRACT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="MAIN_CLAIM" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="CLAIM" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="AGE" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="IS_VALID" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LINK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CITE" Relationship="Self.SYS_C008367" FromRole="PATENT" ToRole="CITE" />
+          <NavigationProperty Name="CLASSIFICATION" Relationship="Self.SYS_C008356" FromRole="PATENT" ToRole="CLASSIFICATION" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.SYS_C008358" FromRole="PATENT" ToRole="COMPANY" />
+          <NavigationProperty Name="COMPANY1" Relationship="Self.SYS_C008359" FromRole="PATENT" ToRole="COMPANY" />
+          <NavigationProperty Name="LAW_STATUS" Relationship="Self.SYS_C008364" FromRole="PATENT" ToRole="LAW_STATUS" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008357" FromRole="PATENT" ToRole="PERSON" />
+          <NavigationProperty Name="PROVINCE" Relationship="Self.SYS_C008360" FromRole="PATENT" ToRole="PROVINCE" />
+          <NavigationProperty Name="PROXY" Relationship="Self.SYS_C008370" FromRole="PATENT" ToRole="PROXY" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE_NUM" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008357" FromRole="PERSON" ToRole="PATENT" />
+          <NavigationProperty Name="PROXY" Relationship="Self.SYS_C008371" FromRole="PERSON" ToRole="PROXY" />
+        </EntityType>
+        <EntityType Name="PROVINCE">
+          <Key>
+            <PropertyRef Name="CODE" />
+          </Key>
+          <Property Name="CODE" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008360" FromRole="PROVINCE" ToRole="PATENT" />
+        </EntityType>
+        <EntityType Name="PROXY">
+          <Key>
+            <PropertyRef Name="APP_NUM" />
+            <PropertyRef Name="AGENT_ID" />
+          </Key>
+          <Property Name="APP_NUM" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AGENT_ID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AGENCY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="COMPANY" Relationship="Self.SYS_C008372" FromRole="PROXY" ToRole="COMPANY" />
+          <NavigationProperty Name="PATENT" Relationship="Self.SYS_C008370" FromRole="PROXY" ToRole="PATENT" />
+          <NavigationProperty Name="PERSON" Relationship="Self.SYS_C008371" FromRole="PROXY" ToRole="PERSON" />
+        </EntityType>
+        <EntityType Name="USR">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LOGIN_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="REG_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CMNT" Relationship="Self.SYS_C008332" FromRole="USR" ToRole="CMNT" />
+          <NavigationProperty Name="DISCUSSION" Relationship="Self.SYS_C008323" FromRole="USR" ToRole="DISCUSSION" />
+          <NavigationProperty Name="FEEDBACK" Relationship="Self.SYS_C008317" FromRole="USR" ToRole="FEEDBACK" />
+          <NavigationProperty Name="MESSAGE" Relationship="Self.SYS_C008311" FromRole="USR" ToRole="MESSAGE" />
+          <NavigationProperty Name="MESSAGE1" Relationship="Self.SYS_C008312" FromRole="USR" ToRole="MESSAGE" />
+        </EntityType>
+        <Association Name="SYS_C008367">
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="1" />
+          <End Role="CITE" Type="Self.CITE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATENT">
+              <PropertyRef Name="APP_NUM" />
+            </Principal>
+            <Dependent Role="CITE">
+              <PropertyRef Name="CITING_APP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008356">
+          <End Role="CLASSIFICATION" Type="Self.CLASSIFICATION" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASSIFICATION">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="CLASS_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008331">
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISCUSSION">
+              <PropertyRef Name="DISC_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="DISC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008332">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008358">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="NAME" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="PATENTEE_NAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008359">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="NAME" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="PROPOSER_NAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008372">
+          <End Role="COMPANY" Type="Self.COMPANY" Multiplicity="1" />
+          <End Role="PROXY" Type="Self.PROXY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPANY">
+              <PropertyRef Name="NAME" />
+            </Principal>
+            <Dependent Role="PROXY">
+              <PropertyRef Name="AGENCY" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008323">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="DISCUSSION">
+              <PropertyRef Name="PUT_UP_USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008317">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="FEEDBACK" Type="Self.FEEDBACK" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="FEEDBACK">
+              <PropertyRef Name="USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008364">
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="1" />
+          <End Role="LAW_STATUS" Type="Self.LAW_STATUS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATENT">
+              <PropertyRef Name="APP_NUM" />
+            </Principal>
+            <Dependent Role="LAW_STATUS">
+              <PropertyRef Name="APP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008311">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="MESSAGE" Type="Self.MESSAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="MESSAGE">
+              <PropertyRef Name="SENDER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008312">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="MESSAGE" Type="Self.MESSAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="MESSAGE">
+              <PropertyRef Name="RECEIVER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008357">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="DESIGNER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008360">
+          <End Role="PROVINCE" Type="Self.PROVINCE" Multiplicity="1" />
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVINCE">
+              <PropertyRef Name="CODE" />
+            </Principal>
+            <Dependent Role="PATENT">
+              <PropertyRef Name="PLACE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008370">
+          <End Role="PATENT" Type="Self.PATENT" Multiplicity="1" />
+          <End Role="PROXY" Type="Self.PROXY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATENT">
+              <PropertyRef Name="APP_NUM" />
+            </Principal>
+            <Dependent Role="PROXY">
+              <PropertyRef Name="APP_NUM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C008371">
+          <End Role="PERSON" Type="Self.PERSON" Multiplicity="1" />
+          <End Role="PROXY" Type="Self.PROXY" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERSON">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PROXY">
+              <PropertyRef Name="AGENT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CITE" EntityType="Self.CITE" />
+          <EntitySet Name="CLASSIFICATION" EntityType="Self.CLASSIFICATION" />
+          <EntitySet Name="CMNT" EntityType="Self.CMNT" />
+          <EntitySet Name="COMPANY" EntityType="Self.COMPANY" />
+          <EntitySet Name="DISCUSSION" EntityType="Self.DISCUSSION" />
+          <EntitySet Name="FAMILY" EntityType="Self.FAMILY" />
+          <EntitySet Name="FEEDBACK" EntityType="Self.FEEDBACK" />
+          <EntitySet Name="HELP" EntityType="Self.HELP" />
+          <EntitySet Name="LAW_STATUS" EntityType="Self.LAW_STATUS" />
+          <EntitySet Name="MESSAGE" EntityType="Self.MESSAGE" />
+          <EntitySet Name="PATENT" EntityType="Self.PATENT" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" />
+          <EntitySet Name="PROVINCE" EntityType="Self.PROVINCE" />
+          <EntitySet Name="PROXY" EntityType="Self.PROXY" />
+          <EntitySet Name="USR" EntityType="Self.USR" />
+          <AssociationSet Name="SYS_C008367" Association="Self.SYS_C008367">
+            <End Role="PATENT" EntitySet="PATENT" />
+            <End Role="CITE" EntitySet="CITE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008356" Association="Self.SYS_C008356">
+            <End Role="CLASSIFICATION" EntitySet="CLASSIFICATION" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008331" Association="Self.SYS_C008331">
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008332" Association="Self.SYS_C008332">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008358" Association="Self.SYS_C008358">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008359" Association="Self.SYS_C008359">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008372" Association="Self.SYS_C008372">
+            <End Role="COMPANY" EntitySet="COMPANY" />
+            <End Role="PROXY" EntitySet="PROXY" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008323" Association="Self.SYS_C008323">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008317" Association="Self.SYS_C008317">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="FEEDBACK" EntitySet="FEEDBACK" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008364" Association="Self.SYS_C008364">
+            <End Role="PATENT" EntitySet="PATENT" />
+            <End Role="LAW_STATUS" EntitySet="LAW_STATUS" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008311" Association="Self.SYS_C008311">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="MESSAGE" EntitySet="MESSAGE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008312" Association="Self.SYS_C008312">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="MESSAGE" EntitySet="MESSAGE" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008357" Association="Self.SYS_C008357">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008360" Association="Self.SYS_C008360">
+            <End Role="PROVINCE" EntitySet="PROVINCE" />
+            <End Role="PATENT" EntitySet="PATENT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008370" Association="Self.SYS_C008370">
+            <End Role="PATENT" EntitySet="PATENT" />
+            <End Role="PROXY" EntitySet="PROXY" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C008371" Association="Self.SYS_C008371">
+            <End Role="PERSON" EntitySet="PERSON" />
+            <End Role="PROXY" EntitySet="PROXY" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="CITE">
+            <EntityTypeMapping TypeName="Model.CITE">
+              <MappingFragment StoreEntitySet="CITE">
+                <ScalarProperty Name="CITING_APP_NUM" ColumnName="CITING_APP_NUM" />
+                <ScalarProperty Name="CITED_APP_NUM" ColumnName="CITED_APP_NUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLASSIFICATION">
+            <EntityTypeMapping TypeName="Model.CLASSIFICATION">
+              <MappingFragment StoreEntitySet="CLASSIFICATION">
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="SEC_TITLE" ColumnName="SEC_TITLE" />
+                <ScalarProperty Name="CLASS_TITLE" ColumnName="CLASS_TITLE" />
+                <ScalarProperty Name="SUBCLASS_TITLE" ColumnName="SUBCLASS_TITLE" />
+                <ScalarProperty Name="GROUP_TITLE" ColumnName="GROUP_TITLE" />
+                <ScalarProperty Name="SUBGROUP_TITLE" ColumnName="SUBGROUP_TITLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CMNT">
+            <EntityTypeMapping TypeName="Model.CMNT">
+              <MappingFragment StoreEntitySet="CMNT">
+                <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="CMNT_TIME" ColumnName="CMNT_TIME" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="IS_DELETE" ColumnName="IS_DELETE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPANY">
+            <EntityTypeMapping TypeName="Model.COMPANY">
+              <MappingFragment StoreEntitySet="COMPANY">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="ABSTRACT" ColumnName="ABSTRACT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISCUSSION">
+            <EntityTypeMapping TypeName="Model.DISCUSSION">
+              <MappingFragment StoreEntitySet="DISCUSSION">
+                <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+                <ScalarProperty Name="PUT_UP_USR_ID" ColumnName="PUT_UP_USR_ID" />
+                <ScalarProperty Name="TOPIC" ColumnName="TOPIC" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="INIT_TIME" ColumnName="INIT_TIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAMILY">
+            <EntityTypeMapping TypeName="Model.FAMILY">
+              <MappingFragment StoreEntitySet="FAMILY">
+                <ScalarProperty Name="BASIC_APP_NUM" ColumnName="BASIC_APP_NUM" />
+                <ScalarProperty Name="APP_NUM" ColumnName="APP_NUM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FEEDBACK">
+            <EntityTypeMapping TypeName="Model.FEEDBACK">
+              <MappingFragment StoreEntitySet="FEEDBACK">
+                <ScalarProperty Name="FB_ID" ColumnName="FB_ID" />
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="FB_TIME" ColumnName="FB_TIME" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HELP">
+            <EntityTypeMapping TypeName="Model.HELP">
+              <MappingFragment StoreEntitySet="HELP">
+                <ScalarProperty Name="TOPIC" ColumnName="TOPIC" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="INFO" ColumnName="INFO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LAW_STATUS">
+            <EntityTypeMapping TypeName="Model.LAW_STATUS">
+              <MappingFragment StoreEntitySet="LAW_STATUS">
+                <ScalarProperty Name="APP_NUM" ColumnName="APP_NUM" />
+                <ScalarProperty Name="ANNOUNCE_DATE" ColumnName="ANNOUNCE_DATE" />
+                <ScalarProperty Name="DUE_DATE" ColumnName="DUE_DATE" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="MSG" ColumnName="MSG" />
+                <ScalarProperty Name="DETAIL" ColumnName="DETAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MESSAGE">
+            <EntityTypeMapping TypeName="Model.MESSAGE">
+              <MappingFragment StoreEntitySet="MESSAGE">
+                <ScalarProperty Name="MSG_ID" ColumnName="MSG_ID" />
+                <ScalarProperty Name="SENDER_ID" ColumnName="SENDER_ID" />
+                <ScalarProperty Name="RECEIVER_ID" ColumnName="RECEIVER_ID" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="MSG_TYPE" ColumnName="MSG_TYPE" />
+                <ScalarProperty Name="SEND_TIME" ColumnName="SEND_TIME" />
+                <ScalarProperty Name="IS_READ" ColumnName="IS_READ" />
+                <ScalarProperty Name="IS_DELETE" ColumnName="IS_DELETE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PATENT">
+            <EntityTypeMapping TypeName="Model.PATENT">
+              <MappingFragment StoreEntitySet="PATENT">
+                <ScalarProperty Name="APP_NUM" ColumnName="APP_NUM" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="PATENT_TYPE" ColumnName="PATENT_TYPE" />
+                <ScalarProperty Name="CLASS_CODE" ColumnName="CLASS_CODE" />
+                <ScalarProperty Name="DESIGNER_ID" ColumnName="DESIGNER_ID" />
+                <ScalarProperty Name="PATENTEE_NAME" ColumnName="PATENTEE_NAME" />
+                <ScalarProperty Name="PROPOSER_NAME" ColumnName="PROPOSER_NAME" />
+                <ScalarProperty Name="PLACE_CODE" ColumnName="PLACE_CODE" />
+                <ScalarProperty Name="APP_DATE" ColumnName="APP_DATE" />
+                <ScalarProperty Name="PUBLIC_NUM" ColumnName="PUBLIC_NUM" />
+                <ScalarProperty Name="ABSTRACT" ColumnName="ABSTRACT" />
+                <ScalarProperty Name="MAIN_CLAIM" ColumnName="MAIN_CLAIM" />
+                <ScalarProperty Name="CLAIM" ColumnName="CLAIM" />
+                <ScalarProperty Name="AGE" ColumnName="AGE" />
+                <ScalarProperty Name="IS_VALID" ColumnName="IS_VALID" />
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERSON">
+            <EntityTypeMapping TypeName="Model.PERSON">
+              <MappingFragment StoreEntitySet="PERSON">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="PHONE_NUM" ColumnName="PHONE_NUM" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROVINCE">
+            <EntityTypeMapping TypeName="Model.PROVINCE">
+              <MappingFragment StoreEntitySet="PROVINCE">
+                <ScalarProperty Name="CODE" ColumnName="CODE" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROXY">
+            <EntityTypeMapping TypeName="Model.PROXY">
+              <MappingFragment StoreEntitySet="PROXY">
+                <ScalarProperty Name="APP_NUM" ColumnName="APP_NUM" />
+                <ScalarProperty Name="AGENT_ID" ColumnName="AGENT_ID" />
+                <ScalarProperty Name="AGENCY" ColumnName="AGENCY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USR">
+            <EntityTypeMapping TypeName="Model.USR">
+              <MappingFragment StoreEntitySet="USR">
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="LOGIN_NAME" ColumnName="LOGIN_NAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="REG_TIME" ColumnName="REG_TIME" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

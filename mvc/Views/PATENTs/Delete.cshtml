@@ -1,0 +1,144 @@
+﻿@model QuePAT.Models.PATENT
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PATENT</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PATENT_TYPE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PATENT_TYPE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.APP_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.APP_DATE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PUBLIC_NUM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PUBLIC_NUM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ABSTRACT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ABSTRACT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MAIN_CLAIM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAIN_CLAIM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLAIM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLAIM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AGE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AGE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IS_VALID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IS_VALID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LINK)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LINK)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSIFICATION.SEC_TITLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSIFICATION.SEC_TITLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY.ADDRESS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY.ADDRESS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COMPANY1.ADDRESS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COMPANY1.ADDRESS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PERSON.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PERSON.NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PROVINCE.NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PROVINCE.NAME)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
