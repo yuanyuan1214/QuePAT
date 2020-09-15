@@ -1,6 +1,12 @@
 # QuePAT
 所有成员注意，以后自己做的部分，更新的记录commit之后都要记录在这里并署名，以便其他成员查看。commit之前一定要先pull！
 
+## 2020/9/15更新
+
+1.  加入了检索界面的cshtml文件。by 彭颖
+2.  创建了css, js, img文件夹，MainController.cs文件。by 彭颖
+3.  待完成：js，MainController中有关search的部分。by 彭颖
+
 ## 2020/9/14 更新
 
 1. 创建了MVC项目。 by 颜泽皓
