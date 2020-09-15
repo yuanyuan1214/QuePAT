@@ -16,6 +16,10 @@ namespace QuePAT.Controllers
     {
         private Entities db = new Entities();
 
-
+        public ActionResult Search()
+        {
+            return View();
+        }
+        
     }
 }
