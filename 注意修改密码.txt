@@ -1,0 +1,2 @@
+修改mvc/web.config中的密码，
+将PASSWORD=Yan@Admin1等号后面换为自己的密码。

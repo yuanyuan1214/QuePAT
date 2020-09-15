@@ -16,31 +16,46 @@ namespace QuePAT.Controllers
         private Entities db = new Entities();
 
         // get law status of app_num, ordered by announce date decending.
-        public IQueryable<LAW_STATUS> GetLawStatus(string app_num)
+        public IQueryable<LAW_STATUS> getLawStatus(string app_num)
         {
             IQueryable<LAW_STATUS> lAW_STATUS = db.LAW_STATUS.Where(l => l.APP_NUM == app_num)
                 .OrderByDescending(l => l.ANNOUNCE_DATE);
             return lAW_STATUS;
         }
 
-        // get newest law status of app_num.
-        public LAW_STATUS GetNewestLawStatus(string app_num)
+        // get law status of app_num, ordered by announce date decending.
+        public ActionResult GetLawStatus(string app_num)
         {
-            LAW_STATUS lAW_STATUS = GetLawStatus(app_num).FirstOrDefault();
+            IQueryable<LAW_STATUS> lAW_STATUS = db.LAW_STATUS.Where(l => l.APP_NUM == app_num)
+                .OrderByDescending(l => l.ANNOUNCE_DATE);
+            return Json(lAW_STATUS.ToList());
+        }
+
+        // get newest law status of app_num.
+        public LAW_STATUS getNewestLawStatus(string app_num)
+        {
+            LAW_STATUS lAW_STATUS = getLawStatus(app_num).FirstOrDefault();
             return lAW_STATUS;
         }
 
-        // get current laws status, may be null.
-        public LAW_STATUS GetCurrentLawStatus(string app_num)
+        // get newest law status of app_num.
+        public ActionResult GetNewestLawStatus(string app_num)
         {
-            LAW_STATUS lAW_STATUS = GetNewestLawStatus(app_num);
-            DateTime? date = lAW_STATUS.DUE_DATE;
-            if (date.HasValue && date.Value.Date <= DateTime.Now.Date)
-            {
-                return lAW_STATUS;
-            }
-            return null;
+            LAW_STATUS lAW_STATUS = getLawStatus(app_num).FirstOrDefault();
+            return Json(lAW_STATUS);
         }
+
+        // get current laws status number, may be null.
+        //public ActionResult GetCurrentLawStatus(string app_num)
+        //{
+        //    LAW_STATUS lAW_STATUS = getNewestLawStatus(app_num);
+        //    DateTime? date = lAW_STATUS.DUE_DATE;
+        //    if (date.HasValue && date.Value.Date <= DateTime.Now.Date)
+        //    {
+        //        return Json(lAW_STATUS);
+        //    }
+        //    return Json(new LAW_STATUS());
+        //}
 
         // GET: LAW_STATUS
         public ActionResult Index()
