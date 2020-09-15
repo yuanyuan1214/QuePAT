@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\MainController .cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LAW_STATUSController.cs" />
     <Compile Include="Controllers\PATENTsController.cs" />
@@ -208,10 +209,50 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\reset.css" />
+    <Content Include="css\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\bebasneue-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\body-bg-1.png" />
+    <Content Include="img\circle-blue.png" />
+    <Content Include="img\circle-green.png" />
+    <Content Include="img\circle-orange.png" />
+    <Content Include="img\circle-red.png" />
+    <Content Include="img\circle-violet.png" />
+    <Content Include="img\footer-border-blue.png" />
+    <Content Include="img\footer-border-green.png" />
+    <Content Include="img\footer-border-orange.png" />
+    <Content Include="img\footer-border-red.png" />
+    <Content Include="img\footer-border-violet.png" />
+    <Content Include="img\icon-address.png" />
+    <Content Include="img\icon-email.png" />
+    <Content Include="img\icon-facebook.png" />
+    <Content Include="img\icon-twitter.png" />
+    <Content Include="img\input-bg.png" />
+    <Content Include="img\input-email.png" />
+    <Content Include="img\input-name.png" />
+    <Content Include="img\input-textarea.png" />
+    <Content Include="img\leave-us-a-message.png" />
+    <Content Include="img\notifyme-blue.png" />
+    <Content Include="img\notifyme-green.png" />
+    <Content Include="img\notifyme-orange.png" />
+    <Content Include="img\notifyme-red.png" />
+    <Content Include="img\notifyme-violet.png" />
+    <Content Include="img\secondary-decor.png" />
+    <Content Include="img\settings-button.png" />
+    <Content Include="img\stay-informed.png" />
+    <Content Include="img\submit-blue.png" />
+    <Content Include="img\submit-green.png" />
+    <Content Include="img\submit-orange.png" />
+    <Content Include="img\submit-red.png" />
+    <Content Include="img\submit-violet.png" />
+    <Content Include="js\html5.js" />
+    <Content Include="js\jquery.countdown.min.js" />
+    <Content Include="js\jquery.validate.min.js" />
+    <Content Include="js\main.js" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
@@ -231,6 +272,10 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\bebasneue-webfont.eot" />
+    <Content Include="fonts\bebasneue-webfont.eot%40" />
+    <Content Include="fonts\bebasneue-webfont.ttf" />
+    <Content Include="fonts\bebasneue-webfont.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -271,6 +316,7 @@
     <Content Include="Views\LAW_STATUS\Details.cshtml" />
     <Content Include="Views\LAW_STATUS\Edit.cshtml" />
     <Content Include="Views\LAW_STATUS\Index.cshtml" />
+    <Content Include="Views\Main\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,6 +341,10 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
@@ -315,6 +365,9 @@
           <CustomServerUrl>
           </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="SelfHostServer">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:2898/" workingDir="" />
+          </servers>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
