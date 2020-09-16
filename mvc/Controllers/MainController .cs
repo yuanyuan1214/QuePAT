@@ -20,6 +20,11 @@ namespace QuePAT.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult SearchResult()
+        {
+            return View();
+        }
+
     }
 }
