@@ -8,45 +8,49 @@
     <link rel="stylesheet" href="../../css/reset.css" title="" type="text/css" media="screen">
     <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen">
     <!-- <script type="text/javascript" src="../../../../ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+    
     <script type="text/javascript" src="../../js/jquery.countdown.min.js"></script>
     <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="../../js/main.js"></script>
     <script type="text/javascript" src="../../js/html5.js"></script>
+    
     <script>
     </script>
 </head>
-    <body id="body" class="color-blue">
-        <div id="settings">
-            <a href="#" class="button">Show panel</a>
-            <div class="content">
-                <ul class="colors">
-                    <li class="red"><a href="#color-red">Color red</a></li>
-                    <li class="blue"><a href="#color-blue">Color blue</a></li>
-                    <li class="green"><a href="#color-green">Color green</a></li>
-                    <li class="orange"><a href="#color-orange">Color orange</a></li>
-                    <li class="violet"><a href="#color-violet">Color violet</a></li>
-                </ul>
+<body id="body" class="color-blue">
+    <div id="settings">
+        <a href="#" class="button">Show panel</a>
+        <div class="content">
+            <ul class="colors">
+                <li class="red"><a href="#color-red">Color red</a></li>
+                <li class="blue"><a href="#color-blue">Color blue</a></li>
+                <li class="green"><a href="#color-green">Color green</a></li>
+                <li class="orange"><a href="#color-orange">Color orange</a></li>
+                <li class="violet"><a href="#color-violet">Color violet</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="wrapper">
+        <!-- MAIN CONTENT  -->
+        <section id="content">
+            <h1 id="main-head">智能检索</h1>
+            <!-- END MAIN CONTENT  -->
+            <div class="aside" id="timer">
             </div>
-        </div>
-        <div id="wrapper">
-            <!-- MAIN CONTENT  -->
-    <section id="content">
-        <h1 id="main-head">智能检索</h1>
-        <!-- END MAIN CONTENT  -->
-        <div class="aside" id="timer">
-        </div>
-    </section>
-    <aside id="newsletter">
-        <div class="wrapper">
-            <form action="/" id="newsletter-form" method="post">
+        </section>
+        <aside id="newsletter">
+            <div class="wrapper">
+                @*<form action="/" id="newsletter-form" method="post">*@
                 <p>
                     <label for="email" class="main">Stay informed when we will be back</label>
-                    <input type="text" name="email" class="email required" id="email" placeholder="输入关键词" />
+                    <input type="text" name="email" class="email required" id="normal" placeholder="输入关键词" />
                 </p>
-                <input type="submit" value="检索" class="submit" />
-            </form>
-        </div>
-    </aside>
+
+                <input type="submit" value="submit" class="submit" id="normal-button" />
+
+                @*</form>*@
+            </div>
+        </aside>
     </div>
     <aside id="secondary">
         <div class="wrapper">
@@ -80,6 +84,7 @@
             <section id="contact">
                 <!-- <h2>Contact</h2> -->
                 <form method="post" id="contact-form" action="contact.php">
+
                     <!-- <p class="name">
                         <label for="name">Name</label>
                         <input id="name" type="text" class="required" placeholder="Name" name="name" />
@@ -132,6 +137,9 @@
     <div style="display:none">
         <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
     </div>
-    </body>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script charset="gb2312" language="javascript" type="text/javascript" src="../../js/search.js"></script>
+</body>
+
 </html>
 

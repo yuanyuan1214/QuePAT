@@ -16,14 +16,36 @@ namespace QuePAT.Controllers
     {
         private Entities db = new Entities();
 
+        public IQueryable<PATENT> findByNameContains(string str)
+        {
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str))
+                .Include(p => p.CLASSIFICATION)
+                .Include(p => p.COMPANY)
+                .Include(p => p.COMPANY1)
+                .Include(p => p.PERSON)
+                .Include(p => p.PROVINCE);
+            return pATENT;
+        }
+
+        // Find patent with name containing string str.
+        public ActionResult FindByNameContains(string str)
+        {
+            return Json(findByNameContains(str).ToList());
+        }
+
         public ActionResult Search()
         {
             return View();
         }
-
-        public ActionResult SearchResult()
+        [HttpPost]
+        public ActionResult Search(string keyword)
         {
-            return View();
+            //var data = SearchVideoDB(keyword);
+            //Json root = new Json();
+            //root["patent_name"] = new JsonData();
+            var data = FindByNameContains(keyword);
+
+            return data;
         }
 
     }
