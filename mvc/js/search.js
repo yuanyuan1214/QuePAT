@@ -139,7 +139,7 @@ window.onload = function () {
                 dataType: "json",
                 traditional: true,
                 success: function (data) {
-                    var data = eval("(" + data + ")");
+                    //var data = eval("(" + data + ")");
                     console.log(data);
                     /*normal_list = data.info;
                     _search_word = keyword;
