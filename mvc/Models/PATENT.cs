@@ -44,23 +44,23 @@ namespace QuePAT.Models
         public string LINK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual ICollection<CITE> CITE { get; set; }
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual CLASSIFICATION CLASSIFICATION { get; set; }
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual COMPANY COMPANY { get; set; }
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual COMPANY COMPANY1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual ICollection<LAW_STATUS> LAW_STATUS { get; set; }
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual PERSON PERSON { get; set; }
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual PROVINCE PROVINCE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [JsonIgnoreAttribute]
+        //[JsonIgnoreAttribute]
         public virtual ICollection<PROXY> PROXY { get; set; }
     }
 }
