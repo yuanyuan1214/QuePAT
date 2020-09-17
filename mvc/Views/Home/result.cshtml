@@ -1,0 +1,253 @@
+﻿@{
+    ViewBag.Title = "result";
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!--设置不缓存-->
+
+    <title>QuePAT专利信息</title>
+    <link href="~/css/result/header.css" rel="stylesheet" />
+    <link href="~/css/result/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!--头部-->
+    <div class="header unselect">
+        <div class="header-content">
+            <p class="fl">
+                <img img src="/img/logo_navi3.png" width="2.7rem" />
+            </p>
+            <div class="header-menu fr">
+                <div class="box user-box fr">
+                    <div class="box-title">
+                        <div class="userinfo">
+                            <div class="username-box fl">
+                                <span class="username" title="1174851652">1174851652</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <ul class="personalmenu">
+                            <li>
+                                <a href=""><img src="/img/personalCenter/center_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/center_selected_icon.png" /><span>专利管理</span></a>
+                            </li>
+                            <li>
+                                <a href=""><img src="/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="cut-line fr"></div>
+                <div class="box menu-box fr">
+                    <ul style="list-style:none;">
+                        <li><a href="">主界面</a></li>
+                        <li><a href="">专利检索</a></li>
+                        <li><a href="">社区</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="contenter">
+        <div class="contenter-content">
+            <div class="detail-head unselect">
+                <p class="active" id="iteminfor">著录项目信息</p>
+                <p class="fmxx" id="flztbtn">法律状态</p>
+                <p class="fmxx" id="itemCL">权利要求</p>
+                <p class="fmxx" id="itemDS">说明书</p>
+                <p class="wg" id="itemWGFT">外观图形</p>
+            </div>
+            <div class="detail-content">
+                <!--此处根据选择标签显示对应元素块-->
+                <!--著录项目信息-->
+                <div class="itemInfo" id="itemInfoContainer">
+                </div>
+                <!--法律状态-->
+                <div class="itemLaw dnp">
+                    <table class="table table-striped" cellspacing="0" cellpadding="10">
+                        <thead>
+                            <tr>
+
+
+                                <th colspan="1">法律状态公告日</th>
+                                <th colspan="1">法律状态</th>
+                                <th colspan="1">法律状态信息</th>
+                                <th colspan="1">详细信息</th>
+                            </tr>
+                        <tbody id="legalContainer"></tbody>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--底部-->
+    <div class="footer-fp">
+        <div class="footer-fp-content">
+            <div class="col-xs-10">
+                <div class="leftlink fl">
+                    <p>Tongji University</p>
+                </div>
+                <div class="linkline fl">
+                    <p>|</p>
+                </div>
+                <div class="rightlink fl">
+                    <p>college of software engineering</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/result/jquery.min.js"></script>
+    <script src="~/js/result/jsrender.min.js"></script>
+    <script src="~/js/result/basic.js"></script>
+    <script type="text/x-jsrender" id="Tmpl">
+        <div class="item-title">
+            {{if PT==1||PT==8}}
+            <label class="title-color">{{:TI}}  [发明]</label> {{else PT==3}}
+            <label class="title-color">{{:TI}}  [外观]</label> {{else PT==2||PT==9}}
+            <label class="title-color">{{:TI}}  [实用新型]</label> {{else}}
+            <label class="title-color">{{:TI}}</label> {{/if}}
+        </div>
+        <div style="overflow: hidden;">
+            <div class="item-content fl">
+                <div>
+                    <p>申请号：</p><span>{{:AN}}</span>
+                </div>
+                <div>
+                    <p>申请日：</p>{{:AD}}
+                </div>
+                <div>
+                    <p>国家/省市：</p><span>{{:CO}}</span>
+                </div>
+                {{if PT==1||PT==8}}
+                <div>
+                    <p>公开号：</p><span>{{:PN}}</span>
+                </div>
+                <div>
+                    <p>公开日：</p><span>{{:PD}}</span>
+                </div>
+                {{/if}}
+                <div>
+                    <p>授权公告号：</p><span>{{:GN}}</span>
+                </div>
+                <div>
+                    <p>授权公告日：</p>{{:GD}}
+                </div>
+
+                <div>
+                    <p>主分类号：</p>{{:MC}}
+                </div>
+                <div>
+                    <p>分类号：</p>{{:IC}}
+                </div>
+                <div>
+                    <p>申请人：</p>{{:PA}}
+                </div>
+                <div>
+                    <p>申请人地址：</p><span>{{:DZ}}</span>
+                </div>
+                <div>
+                    <p>发明人：</p>{{:IN}}
+                </div>
+                <div>
+                    <p>当前权利人：</p>{{:PE}}
+                </div>
+                {{if AT!=""&&AT!=null}}
+                <div>
+                    <p>代理人：</p><span>{{:AT}}</span>
+                </div>
+                {{/if}} {{if AG!=""||AGN!=""}}
+                <div>
+                    <p>代理机构：</p><span>{{:AG}} {{:AGN}}</span>
+                </div>
+                {{/if}} {{if PR!=""&&PR!=null}}
+                <div>
+                    <p>优先权：</p><span>{{:PR}}</span>
+                </div>
+                {{/if}}
+                <div>
+                    <p>范畴分类：</p><span>{{:CT}}</span>
+                </div>
+                {{if KW!=""&&KW!=null}}
+                <div>
+                    <p>关键词：</p><span>{{:KW}}</span>
+                </div>
+                {{/if}} {{if CC!=""&&CC!=null}}
+                <div>
+                    <p>引用专利：</p><span>{{:CC}}</span>
+                </div>
+                {{/if}} {{if UCC!=""&&UCC!=null}}
+                <div>
+                    <p>引用文献：</p><span>{{:UCC}}</span>
+                </div>
+                {{/if}} {{if LG==3}}
+                <div>
+                    <p>当前状态：</p><span>审中</span>
+                </div>
+                {{else LG==1}}
+                <div>
+                    <p>当前状态：</p><span>有效</span>
+                </div>
+                {{else LG==2}}
+                <div>
+                    <p>当前状态：</p><span>失效</span>
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="item-summary">
+            {{if PT==3}}
+            <p>
+                <strong>简要说明:</strong>
+                <span>
+                    {{:AB}}
+                </span>
+            </p>
+
+            {{else}}
+            <p>
+                <strong>摘要:</strong>
+                <span>
+                    {{:AB}}
+                </span>
+            </p>
+            <p>
+                <strong>主权利要求:</strong>
+                <span>
+                    {{:CL}}
+                </span>
+            </p>
+            {{/if}}
+        </div>
+    </script>
+    <script id="legalTemplate" type="text/x-jsrender">
+        {{for}}
+        <tr>
+            <td><span>{{:LegalDate}}</span></td>
+            <td><span>{{:LegalStatus}}</span></td>
+            <td><span>{{:LegalStatusInfo}}</span></td>
+            {{if DETAIL==""}}
+            <td><span>无</span></td>
+            {{else}}
+            <td><span>{{:DETAIL}}</span></td>
+            {{/if}}
+        </tr>
+        {{/for}}
+    </script>
+</body>
+
+</html>

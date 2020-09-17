@@ -8,6 +8,13 @@ namespace QuePAT.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpPost]
+        public ActionResult FindByApplyNumber(string str)
+        {
+            PATENTQuery pATENTQuery = new PATENTQuery();
+            return pATENTQuery.FindByApplyNumber(str);
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -24,6 +31,11 @@ namespace QuePAT.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult result()
+        {
             return View();
         }
     }

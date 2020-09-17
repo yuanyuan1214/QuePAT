@@ -18,15 +18,9 @@ namespace QuePAT.Controllers
     {
         private Entities db = new Entities();
 
-
         public IQueryable<PATENT> findByNameContains(string str)
         {
-            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str))
-                /*.Include(p => p.CLASSIFICATION)
-                .Include(p => p.COMPANY)
-                .Include(p => p.COMPANY1)
-                .Include(p => p.PERSON)
-                .Include(p => p.PROVINCE)*/;
+            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str));
             return pATENT;
         }
 
