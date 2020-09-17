@@ -50,6 +50,10 @@ namespace QuePAT.Controllers
             var data = FindByNameContains(keyword);
             return data;
         }
+        public ActionResult SearchResult()
+        {
+            return View();
+        }
 
     }
 }
