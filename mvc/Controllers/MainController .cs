@@ -47,6 +47,10 @@ namespace QuePAT.Controllers
 
             return data;
         }
+        public ActionResult SearchResult()
+        {
+            return View();
+        }
 
     }
 }
