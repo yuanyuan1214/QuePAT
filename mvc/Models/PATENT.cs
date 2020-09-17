@@ -9,9 +9,13 @@
 
 namespace QuePAT.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Runtime.Serialization;
+    using System.Web.Script.Serialization;
+
     public partial class PATENT
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,6 +34,7 @@ namespace QuePAT.Models
         public string PATENTEE_NAME { get; set; }
         public string PROPOSER_NAME { get; set; }
         public string PLACE_CODE { get; set; }
+        [JsonIgnoreAttribute]
         public System.DateTime APP_DATE { get; set; }
         public string PUBLIC_NUM { get; set; }
         public string ABSTRACT { get; set; }
@@ -40,15 +45,23 @@ namespace QuePAT.Models
         public string LINK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnoreAttribute]
         public virtual ICollection<CITE> CITE { get; set; }
+        [JsonIgnoreAttribute]
         public virtual CLASSIFICATION CLASSIFICATION { get; set; }
+        [JsonIgnoreAttribute]
         public virtual COMPANY COMPANY { get; set; }
+        [JsonIgnoreAttribute]
         public virtual COMPANY COMPANY1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnoreAttribute]
         public virtual ICollection<LAW_STATUS> LAW_STATUS { get; set; }
+        [JsonIgnoreAttribute]
         public virtual PERSON PERSON { get; set; }
+        [JsonIgnoreAttribute]
         public virtual PROVINCE PROVINCE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnoreAttribute]
         public virtual ICollection<PROXY> PROXY { get; set; }
     }
 }
