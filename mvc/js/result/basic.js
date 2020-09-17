@@ -36,7 +36,7 @@
 window.onload = function () {
     var queryJson = [];
     var row = {};
-    row.keyword = "CN1157417A";
+    row.keyword = "CN96120119";
     if (row.keyword === "") row.keyword = "666";
     queryJson.push(row);
     $.ajax({
@@ -44,13 +44,13 @@ window.onload = function () {
         async: false,
         type: 'post',
         contentType: "application/json",
-        data: JSON.stringify(queryJson[0]),
+        //data: JSON.stringify(queryJson[0]),
+        data: "{str:'CN96120119'}",
         dataType: "json",
         traditional: true,
         success: function (data) {
-            var datas = eval(data);
-            console.log(datas);
-            data_re = jQuery.parseJSON(datas);
+            console.log(data);
+            data_re = data[0];
             console.log(data_re);
             var html2 = $("#Tmpl").render(data_re);
             $("#itemInfoContainer").append(html2);
