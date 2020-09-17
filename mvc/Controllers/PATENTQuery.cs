@@ -151,20 +151,5 @@ namespace QuePAT.Controllers
                 .ToString()
                 );
         }
-
-        public ActionResult PatentNumOfType(string company_name, string class_code)
-        {
-            return Content(
-                db.PATENT
-                .Where
-                (
-                    p => p.PROPOSER_NAME.Equals(company_name)
-                    && p.CLASS_CODE.Equals(class_code)
-                )
-                .Count()
-                .ToString()
-                );
-        }
-
     }
 }

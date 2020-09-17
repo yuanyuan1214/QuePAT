@@ -33,21 +33,28 @@
 
 
 
-$(document).ready(function () {
+window.onload = function () {
+    var queryJson = [];
+    var row = {};
+    row.keyword = "CN1157417A";
+    if (row.keyword === "") row.keyword = "666";
+    queryJson.push(row);
     $.ajax({
-        url: "/Home/FindByApplyNumber",//改成相应函数接口
+        url: "/Home/Result",//改成相应函数接口
         async: false,
         type: 'post',
         contentType: "application/json",
-        data: 'CN96120119',
+        data: JSON.stringify(queryJson[0]),
         dataType: "json",
         traditional: true,
         success: function (data) {
-            var datas = eval("(" + data + ")");
+            var datas = eval(data);
+            console.log(datas);
             data_re = jQuery.parseJSON(datas);
             console.log(data_re);
             var html2 = $("#Tmpl").render(data_re);
             $("#itemInfoContainer").append(html2);
+            
         },
         error: function (message) {
             alert("查询数据失败！");
@@ -70,7 +77,7 @@ $(document).ready(function () {
     $(".personalmenu").mouseout(function () {
         $(".box-content").css("display", "none");
     });
-});
+}
 
 function switchs() {
     var list = $(".detail-head.unselect p");
