@@ -34,6 +34,7 @@ namespace QuePAT.Models
         public string PATENTEE_NAME { get; set; }
         public string PROPOSER_NAME { get; set; }
         public string PLACE_CODE { get; set; }
+        [JsonIgnoreAttribute]
         public System.DateTime APP_DATE { get; set; }
         public string PUBLIC_NUM { get; set; }
         public string ABSTRACT { get; set; }

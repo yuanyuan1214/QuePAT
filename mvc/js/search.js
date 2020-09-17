@@ -139,8 +139,13 @@ window.onload = function () {
                 dataType: "json",
                 traditional: true,
                 success: function (data) {
-                    //var data = eval("(" + data + ")");
-                    console.log(data);
+                    var json = eval(data);
+                    /*if (json.length === 0) {
+                        alert("¼ìË÷½á¹ûÎª¿Õ£¡");
+                        return;
+                    }*/
+                    console.log(json);
+                    window.location.href = "SearchResult?id=" + encodeURI(keyword);
                     /*normal_list = data.info;
                     _search_word = keyword;
                     if (normal_list.length != 0) {

@@ -246,6 +246,7 @@
     <Content Include="img\submit-red.png" />
     <Content Include="img\submit-violet.png" />
     <Content Include="img\support-pattern.png" />
+    <Content Include="js\searchRst.js" />
     <Content Include="js\search.js" />
     <Content Include="js\html5.js" />
     <Content Include="js\jquery.countdown.min.js" />
