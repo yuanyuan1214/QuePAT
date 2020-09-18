@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuePAT.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace QuePAT.Controllers
 {
@@ -42,8 +43,7 @@ namespace QuePAT.Controllers
         // Find patent by apply number.
         public ActionResult FindByApplyNumber(string app_num)
         {
-            PATENT pATENT = new QueryPATENT();
-            pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num)).FirstOrDefault();
+            PATENT pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num)).FirstOrDefault();
             return new ContentResult { Content = JsonConvert.SerializeObject(pATENT, jsSettings) };
         }
 

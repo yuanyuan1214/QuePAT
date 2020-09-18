@@ -159,16 +159,7 @@
                 <div>
                     <p>公开号：</p><span>{{:PUBLIC_NUM}}</span>
                 </div>
-                <div>
-                    <p>公开日：</p><span>{{:PD}}</span>
-                </div>
                 {{/if}}
-                <div>
-                    <p>授权公告号：</p><span>{{:GN}}</span>
-                </div>
-                <div>
-                    <p>授权公告日：</p>{{:GD}}
-                </div>
 
                 <div>
                     <p>分类号：</p>{{:CLASS_CODE}}
@@ -177,7 +168,7 @@
                     <p>申请公司：</p>{{:PROPOSER_NAME}}
                 </div>
                 <div>
-                    <p>申请人地址：</p><span>{{:COMPANY1.ADDRESS}}</span>
+                    <p>申请地址：</p><span>{{:COMPANY1.ADDRESS}}</span>
                 </div>
                 <div>
                     <p>发明人：</p>{{:PERSON.NAME}}
@@ -185,13 +176,9 @@
                 <div>
                     <p>当前权利人：</p>{{:PATENTEE_NAME}}
                 </div>
-                {{if PR!=""&&PR!=null}}
+                {{if CITE!=""&&CITE!=null}}
                 <div>
-                    <p>优先权：</p><span>{{:PR}}</span>
-                </div>
-                {{/if}} {{if CC!=""&&CC!=null}}
-                <div>
-                    <p>引用专利：</p><span>{{:CC}}</span>
+                    <p>引用专利：</p><span>{{for CITE}}{{:CITED_APP_NUM}};{{/for}}</span>
                 </div>
                 {{/if}}{{if IS_VALID==3}}
                 <div>
