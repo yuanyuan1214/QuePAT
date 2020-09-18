@@ -74,7 +74,7 @@ CREATE TABLE cmnt (
 
 -- 分类表
 CREATE TABLE classification (
-	code VARCHAR(12), -- 分类号，保留空格和斜杠
+	code VARCHAR(20), -- 分类号，保留空格和斜杠
 	-- sec_sym CHAR(1) NOT NULL, -- 部号
 	-- class_sym CHAR(2) NOT NULL, -- 大类号
 	-- subclass_sym CHAR(1) NOT NULL, -- 小类号
@@ -123,7 +123,7 @@ CREATE TABLE patent (
 	 * 2: 外观
 	 */
 	patent_type SMALLINT NOT NULL, -- 专利类型 
-	class_code VARCHAR(12) NOT NULL, -- 专利分类号
+	class_code VARCHAR(20) NOT NULL, -- 专利分类号
 	designer_id VARCHAR(20) NOT NULL, -- 发明人 ID
 	patentee_name VARCHAR(255) NOT NULL, -- 专利权人
 	proposer_name VARCHAR(255) NOT NULL, -- 申请机构
