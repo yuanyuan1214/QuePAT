@@ -221,28 +221,28 @@ namespace QuePAT.Controllers
         }
 
         // Find number of patents proposed by a company in a specific year.
-        public ActionResult PatentNumInYear(string company_name, int year)
+        public ActionResult PatentNumInYear(string company_name)
         {
             return Content(
                 db.PATENT
                 .Where(
                     p => p.PROPOSER_NAME.Equals(company_name)
-                    && p.APP_DATE.Year.Equals(year)
                 )
+                .GroupBy(p => p.APP_DATE.Year)
                 .Count()
                 .ToString()
                 );
         }
 
-        public ActionResult PatentNumOfType(string company_name, string class_code)
+        public ActionResult PatentNumOfType(string company_name)
         {
             return Content(
                 db.PATENT
                 .Where
                 (
                     p => p.PROPOSER_NAME.Equals(company_name)
-                    && p.CLASS_CODE.Equals(class_code)
                 )
+                .GroupBy(p => p.CLASS_CODE.ElementAt(0))
                 .Count()
                 .ToString()
                 );
