@@ -224,13 +224,13 @@
     <script id="legalTemplate" type="text/x-jsrender">
         {{for}}
         <tr>
-            <td><span>{{:LegalDate}}</span></td>
-            <td><span>{{:LegalStatus}}</span></td>
-            <td><span>{{:LegalStatusInfo}}</span></td>
-            {{if DETAIL==""}}
+            <td><span>{{:#data.ANNOUNCE_DATE}}</span></td>
+            <td><span>{{:#data.STATUS}}</span></td>
+            <td><span>{{:#data.MSG}}</span></td>
+            {{if #data.DETAIL==""||#data.DETAIL==null}}
             <td><span>无</span></td>
             {{else}}
-            <td><span>{{:DETAIL}}</span></td>
+            <td><span>{{:#data.DETAIL}}</span></td>
             {{/if}}
         </tr>
         {{/for}}
@@ -238,14 +238,7 @@
     <script id="famTemplate" type="text/x-jsrender">
         {{for}}
         <tr>
-            <td><span>{{:LegalDate}}</span></td>
-            <td><span>{{:LegalStatus}}</span></td>
-            <td><span>{{:LegalStatusInfo}}</span></td>
-            {{if DETAIL==""}}
-            <td><span>无</span></td>
-            {{else}}
-            <td><span>{{:DETAIL}}</span></td>
-            {{/if}}
+            <td><span>{{:#data}}</span></td>
         </tr>
         {{/for}}
     </script>

@@ -50,6 +50,26 @@ namespace QuePAT.Controllers
             var data = FindByNameContains(keyword);
             return data;
         }
+        [HttpPost]
+        public ActionResult SearchExpert
+            (
+            string class_code,
+            string desinger,
+            string app_num,
+            string proposer,
+            string abst,
+            string province,
+            string app_date,
+            string claim
+            )
+        {
+            PATENTQuery pATENTQuery = new PATENTQuery();
+            return pATENTQuery.SearchExpert
+                (
+                class_code, desinger, app_num, proposer, abst, province, app_date, claim
+                );
+        }
+
         public ActionResult SearchResult()
         {
             return View();

@@ -1,4 +1,6 @@
 ﻿var datare = {};
+var lawdata = [];
+var famdata = [];
 
 var is_itemcl = 0;
 var is_itemdynam = 0;
@@ -29,10 +31,44 @@ $(document).ready(function () {
             alert("查询数据失败！");
         }
     });
-    var tablis = $("#legalTemplate").render(datare);
-    $("#legalContainer").append(tablis);
-    var tablis = $("#famTemplate").render(datare);
-    $("#familyContainer").append(tablis);
+    $.ajax({
+        url: "/Home/Law", //改成相应函数接口
+        async: false,
+        type: 'post',
+        contentType: "application/json",
+        //data: JSON.stringify(queryJson[0]),
+        data: "{str:'CN96120119'}",
+        dataType: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            lawdata = data;
+            var tablis = $("#legalTemplate").render(lawdata);
+            $("#legalContainer").append(tablis);
+        },
+        error: function (message) {
+            alert("查询数据失败！");
+        }
+    });
+    $.ajax({
+        url: "/Home/Result", //改成相应函数接口
+        async: false,
+        type: 'post',
+        contentType: "application/json",
+        //data: JSON.stringify(queryJson[0]),
+        data: "{str:'CN96120119'}",
+        dataType: "json",
+        traditional: true,
+        success: function (data) {
+            console.log(data);
+            famdata = data;
+            var tabli = $("#famTemplate").render(famdata);
+            $("#familyContainer").append(tabli);
+        },
+        error: function (message) {
+            alert("查询数据失败！");
+        }
+    });
     var list = $(".detail-head.unselect p");
     list[0].addEventListener("click", switchs);
     list[1].addEventListener("click", switchs);

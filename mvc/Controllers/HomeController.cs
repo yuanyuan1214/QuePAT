@@ -46,5 +46,11 @@ namespace QuePAT.Controllers
             PATENTQuery pATENTQuery = new PATENTQuery();
             return pATENTQuery.FindByApplyNumber(str);
         }
+        [HttpPost]
+        public ActionResult Law(string str)
+        {
+            LAW_STATUSQuery lAW  = new LAW_STATUSQuery();
+            return lAW.GetLawStatus(str);
+        }
     }
 }
