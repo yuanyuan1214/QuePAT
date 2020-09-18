@@ -16,7 +16,13 @@ namespace QuePAT.Controllers
 
     public class MainController : Controller
     {
+        static public JsonSerializerSettings jsSettings = new JsonSerializerSettings();
         private Entities db = new Entities();
+
+        public MainController()
+        {
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        }
 
         public IQueryable<PATENT> findByNameContains(string str)
         {
@@ -27,12 +33,7 @@ namespace QuePAT.Controllers
         // Find patent with name containing string str.
         public ActionResult FindByNameContains(string str)
         {
-            if(str == "" || str == null)
-            {
-                return null;
-            }
-            
-            string json = JsonConvert.SerializeObject(findByNameContains(str).ToList());
+            string json = JsonConvert.SerializeObject(findByNameContains(str).ToList(), jsSettings);
             return new ContentResult { Content = json };
         }
 

@@ -113,29 +113,29 @@
     </div>
     <script src="~/js/result/jquery.min.js"></script>
     <script src="~/js/result/jsrender.min.js"></script>
-    <script src="~/js/result/basic.js"></script>
+
     <script type="text/x-jsrender" id="Tmpl">
         <div class="item-title">
-            {{if PT==1||PT==8}}
-            <label class="title-color">{{:TI}}  [发明]</label> {{else PT==3}}
-            <label class="title-color">{{:TI}}  [外观]</label> {{else PT==2||PT==9}}
-            <label class="title-color">{{:TI}}  [实用新型]</label> {{else}}
-            <label class="title-color">{{:TI}}</label> {{/if}}
+            {{if PATENT_TYPE==1||PATENT_TYPE==8}}
+            <label class="title-color">{{:NAME}}  [发明]</label> {{else PATENT_TYPE==3}}
+            <label class="title-color">{{:NAME}}  [外观]</label> {{else PATENT_TYPE==2||PATENT_TYPE==9}}
+            <label class="title-color">{{:NAME}}  [实用新型]</label> {{else}}
+            <label class="title-color">{{:NAME}}</label> {{/if}}
         </div>
         <div style="overflow: hidden;">
             <div class="item-content fl">
                 <div>
-                    <p>申请号：</p><span>{{:AN}}</span>
+                    <p>申请号：</p><span>{{:APP_NUM}}</span>
                 </div>
                 <div>
-                    <p>申请日：</p>{{:AD}}
+                    <p>申请日：</p>{{:APP_DATE}}
                 </div>
                 <div>
-                    <p>国家/省市：</p><span>{{:CO}}</span>
+                    <p>国家/省市：</p><span>{{:PLACE_CODE}}</span>
                 </div>
-                {{if PT==1||PT==8}}
+                {{if PATENT_TYPE==1||PATENT_TYPE==8}}
                 <div>
-                    <p>公开号：</p><span>{{:PN}}</span>
+                    <p>公开号：</p><span>{{:PUBLIC_NUM}}</span>
                 </div>
                 <div>
                     <p>公开日：</p><span>{{:PD}}</span>
@@ -149,22 +149,19 @@
                 </div>
 
                 <div>
-                    <p>主分类号：</p>{{:MC}}
+                    <p>分类号：</p>{{:CLASS_CODE}}
                 </div>
                 <div>
-                    <p>分类号：</p>{{:IC}}
-                </div>
-                <div>
-                    <p>申请人：</p>{{:PA}}
+                    <p>申请公司：</p>{{:PROPOSER_NAME}}
                 </div>
                 <div>
                     <p>申请人地址：</p><span>{{:DZ}}</span>
                 </div>
                 <div>
-                    <p>发明人：</p>{{:IN}}
+                    <p>发明人：</p>{{:DESIGNER_ID}}
                 </div>
                 <div>
-                    <p>当前权利人：</p>{{:PE}}
+                    <p>当前权利人：</p>{{:PATENTEE_NAME}}
                 </div>
                 {{if AT!=""&&AT!=null}}
                 <div>
@@ -182,27 +179,19 @@
                 <div>
                     <p>范畴分类：</p><span>{{:CT}}</span>
                 </div>
-                {{if KW!=""&&KW!=null}}
-                <div>
-                    <p>关键词：</p><span>{{:KW}}</span>
-                </div>
-                {{/if}} {{if CC!=""&&CC!=null}}
+                {{if CC!=""&&CC!=null}}
                 <div>
                     <p>引用专利：</p><span>{{:CC}}</span>
                 </div>
-                {{/if}} {{if UCC!=""&&UCC!=null}}
-                <div>
-                    <p>引用文献：</p><span>{{:UCC}}</span>
-                </div>
-                {{/if}} {{if LG==3}}
+                {{/if}}{{if IS_VALID==3}}
                 <div>
                     <p>当前状态：</p><span>审中</span>
                 </div>
-                {{else LG==1}}
+                {{else IS_VALID==1}}
                 <div>
                     <p>当前状态：</p><span>有效</span>
                 </div>
-                {{else LG==2}}
+                {{else IS_VALID==2}}
                 <div>
                     <p>当前状态：</p><span>失效</span>
                 </div>
@@ -210,11 +199,11 @@
             </div>
         </div>
         <div class="item-summary">
-            {{if PT==3}}
+            {{if PATENT_TYPE==3}}
             <p>
                 <strong>简要说明:</strong>
                 <span>
-                    {{:AB}}
+                    {{:ABSTRACT}}
                 </span>
             </p>
 
@@ -222,13 +211,13 @@
             <p>
                 <strong>摘要:</strong>
                 <span>
-                    {{:AB}}
+                    {{:ABSTRACT}}
                 </span>
             </p>
             <p>
                 <strong>主权利要求:</strong>
                 <span>
-                    {{:CL}}
+                    {{:MAIN_CLAIM}}
                 </span>
             </p>
             {{/if}}
@@ -248,6 +237,7 @@
         </tr>
         {{/for}}
     </script>
+    <script src="~/js/result/basic.js"></script>
 </body>
 
 </html>
