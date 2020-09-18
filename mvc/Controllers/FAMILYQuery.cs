@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuePAT.Models;
 using Newtonsoft.Json;
 using System.Security.Permissions;
+using System.Data.Entity;
 
 namespace QuePAT.Controllers
 {
@@ -30,7 +31,7 @@ namespace QuePAT.Controllers
             {
                 IQueryable<string> family = db.FAMILY
                     .Where(f => f.BASIC_APP_NUM.Equals(basic))
-                    .Select(f => f.BASIC_APP_NUM);
+                    .Select(f => f.BASIC_APP_NUM).Include(app_num);
                 return new ContentResult
                 {
                     Content = JsonConvert.SerializeObject(family.ToList())
