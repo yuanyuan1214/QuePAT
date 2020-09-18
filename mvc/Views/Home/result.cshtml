@@ -147,7 +147,7 @@
                     <p>申请号：</p><span>{{:APP_NUM}}</span>
                 </div>
                 <div>
-                    <p>申请日：</p>{{:APP_DATE}}
+                    <p>申请日：</p>{{dateconvert:APP_DATE}}
                 </div>
                 <div>
                     <p>国家/省市：</p><span>{{:PROVINCE.NAME}}</span>
@@ -221,7 +221,7 @@
     <script id="legalTemplate" type="text/x-jsrender">
         {{for}}
         <tr>
-            <td><span>{{:#data.ANNOUNCE_DATE}}</span></td>
+            <td><span>{{dateconvert:#data.ANNOUNCE_DATE}}</span></td>
             <td><span>{{:#data.STATUS}}</span></td>
             <td><span>{{:#data.MSG}}</span></td>
             {{if #data.DETAIL==""||#data.DETAIL==null}}
@@ -238,6 +238,13 @@
             <td><span>{{:#data}}</span></td>
         </tr>
         {{/for}}
+    </script>
+    <script>
+        $.views.converters({
+            dateconvert: function (val) {
+                return val.substring(0, val.length - 9);
+            }
+        })
     </script>
 </body>
 
