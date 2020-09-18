@@ -146,7 +146,7 @@ window.onload = function () {
                         return;
                     }*/
                     console.log(json);
-                    window.location.href = "SearchResult?id=" + encodeURI(lawword);
+                    window.location.href = "SearchLaw?id=" + encodeURI(lawword);
                     /*normal_list = data.info;
                     _search_word = keyword;
                     if (normal_list.length != 0) {
@@ -253,57 +253,13 @@ window.onload = function () {
                     alert("¼ìË÷½á¹ûÎª¿Õ£¡");
                     return;
                 }*/
-                console.log(json);
-                var address0 = "SearchResult?expression=";
-                var address = "";
-                if (word1 !== null) {
-                    address = address + word1 + "/IC"
-                }
-                if (word2 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word2 + "/IN";
-                }
-                if (word3 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word3 + "/AN";
-                }
-                if (word4 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word4 + "/PA";
-                }
-                if (word5 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word5 + "/TX";
-                }
-                if (word6 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word6 + "/CO";
-                }
-                if (word7 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word7 + "/AD";
-                }
-                if (word8 !== null) {
-                    if (address !== "") {
-                        address = address + "*"
-                    }
-                    address = address + word8 + "/CS";
-                }
+                var address2 = "word1=" + word1 + "*word2=" + word2 + "*word3=" + word3 + "*word4=" + word4 + "*word5=" + word5 + "*word6=" + word6 + "*word7=" + word7 + "*word8=" + word8;
+                console.log(data);
+                var address0 = "SearchForm?expression=";
+                
 
 
-                window.location.href = address0 + address;//"SearchResult?expression=" + word1 + "/IC*" + word2 + "/IN*" + word3 + "/AN*" + word4 + "/PA*" + word5 + "/TX*" + word6 + "CO*" + word7 + "/AD*" + word8 + "/CS";
+                window.location.href = address0 + address2;//"SearchResult?expression=" + word1 + "/IC*" + word2 + "/IN*" + word3 + "/AN*" + word4 + "/PA*" + word5 + "/TX*" + word6 + "CO*" + word7 + "/AD*" + word8 + "/CS";
                 /*normal_list = data.info;
                 _search_word = keyword;
                 if (normal_list.length != 0) {

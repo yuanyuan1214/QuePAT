@@ -66,15 +66,25 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/navigator.js"></script>
 
-    <script>
+    <script type="text/javascript">
 
+
+        var admin = {
+            account: 'cfjy',
+            password: '666666'
+        };
+        var loginType = 0;
+        var iserror1 = false;
+        var iserror2 = false;
+        var iserror3 = false;
+        var iserror4 = false;
         function logout() {
             var uid = $("#userid").val();
-           // var pwd = $("#pwd").val();
+            // var pwd = $("#pwd").val();
             $.ajax({
                 type: "post",
                 url: "./Logout",
-                data: { user_id: uid},
+                data: { user_id: uid },
                 success: function (res) {
                     console.log(res);
 
@@ -83,37 +93,46 @@
             alert("logout");
         }
 
-        $(function () {
-            $("#btn-login").click(function () {
-                //alert("login");
-                //alert();
-                //console.log($("#tag-user").css("color"));
+        $("#btn-login").click(function () {
+            //alert("login");
+            //alert();
+            //console.log($("#tag-user").css("color"));
 
 
-                var uid = $("#userid").val();
-                var pwd = $("#pwd").val();
-                var mark = $("#tag-user").css("color");
-                if (mark == 'rgb(0, 0, 0)') {//用户
-                    $.ajax({
-                        type: "post",
-                        url: "./Login",
-                        data: { user_id: uid, password: pwd, mark: 0 },
-                        success: function (res) {
-                            console.log(res);
-                            if (res == "Login success.") {
-                                console.log("here tiaozhuan")
-                                window.location.href = "initial?uid=" + uid;
-                            }
-                            if (res == "You have logined") {
-                                alert('对不起，您的账号已在别处登录');
-                            }
+            var uid = $("#userid").val();
+            var pwd = $("#pwd").val();
+            var mark = $("#tag-user").css("color");
+            if (mark == 'rgb(0, 0, 0)') {//用户
+                $.ajax({
+                    type: "post",
+                    url: "./Login",
+                    data: { user_id: uid, password: pwd, mark: 0 },
+                    success: function (res) {
+                        console.log(res);
+                        if (res == "Login success.") {
+                            console.log("here tiaozhuan")
+                            window.location.href = "initial?uid=" + uid;
                         }
-                    });
-                }
+                        if (res == "You have logined") {
+                            alert('对不起，您的账号已在别处登录');
+                        }
+                        if (res == "No such user.") {
+                            alert('用户名错误');
+                        }
+                        if (res == "Wrong password.") {
+                            alert('密码错误');
+                        }
+                    }
+                });
+            }
 
-            });
-            $("#btn-register").click(function () {
-                //alert("register");
+        });
+        $("#btn-register").click(function () {
+      
+            if (iserror1 == true || iserror2 == true || iserror3 == true || iserror4 == true) {
+                alert('注册失败');
+            }
+            else {
                 var reuserid = $("#re_userid").val();
                 var repwd = $("#re_pwd").val();
                 var conrepwd = $("#con_re_pwd").val();
@@ -126,66 +145,18 @@
                     data: { re_userid: reuserid, re_pwd: repwd, con_re_pwd: conrepwd, Phone: phone, Email: email },
                     success: function (res) {
                         console.log(res);
-
-                    }
-                });
-            });
-        });
-
-
-    </script>
-
-
-
-    <script type="text/javascript">
-
-
-        var admin = {
-            account: 'cfjy',
-            password: '666666'
-        }
-        var loginType = 0
-
-        $(".login-but").click(function () {
-            console.log(111);
-            var userName = $('#userid').val();
-            var password = $('#pwd').val();
-            var uid = $("#userid").val();
-            var pwd = $("#pwd").val();
-            console.log('userName: ', userName);
-            var mark = $("#tag-user").css("color");
-            if (mark == 'rgb(0, 0, 0)') {
-                loginType = 0;
-            }
-            else
-                loginType = 1;
-            console.log(loginType);
-
-            if (loginType === 0) {
-                // 用户登录
-            } else {
-                // 管理员登录
-                $.ajax({
-                    type: "post",
-                    url: "./Login",
-                    data: { user_id: uid, password: pwd, mark: 1 },//管理员
-                    success: function (res) {
-                        console.log(res);
-                        if (res == "Login success.") {
-                            console.log("here tiaozhuan")
-                            window.location.href = "initial?uid=" + uid;
-                        }
-                        if (res == "You have logined") {
-                            alert('对不起，您的账号已在别处登录');
+                        if (res == 1) {
+                            alert('注册成功');
                         }
                     }
                 });
-
             }
+
         });
+        
 
 
-        var iserror = false
+       
         function chooseNav(index) {
             let nav = document.getElementsByClassName('login-com')
             let loginBox = document.getElementById('login-box')
@@ -212,20 +183,20 @@
             console.log(errorDom)
             if (!(/^1[3456789]\d{9}$/.test(e.value))) {
                 document.getElementById(errorDom).style.display = 'block'
-                iserror = true
+                iserror1 = true
             } else {
                 document.getElementById(errorDom).style.display = 'none'
-                iserror = false
+                iserror1 = false
             }
         }
         function cheackUserPassword() {
             let passBox = document.getElementById('re_pwd')
             if (passBox.value.length > 16 || passBox.value.length < 4) {
-                document.getElementById('cheack-password-error').style.display = 'block'
-                iserror = true
+                document.getElementById('cheack-password-error').style.display = 'block';
+                iserror2 = true;
             } else {
-                document.getElementById('cheack-password-error').style.display = 'none'
-                iserror = false
+                document.getElementById('cheack-password-error').style.display = 'none';
+                iserror2 = false;
             }
         }
         function cheackPassword() {
@@ -233,26 +204,22 @@
             let cheackPass = document.getElementById('con_re_pwd')
             console.log(passBox.value, cheackPass.value)
             if (passBox.value !== cheackPass.value) {
-                document.getElementById('cheack-cheack-error').style.display = 'block'
-                iserror = true
+                document.getElementById('cheack-cheack-error').style.display = 'block';
+                iserror3 = true;
 
             } else {
-                document.getElementById('cheack-cheack-error').style.display = 'none'
-                iserror = false
+                document.getElementById('cheack-cheack-error').style.display = 'none';
+                iserror3 = false;
             }
         }
         function cheackLoginPassword() {
             let passBox = document.getElementById('pwd')
             if (passBox.value.length > 16 || passBox.value.length < 4) {
-                document.getElementById('login-password-error').style.display = 'block'
+                document.getElementById('login-password-error').style.display = 'block';
+                iserror4 = true;
             } else {
-                document.getElementById('login-password-error').style.display = 'none'
-            }
-        }
-        function regBtn() {
-            console.log(iserror)
-            if (iserror === true) {
-                alert('表单仍有错误')
+                document.getElementById('login-password-error').style.display = 'none';
+                iserror4 = false;
             }
         }
     </script>

@@ -59,7 +59,7 @@ namespace QuePAT.Controllers
         {
             IQueryable<LAW_STATUS> lAW_STATUS = db.LAW_STATUS.Where(l => l.APP_NUM == app_num)
                 .OrderByDescending(l => l.ANNOUNCE_DATE);
-            string json = JsonConvert.SerializeObject(lAW_STATUS.ToList());
+            string json = JsonConvert.SerializeObject(lAW_STATUS.ToList(), jsSettings);
             return new ContentResult { Content = json };
         }
 
@@ -73,7 +73,7 @@ namespace QuePAT.Controllers
         public ActionResult GetNewestLawStatus(string app_num)
         {
             LAW_STATUS lAW_STATUS = getNewestLawStatus(app_num);
-            string json = JsonConvert.SerializeObject(lAW_STATUS);
+            string json = JsonConvert.SerializeObject(lAW_STATUS, jsSettings);
             return new ContentResult { Content = json };
         }
 
@@ -145,5 +145,38 @@ namespace QuePAT.Controllers
             var data = FindByNameContains(name);
             return data;
         }
+
+        public ActionResult SearchLaw()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchLaw(string lawStr)
+        {
+            var data = GetNewestLawStatus(lawStr);
+            return data;
+        }
+
+        /*public ActionResult SearchByLaw()
+        {
+            string name = Request["lawStr"];
+            var data = GetNewestLawStatus(name);
+            return data;
+        }*/
+
+        public ActionResult SearchForm()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SearchForm(string w1,string w2,string w3,string w4,string w5,string w6,string w7,string w8)
+        {
+            PATENTQuery pATENTQuery = new PATENTQuery();
+            return pATENTQuery.SearchExpert
+                (
+                w1, w2, w3, w4, w5, w6, w7, w8
+                );
+        }
+
     }
 }

@@ -328,6 +328,7 @@
     <Content Include="Views\Main\SearchResult.cshtml" />
     <Content Include="Views\Home\Result.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
+    <Content Include="Views\Home\initial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

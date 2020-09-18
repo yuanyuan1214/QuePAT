@@ -27,7 +27,7 @@ namespace QuePAT.Controllers
 
         public IQueryable<PATENT> findByNameContains(string str)
         {
-            if (str == null)
+            if (str == null || str == "")
             {
                 return db.PATENT;
             }
@@ -48,7 +48,7 @@ namespace QuePAT.Controllers
         // Find patent by apply number.
         public IQueryable<PATENT> findByApplyNumber(string app_num)
         {
-            if (app_num == null)
+            if (app_num == null || app_num == "")
             {
                 return db.PATENT;
             }
@@ -81,7 +81,7 @@ namespace QuePAT.Controllers
 
         public IQueryable<PATENT> findByClassCode(string code)
         {
-            if (code == null)
+            if (code == null || code == "")
             {
                 return db.PATENT;
             }
@@ -98,7 +98,7 @@ namespace QuePAT.Controllers
         // Find patent by designer name.
         public IQueryable<PATENT> findByDesignerName(string name)
         {
-            if (name == null)
+            if (name == null || name == "")
             {
                 return db.PATENT;
             }
@@ -121,7 +121,7 @@ namespace QuePAT.Controllers
         // Find patent with patentee name containing str.
         public IQueryable<PATENT> findByPatenteeNameContains(string name)
         {
-            if (name == null)
+            if (name == null || name == "")
             {
                 return db.PATENT;
             }
@@ -145,7 +145,7 @@ namespace QuePAT.Controllers
         // Find patent with proposer name containing str.
         public IQueryable<PATENT> findByProposerNameContains(string name)
         {
-            if (name == null)
+            if (name == null || name == "")
             {
                 return db.PATENT;
             }
@@ -162,7 +162,7 @@ namespace QuePAT.Controllers
         // Find patent by province code.
         public IQueryable<PATENT> findByProvinceCode(string code)
         {
-            if (code == null)
+            if (code == null || code == "")
             {
                 return db.PATENT;
             }
@@ -179,7 +179,7 @@ namespace QuePAT.Controllers
         // Find patent by province name.
         public IQueryable<PATENT> findByProvinceName(string name)
         {
-            if (name == null)
+            if (name == null || name == "")
             {
                 return db.PATENT;
             }
@@ -212,6 +212,10 @@ namespace QuePAT.Controllers
 
         public IQueryable<PATENT> findByAbstractContains(string str)
         {
+            if(str == null || str == "")
+            {
+                return db.PATENT;
+            }
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.ABSTRACT.Contains(str));
             return pATENT;
         }
@@ -232,6 +236,10 @@ namespace QuePAT.Controllers
         // Find patent with claim containing str.
         public IQueryable<PATENT> findByClaimContains(string str)
         {
+            if (str == null || str == "")
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.CLAIM.Contains(str));
         }
 
@@ -269,15 +277,16 @@ namespace QuePAT.Controllers
             )
         {
             var pATENTs = findByClassCode(class_code)
-                .Union(findByDesignerName(desinger))
-                .Union(findByApplyNumber(app_num))
-                .Union(findByProposerNameContains(proposer))
-                .Union(findByAbstractContains(abst))
-                .Union(findByProvinceCode(province))
-                .Union(findByPatenteeNameContains(patentee))//改了
-                .Union(findByClaimContains(claim))
+                .Intersect(findByDesignerName(desinger))
+                .Intersect(findByApplyNumber(app_num))
+                .Intersect(findByProposerNameContains(proposer))
+                .Intersect(findByAbstractContains(abst))
+                .Intersect(findByProvinceCode(province))
+                .Intersect(findByPatenteeNameContains(patentee))//改了
+                .Intersect(findByClaimContains(claim))
                 .Select(p => new { APP_NUM = p.APP_NUM, NAME = p.NAME, APP_DATE = p.APP_DATE });
-            return new ContentResult { Content = JsonConvert.SerializeObject(pATENTs, jsSettings) };
+            var b = JsonConvert.SerializeObject(pATENTs.ToList(), jsSettings);
+            return new ContentResult { Content = JsonConvert.SerializeObject(pATENTs.ToList(), jsSettings) };
         }
 
         // Find number of patents proposed by a company in a specific year.
