@@ -273,7 +273,7 @@ a:visited {
         cursor: pointer;
         position: relative;
         top: -0.64rem;
-        left: 0px;
+        left: -2.8rem;
         transition: all 0.3s;
         -moz-transition: all 0.3s;
         /* Firefox 4 */
@@ -309,6 +309,24 @@ a:visited {
     display: none;
 }
 
+#itemyear {
+    display: none;
+    position: relative;
+    left: 90px;
+    top: 20px;
+}
+
+#itemdynam {
+    display: none;
+    position: relative;
+    left: 80px;
+    top: 20px;
+}
+
+#itemfam {
+    display: none;
+}
+
 #itemInfoContainer {
     display: block;
 }
@@ -327,7 +345,7 @@ a:visited {
     margin-bottom: 0.2rem;
     margin-top: 0.1rem;
     position: relative;
-    left: 0px;
+    left: -2.8rem;
     display: inline-block;
 }
 
@@ -400,7 +418,7 @@ a:visited {
 /*条目下内容样式*/
 
 .ti {
-    text-indent: 2em
+    text-indent: 2em;
 }
 
 .itemDemand,
@@ -414,7 +432,17 @@ a:visited {
     .itemLaw p {
         font-size: 0.16rem;
         text-align: justify;
-        text-indent: 2em
+        text-indent: 2em;
+    }
+
+#itemfam {
+    padding: 0.15rem 0.02rem;
+}
+
+    #itemfam p {
+        font-size: 0.16rem;
+        text-align: justify;
+        text-indent: 2em;
     }
 
 .itemPdf {

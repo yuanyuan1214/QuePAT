@@ -14,8 +14,8 @@
     <!--设置不缓存-->
 
     <title>QuePAT专利信息</title>
-    <link href="~/css/result/header.css" rel="stylesheet" />
     <link href="~/css/result/style.css" rel="stylesheet" />
+    <link href="~/css/result/header.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -36,9 +36,6 @@
                     </div>
                     <div class="box-content">
                         <ul class="personalmenu">
-                            <li>
-                                <a href=""><img src="/img/personalCenter/center_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/center_selected_icon.png" /><span>专利管理</span></a>
-                            </li>
                             <li>
                                 <a href=""><img src="/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
                             </li>
@@ -66,9 +63,9 @@
             <div class="detail-head unselect">
                 <p class="active" id="iteminfor">著录项目信息</p>
                 <p class="fmxx" id="flztbtn">法律状态</p>
-                <p class="fmxx" id="itemCL">权利要求</p>
-                <p class="fmxx" id="itemDS">说明书</p>
-                <p class="wg" id="itemWGFT">外观图形</p>
+                <p class="fmxx" id="itemCL">公司研发年期分析</p>
+                <p class="fmxx" id="itemDS">公司技术动向分析</p>
+                <p class="fmxx" id="itemRT">同族专利</p>
             </div>
             <div class="detail-content">
                 <!--此处根据选择标签显示对应元素块-->
@@ -87,7 +84,31 @@
                                 <th colspan="1">法律状态信息</th>
                                 <th colspan="1">详细信息</th>
                             </tr>
-                        <tbody id="legalContainer"></tbody>
+                        <tbody id="legalContainer">
+                        </tbody>
+                        </thead>
+                    </table>
+                </div>
+                <!--年期分析-->
+                <div id="itemyear" style="width: 840px;height:500px;">
+                </div>
+                <!--动向分析-->
+                <div id="itemdynam" style="width: 840px;height:500px;">
+                </div>
+                <!--同族分析-->
+                <div id="itemfam">
+                    <table class="table table-striped" cellspacing="0" cellpadding="10">
+                        <thead>
+                            <tr>
+
+
+                                <th colspan="1">专利名称</th>
+                                <th colspan="1">申请号</th>
+                                <th colspan="1">申请公司</th>
+                                <th colspan="1">发明人</th>
+                            </tr>
+                        <tbody id="familyContainer">
+                        </tbody>
                         </thead>
                     </table>
                 </div>
@@ -113,7 +134,8 @@
     </div>
     <script src="~/js/result/jquery.min.js"></script>
     <script src="~/js/result/jsrender.min.js"></script>
-
+    <script src="~/js/result/echarts.min.js"></script>
+    <script src="~/js/result/basic.js"></script>
     <script type="text/x-jsrender" id="Tmpl">
         <div class="item-title">
             {{if PATENT_TYPE==1||PATENT_TYPE==8}}
@@ -131,7 +153,7 @@
                     <p>申请日：</p>{{:APP_DATE}}
                 </div>
                 <div>
-                    <p>国家/省市：</p><span>{{:PLACE_CODE}}</span>
+                    <p>国家/省市：</p><span>{{:PROVINCE.NAME}}</span>
                 </div>
                 {{if PATENT_TYPE==1||PATENT_TYPE==8}}
                 <div>
@@ -155,31 +177,19 @@
                     <p>申请公司：</p>{{:PROPOSER_NAME}}
                 </div>
                 <div>
-                    <p>申请人地址：</p><span>{{:DZ}}</span>
+                    <p>申请人地址：</p><span>{{:COMPANY1.ADDRESS}}</span>
                 </div>
                 <div>
-                    <p>发明人：</p>{{:DESIGNER_ID}}
+                    <p>发明人：</p>{{:PERSON.NAME}}
                 </div>
                 <div>
                     <p>当前权利人：</p>{{:PATENTEE_NAME}}
                 </div>
-                {{if AT!=""&&AT!=null}}
-                <div>
-                    <p>代理人：</p><span>{{:AT}}</span>
-                </div>
-                {{/if}} {{if AG!=""||AGN!=""}}
-                <div>
-                    <p>代理机构：</p><span>{{:AG}} {{:AGN}}</span>
-                </div>
-                {{/if}} {{if PR!=""&&PR!=null}}
+                {{if PR!=""&&PR!=null}}
                 <div>
                     <p>优先权：</p><span>{{:PR}}</span>
                 </div>
-                {{/if}}
-                <div>
-                    <p>范畴分类：</p><span>{{:CT}}</span>
-                </div>
-                {{if CC!=""&&CC!=null}}
+                {{/if}} {{if CC!=""&&CC!=null}}
                 <div>
                     <p>引用专利：</p><span>{{:CC}}</span>
                 </div>
@@ -223,6 +233,7 @@
             {{/if}}
         </div>
     </script>
+
     <script id="legalTemplate" type="text/x-jsrender">
         {{for}}
         <tr>
@@ -237,7 +248,20 @@
         </tr>
         {{/for}}
     </script>
-    <script src="~/js/result/basic.js"></script>
+    <script id="famTemplate" type="text/x-jsrender">
+        {{for}}
+        <tr>
+            <td><span>{{:LegalDate}}</span></td>
+            <td><span>{{:LegalStatus}}</span></td>
+            <td><span>{{:LegalStatusInfo}}</span></td>
+            {{if DETAIL==""}}
+            <td><span>无</span></td>
+            {{else}}
+            <td><span>{{:DETAIL}}</span></td>
+            {{/if}}
+        </tr>
+        {{/for}}
+    </script>
 </body>
 
 </html>

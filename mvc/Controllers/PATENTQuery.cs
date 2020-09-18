@@ -8,6 +8,11 @@ using Newtonsoft.Json;
 
 namespace QuePAT.Controllers
 {
+    public class QueryPATENT : PATENT
+    {
+        public string OPEN_DATE { get; set; }
+    }
+
     public class PATENTQuery : Controller
     {
         static JsonSerializerSettings jsSettings = new JsonSerializerSettings();
@@ -37,8 +42,9 @@ namespace QuePAT.Controllers
         // Find patent by apply number.
         public ActionResult FindByApplyNumber(string app_num)
         {
-            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num));
-            return new ContentResult { Content = JsonConvert.SerializeObject(pATENT.ToList(), jsSettings) };
+            PATENT pATENT = new QueryPATENT();
+            pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num)).FirstOrDefault();
+            return new ContentResult { Content = JsonConvert.SerializeObject(pATENT, jsSettings) };
         }
 
         // Find patent by classification code.
