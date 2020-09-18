@@ -9,4 +9,10 @@ if (url.indexOf("?") != -1) {  //判断URL？后面不为空
     }
     var d = document.getElementById('inputBox');
     d.value = res;
+    if (res != null) {
+        //alert("11111");
+        //$(".searchBtn").trigger("click");
+        //document.getElementsByClassName("searchBtn")[0].click();
+    }
+    
 }

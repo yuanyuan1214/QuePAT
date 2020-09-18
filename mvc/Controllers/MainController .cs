@@ -27,6 +27,11 @@ namespace QuePAT.Controllers
         // Find patent with name containing string str.
         public ActionResult FindByNameContains(string str)
         {
+            if(str == "" || str == null)
+            {
+                return null;
+            }
+            
             string json = JsonConvert.SerializeObject(findByNameContains(str).ToList());
             return new ContentResult { Content = json };
         }
@@ -48,6 +53,11 @@ namespace QuePAT.Controllers
         {
             return View();
         }
-
+        public ActionResult SearchByName()
+        {
+            string name = Request["searchStr"];
+            var data = FindByNameContains(name);
+            return data;
+        }
     }
 }

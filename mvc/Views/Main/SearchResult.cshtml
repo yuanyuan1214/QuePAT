@@ -12,15 +12,38 @@
     <title>QuePAT</title>
     <link rel="stylesheet" href="~/css/rltStyle.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/navigator.css" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script>
-        function showDao(even) {
-            $(".nav_bg ul").children("li").eq(even).addClass("lihover");
-        }
-        function getInput() {
-            var str = document.getElementById('inputBox').value;
-            alert(str);
-        }
+        $(function () {
+            //$(".searchBtn").trigger("click");
+            
+            $(".searchBtn").click(function () {
+                console.log("kkkkkk");
+                var str = $("#inputBox").val();
+                console.log(str);
+                $.ajax({
+                    type: "post",
+                    url: "./SearchByName",
+                    data: { searchStr: str },
+                    success: function (res) {
+                        //var json = eval(res);
+                        var obj = eval(res)[0];
+                        console.log(obj.NAME);
+
+                        $("#line1").text(obj.NAME);
+                        $("#li1").css("display", "block");
+                        //    .css({
+                        //    width: 10,
+                        //    marginTop: 20
+                        //})
+                        $("#a1").attr("title", obj.NAME );
+                    },
+                    error: function () {
+                    }
+                });
+            });
+            document.getElementsByClassName("searchBtn")[0].click();
+        });
     </script>
 </head>
 <body>
@@ -28,7 +51,7 @@
     <div class="header unselect">
         <div class="header-content">
             <p class="fl">
-                <img img src="~/img/logo_navi3.png" width="27px" alt="logo" />
+                <img img src="~/img/logo_navi3.png" width="27" alt="logo" />
             </p>
             <div class="header-menu fr">
                 <div class="box user-box fr">
@@ -62,16 +85,14 @@
             </div>
         </div>
     </div>
+    <!-- Search Form -->
     <div class="searchForm">
-        <!-- Search Form -->
-        <form action="#" method="post" class="form-inline">
-            <input type="search" id="inputBox" placeholder="请输入要检索的内容">
-            <select name="domain-extension" id="domainExtension">
-                <option value="1">智能检索</option>
-                <option value="2">专家检索</option>
-            </select>
-            <button type="submit" onclick="getInput()">开始检索</button>
-        </form>
+        <input type="search" id="inputBox" placeholder="请输入要检索的内容">
+        <select name="searchType" id="search-type">
+            <option value="1">智能检索</option>
+            <option value="2">专家检索</option>
+        </select>
+        <button class="searchBtn">开始检索</button>
     </div>
     <div class="dxal_content">
         <div class="position1">
@@ -84,18 +105,18 @@
                     var Patent = new QuePAT.Controllers.PATENTsController.FindByNameContains();
                 }*@
             <ul class="dyul1">
-                <li><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
-                <li><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
-                <li><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
-                <li><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
-                <li><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
-                <li><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
-                <li><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
-                <li><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
-                <li><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
-                <li><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
-                <li><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
-                <li><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
+                <li style="display:none;" id="li1"><a href="" target="" title="" id="a1"><span class="resultLi" id="line1"></span><span class="date"></span></a></listyle="display:none;">
+                <li style="display:none;"><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
+                <li style="display:none;"><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
+                <li style="display:none;"><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
+                <li style="display:none;"><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
             </ul>
             <div style="clear:both"></div>
             <div class="page" style="text-align:center">

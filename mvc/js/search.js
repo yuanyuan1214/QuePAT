@@ -130,38 +130,38 @@ window.onload = function () {
             if (row.keyword === "") row.keyword = "666";
             queryJson.push(row);
 
-            $.ajax({
-                url: "/Main/Search",
-                async: false,
-                type: 'post',
-                contentType: "application/json",
-                data: JSON.stringify(queryJson[0]),
-                dataType: "json",
-                traditional: true,
-                success: function (data) {
-                    var json = eval(data);
-                    /*if (json.length === 0) {
-                        alert("检索结果为空！");
-                        return;
-                    }*/
-                    console.log(json);
+            //$.ajax({
+            //    url: "/Main/Search",
+            //    async: false,
+            //    type: 'post',
+            //    contentType: "application/json",
+            //    data: JSON.stringify(queryJson[0]),
+            //    dataType: "json",
+            //    traditional: true,
+            //    success: function (data) {
+            //        var json = eval(data);
+            //        /*if (json.length === 0) {
+            //            alert("检索结果为空！");
+            //            return;
+            //        }*/
+            //        console.log(json);
                     window.location.href = "SearchResult?id=" + encodeURI(keyword);
-                    /*normal_list = data.info;
-                    _search_word = keyword;
-                    if (normal_list.length != 0) {
-                        normal_list.forEach(function (v) {
-                            var copy = [];
-                            v.tags.forEach(function (t) {
-                                copy.push(t['tagName']);
-                            });
-                            v.tags = copy;
-                        });
-                    }*/
-                },
-                error: function (message) {
-                    alert("请求查询数据失败！");
-                }
-            });
+            //        /*normal_list = data.info;
+            //        _search_word = keyword;
+            //        if (normal_list.length != 0) {
+            //            normal_list.forEach(function (v) {
+            //                var copy = [];
+            //                v.tags.forEach(function (t) {
+            //                    copy.push(t['tagName']);
+            //                });
+            //                v.tags = copy;
+            //            });
+            //        }*/
+            //    },
+            //    error: function (message) {
+            //        alert("请求查询数据失败！");
+            //    }
+            //});
         }
     })
 }
