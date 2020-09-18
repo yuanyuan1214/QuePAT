@@ -52,5 +52,11 @@ namespace QuePAT.Controllers
             LAW_STATUSQuery lAW  = new LAW_STATUSQuery();
             return lAW.GetLawStatus(str);
         }
+        [HttpPost]
+        public ActionResult Famliy(string str)
+        {
+            FAMILYQuery fAMILYQuery  = new FAMILYQuery();
+            return fAMILYQuery.FamilyOf(str);
+        }
     }
 }

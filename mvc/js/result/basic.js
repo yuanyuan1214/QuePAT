@@ -2,6 +2,8 @@
 var lawdata = [];
 var famdata = [];
 
+var is_law = 0;
+var is_fam = 0;
 var is_itemcl = 0;
 var is_itemdynam = 0;
 
@@ -26,44 +28,6 @@ $(document).ready(function () {
             var html2 = $("#Tmpl").render(datare);
             $("#itemInfoContainer").append(html2);
 
-        },
-        error: function (message) {
-            alert("查询数据失败！");
-        }
-    });
-    $.ajax({
-        url: "/Home/Law", //改成相应函数接口
-        async: false,
-        type: 'post',
-        contentType: "application/json",
-        //data: JSON.stringify(queryJson[0]),
-        data: "{str:'CN96120119'}",
-        dataType: "json",
-        traditional: true,
-        success: function (data) {
-            console.log(data);
-            lawdata = data;
-            var tablis = $("#legalTemplate").render(lawdata);
-            $("#legalContainer").append(tablis);
-        },
-        error: function (message) {
-            alert("查询数据失败！");
-        }
-    });
-    $.ajax({
-        url: "/Home/Result", //改成相应函数接口
-        async: false,
-        type: 'post',
-        contentType: "application/json",
-        //data: JSON.stringify(queryJson[0]),
-        data: "{str:'CN96120119'}",
-        dataType: "json",
-        traditional: true,
-        success: function (data) {
-            console.log(data);
-            famdata = data;
-            var tabli = $("#famTemplate").render(famdata);
-            $("#familyContainer").append(tabli);
         },
         error: function (message) {
             alert("查询数据失败！");
@@ -107,6 +71,28 @@ function switchs() {
             break;
         case 'flztbtn':
             $(".dnp").css("display", "block");
+            if (is_law == 0) {
+                $.ajax({
+                    url: "/Home/Law", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: "{str:'CN96120119'}",
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                        lawdata = data;
+                        var tablis = $("#legalTemplate").render(lawdata);
+                        $("#legalContainer").append(tablis);
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
+                is_law = 1;
+            }
             break;
         case 'itemCL':
             $("#itemyear").css("display", "block");
@@ -232,6 +218,28 @@ function switchs() {
             break;
         case 'itemRT':
             $("#itemfam").css("display", "block");
+            if (is_fam == 0) {
+                $.ajax({
+                    url: "/Home/Famliy", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: "{str:'CN96120119'}",
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                        famdata = data;
+                        var tabli = $("#famTemplate").render(famdata);
+                        $("#familyContainer").append(tabli);
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
+                is_fam = 1;
+            }
             break;
     }
 }
