@@ -1,46 +1,22 @@
-﻿var data_re = {
-    'PT': 2,
-    'TI': '一种立式测温仪',
-    'AN': 'CN202021328177.1',
-    'AD': '2020.07.08',
-    'CO': '94(深圳)',
-    'PN': 'CN211324979U',
-    'PD': '2020.08.25',
-    'GN': 'CN211324979U',
-    'GD': '2020.08.25',
-    'MC': 'A61B5/01',
-    'IC': 'A61B5/01;G01K13/00',
-    'PA': '戴亚英',
-    'DZ': '518000 广东省深圳市宝安区松岗街道燕罗公路90号星辉工业城五栋二楼',
-    'IN': '戴亚英',
-    'PE': '戴亚英',
-    'AT': '谭慧',
-    'AG': '44682 深圳知帮办专利代理有限公司',
-    'AGN': '44682',
-    'PR': '',
-    'CT': '',
-    'KW': '',
-    'CC': '',
-    'UCC': '',
-    'LG': 1, //法律状态
-    'AB': '本实用新型涉及防疫的技术领域，特别是涉及一种立式测温仪，其通过把手打开箱门，使工作人员进入至隔离箱的内部，再使被检测人员站立于测温仪的右侧，通过打开测温仪，对被检测人员的体温进行检测，之后通过显示屏将测温仪检测的体温数据以文字的形式显示至显示屏的左端，方便工作人员进行观察，从而减少工作人员与被检测人员进行直接接触，降低工作人员的危险性；包括隔离箱、箱门、第一合页、第二合页、把手、支撑架、测温仪和显示屏，箱门的侧端通过第一合页和第二合页与隔离箱的前端转动连接，并且隔离箱的内部设置有座椅，把手的后端与箱门的前端相连接测温仪的左端通过支撑架与隔离箱的右端相连接，显示屏的侧端与隔离箱内的右端相连接。',
-    'CL': '1.一种立式测温仪，其特征在于，包括隔离箱（1）、箱门（2）、第一合页（3）、第二合页（4）、把手（5）、支撑架（6）、测温仪（7）和显示屏（8），箱门（2）的侧端通过第一合页（3）和第二合页（4）与隔离箱（1）的前端转动连接，并且隔离箱（1）的内部设置有座椅（9），把手（5）的后端与箱门（2）的前端相连接测温仪（7）的左端通过支撑架（6）与隔离箱（1）的右端相连接，显示屏（8）的侧端与隔离箱（1）内的右端相连接。',
-    'LegalDate': '2020.08.25',
-    'LegalStatus': '授权',
-    'LegalStatusInfo': '授权',
-    'DETAIL': ''
-};
+﻿var datare = {};
+var lawdata = [];
+var famdata = [];
 
+var is_law = 0;
+var is_fam = 0;
+var is_itemcl = 0;
+var is_itemdynam = 0;
 
+var company = '';
 
-window.onload = function () {
+$(document).ready(function () {
     var queryJson = [];
     var row = {};
     row.keyword = "CN96120119";
     if (row.keyword === "") row.keyword = "666";
     queryJson.push(row);
     $.ajax({
-        url: "/Home/Result",//改成相应函数接口
+        url: "/Home/Result", //改成相应函数接口
         async: false,
         type: 'post',
         contentType: "application/json",
@@ -50,21 +26,22 @@ window.onload = function () {
         traditional: true,
         success: function (data) {
             console.log(data);
-            data_re = data[0];
-            console.log(data_re);
-            var html2 = $("#Tmpl").render(data_re);
+            company = data.PROPOSER_NAME;
+            datare = data;
+            var html2 = $("#Tmpl").render(datare);
             $("#itemInfoContainer").append(html2);
-            
+
         },
         error: function (message) {
             alert("查询数据失败！");
         }
     });
-    var tablis = $("#legalTemplate").render(data_re);
-    $("#legalContainer").append(tablis);
     var list = $(".detail-head.unselect p");
     list[0].addEventListener("click", switchs);
     list[1].addEventListener("click", switchs);
+    list[2].addEventListener("click", switchs);
+    list[3].addEventListener("click", switchs);
+    list[4].addEventListener("click", switchs);
     $(".username").hover(function () {
         $(".box-content").css("display", "block");
     });
@@ -77,7 +54,7 @@ window.onload = function () {
     $(".personalmenu").mouseout(function () {
         $(".box-content").css("display", "none");
     });
-}
+});
 
 function switchs() {
     var list = $(".detail-head.unselect p");
@@ -87,6 +64,9 @@ function switchs() {
     $(this).attr("class", "active");
     $("#itemInfoContainer").css("display", "none");
     $(".dnp").css("display", "none");
+    $("#itemyear").css("display", "none");
+    $("#itemdynam").css("display", "none");
+    $("#itemfam").css("display", "none");
     var sele = $(this).attr("id");
     switch (sele) {
         case 'iteminfor':
@@ -94,6 +74,193 @@ function switchs() {
             break;
         case 'flztbtn':
             $(".dnp").css("display", "block");
+            if (is_law == 0) {
+                $.ajax({
+                    url: "/Home/Law", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: "{str:'CN96120119'}",
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                        lawdata = data;
+                        var tablis = $("#legalTemplate").render(lawdata);
+                        $("#legalContainer").append(tablis);
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
+                is_law = 1;
+            }
+            break;
+        case 'itemCL':
+            $("#itemyear").css("display", "block");
+            if (is_itemcl == 0) {
+                var stringcom = "{str:" + "'" + company + "'}";
+                console.log(stringcom);
+                $.ajax({
+                    url: "/Home/Year", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: stringcom,
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('itemyear'));
+
+                // 指定图表的配置项和数据
+
+                var option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+                    legend: { top: '5%' },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    color: ["#1c66de"],
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLabel: {
+                            formatter: '{value} 件'
+                        },
+                        axisPointer: {
+                            snap: true
+                        },
+                        boundaryGap: [0, '30%']
+                    },
+                    visualMap: {
+                        show: false,
+                        dimension: 0
+                    },
+                    series: [{
+                        name: '专利数',
+                        type: 'line',
+                        smooth: true,
+                        areaStyle: {},
+                        data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400]
+                    }]
+
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                is_itemcl = 1;
+            }
+            break;
+        case 'itemDS':
+            $("#itemdynam").css("display", "block");
+            if (is_itemdynam == 0) {
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('itemdynam'));
+
+                // 指定图表的配置项和数据
+                var option = {
+
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    },
+                    color: ["#1c66de"],
+                    visualMap: {
+                        show: false,
+                        min: 80,
+                        max: 600,
+                        inRange: {
+                            colorLightness: [0, 1]
+                        }
+                    },
+                    series: [{
+                        name: '分类号',
+                        type: 'pie',
+                        radius: '70%',
+                        center: ['50%', '50%'],
+                        data: [
+                            { value: 335, name: 'A' },
+                            { value: 310, name: 'B' },
+                            { value: 274, name: 'C' },
+                            { value: 235, name: 'D' },
+                            { value: 400, name: 'E' }
+                        ].sort(function (a, b) { return a.value - b.value; }),
+                        roseType: 'radius',
+                        label: {
+                            color: '#2b6ec9'
+                        },
+                        labelLine: {
+                            lineStyle: {
+                                color: '#2b6ec9'
+                            },
+                            smooth: 0.2,
+                            length: 10,
+                            length2: 20
+                        },
+                        itemStyle: {
+                            color: '#1c66de',
+                            shadowBlur: 200,
+                            shadowColor: '#DCE4FF'
+                        },
+
+                        animationType: 'scale',
+                        animationEasing: 'elasticOut',
+                        animationDelay: function (idx) {
+                            return Math.random() * 200;
+                        }
+                    }]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                is_itemdynam = 1;
+            }
+            break;
+        case 'itemRT':
+            $("#itemfam").css("display", "block");
+            if (is_fam == 0) {
+                $.ajax({
+                    url: "/Home/Famliy", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: "{str:'CN96120119'}",
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                        famdata = data;
+                        var tabli = $("#famTemplate").render(famdata);
+                        $("#familyContainer").append(tabli);
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
+                is_fam = 1;
+            }
             break;
     }
 }

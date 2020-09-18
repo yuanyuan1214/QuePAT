@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuePAT.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace QuePAT.Controllers
 {
@@ -20,6 +21,10 @@ namespace QuePAT.Controllers
 
         public IQueryable<PATENT> findByNameContains(string str)
         {
+            if (str == null)
+            {
+                return db.PATENT;
+            }
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str));
             return pATENT;
         }
@@ -35,10 +40,29 @@ namespace QuePAT.Controllers
         }
 
         // Find patent by apply number.
+        public IQueryable<PATENT> findByApplyNumber(string app_num)
+        {
+            if (app_num == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.APP_NUM.Equals(app_num));
+        }
+
+        // Find patent by apply number.
         public ActionResult FindByApplyNumber(string app_num)
         {
-            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num));
-            return new ContentResult { Content = JsonConvert.SerializeObject(pATENT.ToList(), jsSettings) };
+            PATENT pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num)).FirstOrDefault();
+            return new ContentResult { Content = JsonConvert.SerializeObject(pATENT, jsSettings) };
+        }
+
+        public IQueryable<PATENT> findByClassCode(string code)
+        {
+            if (code == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.CLASS_CODE.Equals(code));
         }
 
         // Find patent by classification code.
@@ -49,6 +73,15 @@ namespace QuePAT.Controllers
         }
 
         // Find patent by designer name.
+        public IQueryable<PATENT> findByDesignerName(string name)
+        {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.PERSON.NAME.Equals(name));
+        }
+
         public ActionResult FindByDesignerName(string name)
         {
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PERSON.NAME.Equals(name));
@@ -60,6 +93,16 @@ namespace QuePAT.Controllers
         {
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PATENTEE_NAME.Equals(name));
             return new ContentResult { Content = JsonConvert.SerializeObject(pATENT.ToList(), jsSettings) };
+        }
+
+        // Find patent with patentee name containing str.
+        public IQueryable<PATENT> findByPatenteeNameContains(string name)
+        {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.PATENTEE_NAME.Contains(name));
         }
 
         // Find patent with patentee name containing str.
@@ -77,10 +120,30 @@ namespace QuePAT.Controllers
         }
 
         // Find patent with proposer name containing str.
+        public IQueryable<PATENT> findByProposerNameContains(string name)
+        {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.PROPOSER_NAME.Contains(name));
+        }
+
+        // Find patent with proposer name containing str.
         public ActionResult FindByProposerNameContains(string name)
         {
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PROPOSER_NAME.Contains(name));
             return new ContentResult { Content = JsonConvert.SerializeObject(pATENT.ToList(), jsSettings) };
+        }
+
+        // Find patent by province code.
+        public IQueryable<PATENT> findByProvinceCode(string code)
+        {
+            if (code == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.PLACE_CODE.Equals(code));
         }
 
         // Find patent by province code.
@@ -91,10 +154,30 @@ namespace QuePAT.Controllers
         }
 
         // Find patent by province name.
+        public IQueryable<PATENT> findByProvinceName(string name)
+        {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.PROVINCE.NAME.Equals(name));
+        }
+
+        // Find patent by province name.
         public ActionResult FindByProvinceName(string name)
         {
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.PROVINCE.NAME.Equals(name));
             return new ContentResult { Content = JsonConvert.SerializeObject(pATENT.ToList(), jsSettings) };
+        }
+
+        // Find patent by apply date.
+        public IQueryable<PATENT> findByApplyDate(DateTime date)
+        {
+            if (date == null)
+            {
+                return db.PATENT;
+            }
+            return db.PATENT.Where(p => p.APP_DATE.Date.Equals(date.Date));
         }
 
         // Find patent by apply date.
@@ -124,6 +207,12 @@ namespace QuePAT.Controllers
         }
 
         // Find patent with claim containing str.
+        public IQueryable<PATENT> findByClaimContains(string str)
+        {
+            return db.PATENT.Where(p => p.CLAIM.Contains(str));
+        }
+
+        // Find patent with claim containing str.
         public ActionResult FindByClaimContains(string str)
         {
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.CLAIM.Contains(str));
@@ -144,32 +233,50 @@ namespace QuePAT.Controllers
             };
         }
 
-        // Find number of patents proposed by a company in a specific year.
-        public ActionResult PatentNumInYear(string company_name, int year)
+        public ActionResult SearchExpert
+            (
+            string class_code,
+            string desinger,
+            string app_num,
+            string proposer,
+            string abst,
+            string province,
+            string patentee,
+            string claim
+            )
         {
-            return Content(
-                db.PATENT
-                .Where(
-                    p => p.PROPOSER_NAME.Equals(company_name)
-                    && p.APP_DATE.Year.Equals(year)
-                )
-                .Count()
-                .ToString()
-                );
+            IQueryable<PATENT> pATENTs = findByClassCode(class_code)
+                .Union(findByDesignerName(desinger))
+                .Union(findByApplyNumber(app_num))
+                .Union(findByProposerNameContains(proposer))
+                .Union(findByAbstractContains(abst))
+                .Union(findByProvinceCode(province))
+                .Union(findByPatenteeNameContains(patentee))//改了
+                .Union(findByClaimContains(claim));
+            return new ContentResult { Content = JsonConvert.SerializeObject(pATENTs, jsSettings) };
         }
 
-        public ActionResult PatentNumOfType(string company_name, string class_code)
+        // Find number of patents proposed by a company in a specific year.
+        public ActionResult PatentNumInYear(string company_name)
         {
-            return Content(
-                db.PATENT
-                .Where
-                (
+            var yearPATENT = db.PATENT
+                .Where(
                     p => p.PROPOSER_NAME.Equals(company_name)
-                    && p.CLASS_CODE.Equals(class_code)
                 )
-                .Count()
-                .ToString()
-                );
+                .GroupBy(p => p.APP_DATE.Year)
+                .Select(p => new { YEAR = p.Key, QUANT = p.Count() });
+            return new ContentResult { Content = JsonConvert.SerializeObject(yearPATENT.ToList(), jsSettings) };
+        }
+
+        public ActionResult PatentNumOfType(string company_name)
+        {
+            var typePATENT = db.PATENT
+                .Where(
+                    p => p.PROPOSER_NAME.Equals(company_name)
+                )
+                .GroupBy(p => p.CLASS_CODE.ElementAt(0))
+                .Select(p => new { YEAR = p.Key, QUANT = p.Count() });
+            return new ContentResult { Content = JsonConvert.SerializeObject(typePATENT.ToList(), jsSettings) };
         }
 
     }

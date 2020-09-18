@@ -11,7 +11,13 @@ namespace QuePAT.Controllers
 {
     public class LAW_STATUSQuery : Control
     {
+        static JsonSerializerSettings jsSettings = new JsonSerializerSettings();
         private Entities db = new Entities();
+
+        public LAW_STATUSQuery()
+        {
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        }
 
         // get law status of app_num, ordered by announce date decending.
         public IQueryable<LAW_STATUS> getLawStatus(string app_num)
@@ -26,7 +32,7 @@ namespace QuePAT.Controllers
         {
             IQueryable<LAW_STATUS> lAW_STATUS = db.LAW_STATUS.Where(l => l.APP_NUM == app_num)
                 .OrderByDescending(l => l.ANNOUNCE_DATE);
-            string json = JsonConvert.SerializeObject(lAW_STATUS.ToList());
+            string json = JsonConvert.SerializeObject(lAW_STATUS.ToList(), jsSettings);
             return new ContentResult { Content = json };
         }
 
@@ -41,7 +47,7 @@ namespace QuePAT.Controllers
         public ActionResult GetNewestLawStatus(string app_num)
         {
             LAW_STATUS lAW_STATUS = getNewestLawStatus(app_num);
-            string json = JsonConvert.SerializeObject(lAW_STATUS);
+            string json = JsonConvert.SerializeObject(lAW_STATUS, jsSettings);
             return new ContentResult { Content = json };
         }
     }
