@@ -222,8 +222,27 @@
         {{for}}
         <tr>
             <td><span>{{dateconvert:#data.ANNOUNCE_DATE}}</span></td>
-
-            <td><span>{{:#data.STATUS}}</span></td>
+            {{if #data.STATUS==0}}
+            <td><span>申请</span></td>
+            {{else #data.STATUS==1}}
+            <td><span>受理</span></td>
+            {{else #data.STATUS==2}}
+            <td><span>初审合格</span></td>
+            {{else #data.STATUS==3}}
+            <td><span>实审</span></td>
+            {{else #data.STATUS==4}}
+            <td><span>公布</span></td>
+            {{else #data.STATUS==5}}
+            <td><span>审查意见</span></td>
+            {{else #data.STATUS==6}}
+            <td><span>授权</span></td>
+            {{else #data.STATUS==7}}
+            <td><span>下证</span></td>
+            {{else #data.STATUS==8}}
+            <td><span>撤回</span></td>
+            {{else #data.STATUS==9}}
+            <td><span>其他</span></td>
+            {{/if}}
             <td><span>{{:#data.MSG}}</span></td>
             {{if #data.DETAIL==""||#data.DETAIL==null}}
             <td><span>无</span></td>

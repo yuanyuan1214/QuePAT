@@ -1,0 +1,370 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Hami - Web Hosting HTML Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/Img/img/core-img/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/navigator.css" />
+</head>
+
+<body>
+
+    <div class="login-wrap">
+        <div class="login-box">
+            <div class="login-head">
+                <div class="login-com cheack" onclick="chooseNav(0)">
+                    登录
+                </div>
+                <div class="login-com" onclick="chooseNav(1)">
+                    注册
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="login-function" id="login-box">
+                <div class="user-box">
+                    <div class="user-ist cheack" onclick="chooseUser(0)" id="tag-user">用户</div>
+                    <div class="user-ist" onclick="chooseUser(1)">管理员</div>
+                </div>
+                <input type="text" class="input-box" placeholder="请输入用户名" id="userid" />
+                <input type="password" class="input-box" placeholder="请输入密码" id="pwd" />
+                <div class="login-but" id="btn-login">登录</div>
+            </div>
+
+
+            <div class="reg-function" id="reg-box" style="display: none;">
+                <input type="text" class="input-box" placeholder="请输入用户名" id="re_userid" />
+                <input type="password" class="input-box" placeholder="请输入密码" oninput="cheackUserPassword()" id="re_pwd" maxlength="16" />
+                <div class="error-message" id="cheack-password-error" style="display: none;">密码为4-16位</div>
+                <input type="password" class="input-box" placeholder="请确认密码" name="1" id="con_re_pwd" oninput="cheackPassword()" maxlength="16" />
+                <div class="error-message" id="cheack-cheack-error" style="display: none;">密码输入不一致</div>
+                <input type="number" class="input-box" placeholder="请输入手机号" name="user-phone" id="Phone" oninput="cheackUserName(this, 'user-name-error')" maxlength="11" onkeyup="this.value=this.value.replace(/\D/g,'')"   />
+                <div class="error-message" id="user-name-error" style="display: none;">手机号格式有误</div>
+                <input type="text" class="input-box" placeholder="请输入邮箱" id="Email" />
+                <div class="login-but" id="btn-register">注册</div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/navigator.js"></script>
+
+    <script>
+
+        function logout() {
+            var uid = $("#userid").val();
+           // var pwd = $("#pwd").val();
+            $.ajax({
+                type: "post",
+                url: "./Logout",
+                data: { user_id: uid},
+                success: function (res) {
+                    console.log(res);
+
+                }
+            });
+            alert("logout");
+        }
+
+        $(function () {
+            $("#btn-login").click(function () {
+                //alert("login");
+                //alert();
+                //console.log($("#tag-user").css("color"));
+
+
+                var uid = $("#userid").val();
+                var pwd = $("#pwd").val();
+                var mark = $("#tag-user").css("color");
+                if (mark == 'rgb(0, 0, 0)') {//用户
+                    $.ajax({
+                        type: "post",
+                        url: "./Login",
+                        data: { user_id: uid, password: pwd, mark: 0 },
+                        success: function (res) {
+                            console.log(res);
+                            if (res == "Login success.") {
+                                console.log("here tiaozhuan")
+                                window.location.href = "initial?uid=" + uid;
+                            }
+                            if (res == "You have logined") {
+                                alert('对不起，您的账号已在别处登录');
+                            }
+                        }
+                    });
+                }
+
+            });
+            $("#btn-register").click(function () {
+                //alert("register");
+                var reuserid = $("#re_userid").val();
+                var repwd = $("#re_pwd").val();
+                var conrepwd = $("#con_re_pwd").val();
+                var phone = $("#Phone").val();
+                var email = $("#Email").val();
+
+                $.ajax({
+                    type: "post",
+                    url: "./Register",
+                    data: { re_userid: reuserid, re_pwd: repwd, con_re_pwd: conrepwd, Phone: phone, Email: email },
+                    success: function (res) {
+                        console.log(res);
+
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+
+
+    <script type="text/javascript">
+
+
+        var admin = {
+            account: 'cfjy',
+            password: '666666'
+        }
+        var loginType = 0
+
+        $(".login-but").click(function () {
+            console.log(111);
+            var userName = $('#userid').val();
+            var password = $('#pwd').val();
+            var uid = $("#userid").val();
+            var pwd = $("#pwd").val();
+            console.log('userName: ', userName);
+            var mark = $("#tag-user").css("color");
+            if (mark == 'rgb(0, 0, 0)') {
+                loginType = 0;
+            }
+            else
+                loginType = 1;
+            console.log(loginType);
+
+            if (loginType === 0) {
+                // 用户登录
+            } else {
+                // 管理员登录
+                $.ajax({
+                    type: "post",
+                    url: "./Login",
+                    data: { user_id: uid, password: pwd, mark: 1 },//管理员
+                    success: function (res) {
+                        console.log(res);
+                        if (res == "Login success.") {
+                            console.log("here tiaozhuan")
+                            window.location.href = "initial?uid=" + uid;
+                        }
+                        if (res == "You have logined") {
+                            alert('对不起，您的账号已在别处登录');
+                        }
+                    }
+                });
+
+            }
+        });
+
+
+        var iserror = false
+        function chooseNav(index) {
+            let nav = document.getElementsByClassName('login-com')
+            let loginBox = document.getElementById('login-box')
+            let regBox = document.getElementById('reg-box')
+            nav[0].classList.remove("cheack");
+            nav[1].classList.remove("cheack");
+            nav[index].classList.add("cheack");
+            if (index === 0) {
+                loginBox.style.display = 'block'
+                regBox.style.display = 'none'
+            } else {
+                loginBox.style.display = 'none'
+                regBox.style.display = 'block'
+            }
+        }
+
+        function chooseUser(index) {
+            let userType = document.getElementsByClassName('user-ist')
+            userType[0].classList.remove("cheack");
+            userType[1].classList.remove("cheack");
+            userType[index].classList.add("cheack")
+        }
+        function cheackUserName(e, errorDom) {
+            console.log(errorDom)
+            if (!(/^1[3456789]\d{9}$/.test(e.value))) {
+                document.getElementById(errorDom).style.display = 'block'
+                iserror = true
+            } else {
+                document.getElementById(errorDom).style.display = 'none'
+                iserror = false
+            }
+        }
+        function cheackUserPassword() {
+            let passBox = document.getElementById('re_pwd')
+            if (passBox.value.length > 16 || passBox.value.length < 4) {
+                document.getElementById('cheack-password-error').style.display = 'block'
+                iserror = true
+            } else {
+                document.getElementById('cheack-password-error').style.display = 'none'
+                iserror = false
+            }
+        }
+        function cheackPassword() {
+            let passBox = document.getElementById('re_pwd')
+            let cheackPass = document.getElementById('con_re_pwd')
+            console.log(passBox.value, cheackPass.value)
+            if (passBox.value !== cheackPass.value) {
+                document.getElementById('cheack-cheack-error').style.display = 'block'
+                iserror = true
+
+            } else {
+                document.getElementById('cheack-cheack-error').style.display = 'none'
+                iserror = false
+            }
+        }
+        function cheackLoginPassword() {
+            let passBox = document.getElementById('pwd')
+            if (passBox.value.length > 16 || passBox.value.length < 4) {
+                document.getElementById('login-password-error').style.display = 'block'
+            } else {
+                document.getElementById('login-password-error').style.display = 'none'
+            }
+        }
+        function regBtn() {
+            console.log(iserror)
+            if (iserror === true) {
+                alert('表单仍有错误')
+            }
+        }
+    </script>
+    <style type="text/css">
+        body {
+            background: #2b6ec9;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        .user-box {
+            height: 50px;
+        }
+
+        .user-ist {
+            width: 50%;
+            float: left;
+            text-align: center;
+            color: #c8c8c8;
+            font-size: 14px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        .login-box {
+            width: 300px;
+            min-height: 350px;
+            background: #fff;
+            border-radius: 5px;
+            border: 1px solid #ACACAC;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            top: 100px;
+        }
+
+        .login-head {
+            height: 60px;
+            background: #f1f7fc;
+            border-bottom: 1px solid #aaaaff;
+        }
+
+        .login-wrap {
+            width: 300px;
+            margin: 0 auto;
+            margin-top: 60px;
+        }
+
+        .login-com {
+            width: 50%;
+            float: left;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+            color: #c8c8c8;
+        }
+
+        .cheack {
+            color: #000000;
+        }
+
+        .login-function {
+            margin-top: 20px;
+        }
+
+        .input-box {
+            box-sizing: border-box;
+            width: 90%;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            color: #bebebe;
+            font-size: 14px;
+            padding: 10px;
+            margin: 10px 5%;
+            height: 40px;
+            vertical-align: middle;
+            border-radius: 4px;
+        }
+
+        .login-but {
+            display: inline-block;
+            height: 36px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            width: 90%;
+            margin: 10px 5%;
+            line-height: 38px;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+            -webkit-transition: all .3s;
+            -o-transition: all .3s;
+            -moz-transition: all .3s;
+            transition: all .3s;
+            border: 1px solid #1c66de;
+            color: #fff;
+            background-color: #1c66de;
+        }
+        /* 注册模块 */
+
+        .reg-function {
+            margin-top: 10px;
+        }
+
+        .error-message {
+            color: #BD2130;
+            font-size: 14px;
+            margin: 0px 5%;
+        }
+    </style>
+</body>
+
+</html>
