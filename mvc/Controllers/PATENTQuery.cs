@@ -239,8 +239,8 @@ namespace QuePAT.Controllers
                 .Where(
                     p => p.PROPOSER_NAME.Equals(company_name)
                 )
-                .GroupBy(p => p.CLASS_CODE.ElementAt(0))
-                .Select(p => new { YEAR = p.Key, QUANT = p.Count() });
+                .GroupBy(p => p.CLASS_CODE.Substring(0, 1))
+                .Select(p => new { TYPE = p.Key, QUANT = p.Count() });
             return new ContentResult { Content = JsonConvert.SerializeObject(typePATENT.ToList(), jsSettings) };
         }
     }

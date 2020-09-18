@@ -1,11 +1,16 @@
 ﻿var datare = {};
 var lawdata = [];
 var famdata = [];
+var x = [];
+var y = [];
+var types = [];
 
 var is_law = 0;
 var is_fam = 0;
 var is_itemcl = 0;
 var is_itemdynam = 0;
+var stringcom = "";
+
 
 var company = '';
 
@@ -28,6 +33,7 @@ $(document).ready(function () {
             console.log(data);
             company = data.PROPOSER_NAME;
             datare = data;
+            stringcom = "{str:" + "'" + company + "'}";
             var html2 = $("#Tmpl").render(datare);
             $("#itemInfoContainer").append(html2);
 
@@ -100,7 +106,6 @@ function switchs() {
         case 'itemCL':
             $("#itemyear").css("display", "block");
             if (is_itemcl == 0) {
-                var stringcom = "{str:" + "'" + company + "'}";
                 console.log(stringcom);
                 $.ajax({
                     url: "/Home/Year", //改成相应函数接口
@@ -113,6 +118,12 @@ function switchs() {
                     traditional: true,
                     success: function (data) {
                         console.log(data);
+                        for (var i = 0; i < data.length; ++i){
+                    x.push(data[i].YEAR);
+                    y.push(data[i].QUANT);
+                    x.sort();
+                }
+
                     },
                     error: function (message) {
                         alert("查询数据失败！");
@@ -141,7 +152,7 @@ function switchs() {
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
+                        data: x
                     },
                     yAxis: {
                         type: 'value',
@@ -162,7 +173,7 @@ function switchs() {
                         type: 'line',
                         smooth: true,
                         areaStyle: {},
-                        data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400]
+                        data: y
                     }]
 
                 };
@@ -175,6 +186,28 @@ function switchs() {
         case 'itemDS':
             $("#itemdynam").css("display", "block");
             if (is_itemdynam == 0) {
+                $.ajax({
+                    url: "/Home/Type", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: stringcom,
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                        for (var i = 0; i < data.length; ++i) {
+                            var m = data[i].QUANT;
+                            var n = data[i].TYPE;
+                            var object = { value: m, name: n };
+                            types.push(object);
+                        }
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('itemdynam'));
 
@@ -199,13 +232,7 @@ function switchs() {
                         type: 'pie',
                         radius: '70%',
                         center: ['50%', '50%'],
-                        data: [
-                            { value: 335, name: 'A' },
-                            { value: 310, name: 'B' },
-                            { value: 274, name: 'C' },
-                            { value: 235, name: 'D' },
-                            { value: 400, name: 'E' }
-                        ].sort(function (a, b) { return a.value - b.value; }),
+                        data: types.sort(function (a, b) { return a.value - b.value; }),
                         roseType: 'radius',
                         label: {
                             color: '#2b6ec9'
