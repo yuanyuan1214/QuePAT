@@ -41,7 +41,7 @@ namespace QuePAT.Controllers
                 db.PATENT.Where(
                     p => p.NAME.Contains(str)
                     )
-                .Select(p => new { NAME = p.NAME, APP_DATE = p.APP_DATE }
+                .Select(p => new { APP_NUM = p.APP_NUM, NAME = p.NAME, APP_DATE = p.APP_DATE }
                 )
                 .ToList(), jsSettings);
             return new ContentResult { Content = json };
@@ -139,5 +139,11 @@ namespace QuePAT.Controllers
             return View();
         }
 
+        public ActionResult SearchByName()
+        {
+            string name = Request["searchStr"];
+            var data = FindByNameContains(name);
+            return data;
+        }
     }
 }

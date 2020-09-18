@@ -28,14 +28,16 @@
                     success: function (res) {
                         //var json = eval(res);
                         obj = eval(res);
+                        console.log(obj);
                         for (var i = 1; i < 10; i++) {
                             $("#li" + i).css("display", "none");
                         }
                         console.log(obj);
                         console.log(typeof obj);
-                        if (typeof obj == undefined) {
+                        if (typeof obj == "undefined" || obj.length == 0) {
                             $("#line1").text("没有搜索结果，请输入其他关键字");
-                            $("#li1").css("display", "block");
+                           // $("#li1").css("display", "block");
+                            alert("没有搜索到相关结果！");
                         } else {
                             lPageNum = Math.ceil(obj.length / 9);
                             $("#totalPagehtml").text("总页数：" + lPageNum);
@@ -123,8 +125,13 @@
         }
         function openPatentDetail(num) {
             var patentNum = (pageNum - 1) * 9 + num - 1;
-            var patentCode = obj[i].APP_NUM;
+            var patentCode = obj[patentNum].APP_NUM;
             // 将patentCode接在url后面调用俊妍的页面
+            console.log(window.location.href);
+            console.log(patentCode);
+            var reff = "../Home/Result?ap=" + encodeURI(patentCode);
+            console.log(reff);
+            window.location.href = reff;
         }
     </script>
 </head>
