@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using QuePAT.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Web.DynamicData;
 
 namespace QuePAT.Controllers
 {
@@ -22,6 +21,10 @@ namespace QuePAT.Controllers
 
         public IQueryable<PATENT> findByNameContains(string str)
         {
+            if (str == null)
+            {
+                return db.PATENT;
+            }
             IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str));
             return pATENT;
         }
@@ -39,6 +42,10 @@ namespace QuePAT.Controllers
         // Find patent by apply number.
         public IQueryable<PATENT> findByApplyNumber(string app_num)
         {
+            if (app_num == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.APP_NUM.Equals(app_num));
         }
 
@@ -51,6 +58,10 @@ namespace QuePAT.Controllers
 
         public IQueryable<PATENT> findByClassCode(string code)
         {
+            if (code == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.CLASS_CODE.Equals(code));
         }
 
@@ -64,6 +75,10 @@ namespace QuePAT.Controllers
         // Find patent by designer name.
         public IQueryable<PATENT> findByDesignerName(string name)
         {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.PERSON.NAME.Equals(name));
         }
 
@@ -83,6 +98,10 @@ namespace QuePAT.Controllers
         // Find patent with patentee name containing str.
         public IQueryable<PATENT> findByPatenteeNameContains(string name)
         {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.PATENTEE_NAME.Contains(name));
         }
 
@@ -103,6 +122,10 @@ namespace QuePAT.Controllers
         // Find patent with proposer name containing str.
         public IQueryable<PATENT> findByProposerNameContains(string name)
         {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.PROPOSER_NAME.Contains(name));
         }
 
@@ -116,6 +139,10 @@ namespace QuePAT.Controllers
         // Find patent by province code.
         public IQueryable<PATENT> findByProvinceCode(string code)
         {
+            if (code == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.PLACE_CODE.Equals(code));
         }
 
@@ -129,6 +156,10 @@ namespace QuePAT.Controllers
         // Find patent by province name.
         public IQueryable<PATENT> findByProvinceName(string name)
         {
+            if (name == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.PROVINCE.NAME.Equals(name));
         }
 
@@ -142,6 +173,10 @@ namespace QuePAT.Controllers
         // Find patent by apply date.
         public IQueryable<PATENT> findByApplyDate(DateTime date)
         {
+            if (date == null)
+            {
+                return db.PATENT;
+            }
             return db.PATENT.Where(p => p.APP_DATE.Date.Equals(date.Date));
         }
 
@@ -206,7 +241,7 @@ namespace QuePAT.Controllers
             string proposer,
             string abst,
             string province,
-            string app_date,
+            string patentee,
             string claim
             )
         {
@@ -216,7 +251,7 @@ namespace QuePAT.Controllers
                 .Union(findByProposerNameContains(proposer))
                 .Union(findByAbstractContains(abst))
                 .Union(findByProvinceCode(province))
-                .Union(findByApplyDate(Convert.ToDateTime(app_date)))
+                .Union(findByPatenteeNameContains(patentee))//改了
                 .Union(findByClaimContains(claim));
             return new ContentResult { Content = JsonConvert.SerializeObject(pATENTs, jsSettings) };
         }
@@ -243,5 +278,6 @@ namespace QuePAT.Controllers
                 .Select(p => new { YEAR = p.Key, QUANT = p.Count() });
             return new ContentResult { Content = JsonConvert.SerializeObject(typePATENT.ToList(), jsSettings) };
         }
+
     }
 }
