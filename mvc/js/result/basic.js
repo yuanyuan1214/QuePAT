@@ -7,6 +7,8 @@ var is_fam = 0;
 var is_itemcl = 0;
 var is_itemdynam = 0;
 
+var company = '';
+
 $(document).ready(function () {
     var queryJson = [];
     var row = {};
@@ -24,6 +26,7 @@ $(document).ready(function () {
         traditional: true,
         success: function (data) {
             console.log(data);
+            company = data.PROPOSER_NAME;
             datare = data;
             var html2 = $("#Tmpl").render(datare);
             $("#itemInfoContainer").append(html2);
@@ -97,6 +100,24 @@ function switchs() {
         case 'itemCL':
             $("#itemyear").css("display", "block");
             if (is_itemcl == 0) {
+                var stringcom = "{str:" + "'" + company + "'}";
+                console.log(stringcom);
+                $.ajax({
+                    url: "/Home/Year", //改成相应函数接口
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    //data: JSON.stringify(queryJson[0]),
+                    data: stringcom,
+                    dataType: "json",
+                    traditional: true,
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (message) {
+                        alert("查询数据失败！");
+                    }
+                });
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('itemyear'));
 

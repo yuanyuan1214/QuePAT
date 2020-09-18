@@ -58,5 +58,17 @@ namespace QuePAT.Controllers
             FAMILYQuery fAMILYQuery  = new FAMILYQuery();
             return fAMILYQuery.FamilyOf(str);
         }
+        [HttpPost]
+        public ActionResult Year(string str)
+        {
+            PATENTQuery pATENTQuery = new PATENTQuery();
+            return pATENTQuery.PatentNumInYear(str);
+        }
+        [HttpPost]
+        public ActionResult Type(string str)
+        {
+            PATENTQuery pATENTQuery = new PATENTQuery();
+            return pATENTQuery.PatentNumOfType(str);
+        }
     }
 }

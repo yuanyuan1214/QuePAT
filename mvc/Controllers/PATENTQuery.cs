@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuePAT.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Web.DynamicData;
 
 namespace QuePAT.Controllers
 {
@@ -223,30 +224,24 @@ namespace QuePAT.Controllers
         // Find number of patents proposed by a company in a specific year.
         public ActionResult PatentNumInYear(string company_name)
         {
-            return Content(
-                db.PATENT
+            var yearPATENT = db.PATENT
                 .Where(
                     p => p.PROPOSER_NAME.Equals(company_name)
                 )
                 .GroupBy(p => p.APP_DATE.Year)
-                .Count()
-                .ToString()
-                );
+                .Select(p => new { YEAR = p.Key, QUANT = p.Count() });
+            return new ContentResult { Content = JsonConvert.SerializeObject(yearPATENT.ToList(), jsSettings) };
         }
 
         public ActionResult PatentNumOfType(string company_name)
         {
-            return Content(
-                db.PATENT
-                .Where
-                (
+            var typePATENT = db.PATENT
+                .Where(
                     p => p.PROPOSER_NAME.Equals(company_name)
                 )
                 .GroupBy(p => p.CLASS_CODE.ElementAt(0))
-                .Count()
-                .ToString()
-                );
+                .Select(p => new { YEAR = p.Key, QUANT = p.Count() });
+            return new ContentResult { Content = JsonConvert.SerializeObject(typePATENT.ToList(), jsSettings) };
         }
-
     }
 }
