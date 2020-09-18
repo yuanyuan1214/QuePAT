@@ -24,16 +24,20 @@ namespace QuePAT.Controllers
             jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
 
-        public IQueryable<PATENT> findByNameContains(string str)
-        {
-            IQueryable<PATENT> pATENT = db.PATENT.Where(p => p.NAME.Contains(str));
-            return pATENT;
-        }
-
         // Find patent with name containing string str.
         public ActionResult FindByNameContains(string str)
         {
-            string json = JsonConvert.SerializeObject(findByNameContains(str).ToList(), jsSettings);
+            if (str == "" || str == null)
+            {
+                return null;
+            }
+            string json = JsonConvert.SerializeObject(
+                db.PATENT.Where(
+                    p => p.NAME.Contains(str)
+                    )
+                .Select(p => new { NAME = p.NAME, APP_DATE = p.APP_DATE }
+                )
+                .ToList(), jsSettings);
             return new ContentResult { Content = json };
         }
 
