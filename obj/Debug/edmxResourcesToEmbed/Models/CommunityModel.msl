@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CommunityEntities">
+    <EntitySetMapping Name="CMNT">
+      <EntityTypeMapping TypeName="Model.CMNT">
+        <MappingFragment StoreEntitySet="CMNT">
+          <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+          <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+          <ScalarProperty Name="CMNT_TIME" ColumnName="CMNT_TIME" />
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="IS_DELETE" ColumnName="IS_DELETE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DISCUSSION">
+      <EntityTypeMapping TypeName="Model.DISCUSSION">
+        <MappingFragment StoreEntitySet="DISCUSSION">
+          <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+          <ScalarProperty Name="PUT_UP_USR_ID" ColumnName="PUT_UP_USR_ID" />
+          <ScalarProperty Name="TOPIC" ColumnName="TOPIC" />
+          <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+          <ScalarProperty Name="INIT_TIME" ColumnName="INIT_TIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RELATED_FILED">
+      <EntityTypeMapping TypeName="Model.RELATED_FILED">
+        <MappingFragment StoreEntitySet="RELATED_FILED">
+          <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+          <ScalarProperty Name="RELA_FIELD" ColumnName="RELA_FIELD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USR">
+      <EntityTypeMapping TypeName="Model.USR">
+        <MappingFragment StoreEntitySet="USR">
+          <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+          <ScalarProperty Name="LOGIN_NAME" ColumnName="LOGIN_NAME" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="REG_TIME" ColumnName="REG_TIME" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Community_Module_of_QuePAT.Models.DISCUSSION>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TOPIC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CONTENT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.INIT_TIME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.USR.LOGIN_NAME)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TOPIC)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CONTENT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.INIT_TIME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.USR.LOGIN_NAME)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DISC_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DISC_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DISC_ID })
+        </td>
+    </tr>
+}
+
+</table>

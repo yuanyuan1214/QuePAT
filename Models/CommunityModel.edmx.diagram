@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1f8200d248704e8d8a80f8eb05959d05" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.CMNT" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DISCUSSION" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RELATED_FILED" Width="1.5" PointX="5.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.USR" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.SYS_C0010079" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SYS_C0010080" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SYS_C0010071" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.SYS_C0010073" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

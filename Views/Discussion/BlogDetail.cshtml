@@ -1,0 +1,164 @@
+﻿@*
+    QuePAT社区模块————议题详情界面
+    
+    功能：用户可查看议题的详细信息，包括议题名称、创建人、创建时间、议题内容、相关评论
+*@
+
+@{
+    Layout = null;
+}
+@using Community_Module_of_QuePAT.Controllers;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <title>QuePAT--议题内容</title>
+
+    <link rel="stylesheet" href="~/Content/Blog.css">
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="top">
+        <div id="menu">
+            <ul>
+                <li class="logo"><img src="~/Img/logo.png"></li>
+                <li><a href=""> 首页</a></li>
+                <li><a href="BlogMain"> 全部议题</a></li>
+                <li><a href=""> 我的议题</a></li>
+                <li><a href="BlogEdit"> 发布议题</a></li>
+                <li class="tab"><a href="">登录 / 注册</a></li>
+            </ul>
+        </div>
+    </div>
+
+    @{
+        // 获取该议题详情页的议题
+        var disc_id = Request["disc_id"];
+        var cont = new Community_Module_of_QuePAT.Controllers.DiscussionController();
+        var disc = cont.QueryByDiscID(disc_id);
+        //获取议题下的评论
+        var allCmt = cont.QueryCmtByDisc(disc_id);
+
+        foreach (var item in disc)
+        {
+            <div id="blog-content">
+                <p class="siztitle">@item.TOPIC</p>
+                <p style="margin-top: 50px;color: gray">
+                    <img src="~/Img/photo.png">@item.PUT_UP_USR_ID<img src="~/Img/time.png"
+                                                                       style="margin-left: 20px">@item.INIT_TIME
+                </p>
+                
+                <div class="content" v-html="content">
+                @item.CONTENT
+                </div>
+            </div>
+
+            <p class="com-p"><img src="~/Img/comment.png"> 评论</p>
+            <div class="com-div">
+                <div class="com-result">
+
+                </div>
+                @foreach (var cmt in allCmt)
+                {
+                    <div class="com-list">
+                        <div class="com-left">
+                            <img src="~/Img/photo.png"><br>@(cmt.USR_ID)
+                        </div>
+                        <div class="com-right">
+                            <div class="com-text" style="float:left">发表于@(cmt.CMNT_TIME)</div>
+                            <div class="com-text" style="float:right">&nbsp;<a href="javascript:setCaretAtEnd('');">回复</a>></div>
+                            <div class="com-content">@cmt.CONTENT</div>
+                        </div>
+                    </div>
+                }
+
+                <div style="clear:both;height:40px;"></div>
+                <div class="com-left">
+                    <img src="~/Img/photo.png"><br>网友
+                </div>
+
+                <div class="com-right">
+                    <form action="#">
+                        <textarea class="com-blank" cols="85" rows="5" id="com-txt" placeholder="发表评论"></textarea>
+                        <input class="com-input" type="button" id="pub_btn" value="发布评论">
+                    </form>
+                </div>
+
+            </div>
+        }
+    }
+
+
+
+    <!--footer 开始-->
+    <div class="footer">
+        <div class="footerbg"></div>
+        <div class="d_nav">
+            <a href="/web/c_000000040014">网站地图</a>|
+            <a href="/web/c_0000000400100002">联系我们</a>|
+
+            <a>业务投诉:123456789@tongji.edu.cn</a>
+        </div>
+        <p>同济大学专利管理系统</p>
+    </div>
+
+    <!--footer 结束-->
+</body>
+
+<script>
+    var disc_id;
+
+    window.onload = function () {
+        document.getElementsByClassName('com-input').onclick = function () {
+            //更改bai字体du颜色
+            document.getElementsByClassName('Txt').style.color = "red";
+            //更改背景颜色
+            document.getElementById('Txt').style.backgroundColor = "red";
+        }
+
+        var url = document.URL.split('?')[1];
+        disc_id = url.split("=")[1];
+        console.log(disc_id);
+
+
+        $('#pub_btn').click(function () {
+            var postData = {};
+            postData.disc_id = disc_id;
+            postData.usr_id = 1;// 默认用户
+
+            postData.content = $("#com-txt").val();
+
+            $.ajax({
+                type: "post",
+                url: "./CreateCmt",
+                data: { disc_id: postData.disc_id, usr_id: postData.usr_id, content: postData.content },
+                success: function (res) {
+                    if (res == null) {
+                        alert("请输入评论内容！");
+                    }
+                    else {
+                        var start = (new Date()).getTime();
+                        // 阻塞2s
+                        while ((new Date()).getTime() - start < 500) {
+                            continue;
+                        }
+
+                        window.location.href = document.URL;
+                    }
+                }
+            })
+
+
+        })
+
+    }
+</script>
+
+</html>
+

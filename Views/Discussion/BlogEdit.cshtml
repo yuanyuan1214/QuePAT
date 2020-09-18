@@ -1,0 +1,180 @@
+﻿@*
+    QuePAT社区模块————发布议题界面
+    
+    功能：用户可在此界面发布议题
+*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发布文章</title>
+
+    <link rel="stylesheet" href="~/Content/bootstrap2.min.css">
+    <link rel="stylesheet" href="~/Content/Blog.css">
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/navigator.js"></script>
+    <script src="~/Scripts/wangEditor.min.js"></script>
+
+    <style>
+
+        .toolbar {
+            border: 1px solid #ccc;
+        }
+
+        .text {
+            border: 1px solid #ccc;
+            height: 500px;
+        }
+    </style>
+
+    <script>
+        function removeTag(str) {
+            return str.replace(/<[^>]+>/g, "");
+        }
+
+        $(function () {
+            //富文本编辑器初始化代码
+            var E = window.wangEditor;
+            var editor = new E('#div1', '#div2');
+
+            editor.customConfig.menus = [
+
+            ]
+            editor.create();
+
+            //创建replaceAll()函数,用于替换字符串中出现的所有某个字符
+            String.prototype.replaceAll = function (FindText, RepText) {
+                return this.replace(new RegExp(FindText, "g"), RepText);
+            };
+
+            //发布文章按钮的点击事件，即封装数据，向后台传递
+            $("#publishBtn").click(function () {
+                console.info("click");
+                var postData = {};
+                postData.title = $("#titleInput").val();
+                postData.category = $("#categoryInput").val();
+
+                //替换双引号为两个单引号，方便编写SQL语句插入数据库中
+                //var content = editor.txt.html().replaceAll("\"", "\'\'");
+                var content = editor.txt.html();
+                postData.content = removeTag(content);
+
+                console.info(content);
+                postData.author_acc = "123";
+                postData.author_name = "admin";
+                postData.create_time = new Date().toLocaleDateString();
+                postData.last_edit_time = new Date().toLocaleDateString();
+                console.info(postData);
+
+                //向后台传递数据，需要根据具体后台来改
+                //$.post("http://localhost:8099/publishArticle", postData, function (data) {
+
+                //    alert(data);
+                //})
+                $.ajax({
+                    type: "post",
+                    url: "./CreateDisc",
+                    data: { usr_id: 1, topic: postData.title, content: postData.content },
+                    success: function (res) {
+
+                        var start = (new Date()).getTime();
+                        // 阻塞2s
+                        while ((new Date()).getTime() - start < 500) {
+                            continue;
+                        }
+
+                        window.location.href = 'BlogMain'
+                    }
+                })
+
+            })
+
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <div id="top">
+        <div id="menu">
+            <ul>
+                <li class="logo"><img src="~/Img/logo.png"></li>
+                <li><a href=""> 首页</a></li>
+                <li><a href="BlogMain"> 全部议题</a></li>
+                <li><a href=""> 我的议题</a></li>
+                <li><a href="BlogEdit"> 发布议题</a></li>
+                <li class="tab"><a href="">登录 / 注册</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row" style="min-height: 15px"></div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+
+        <div class="col-md-6" style="padding-left: 0px">
+            <div class="card">
+                <div class="card-header" style="background-color: white">
+                    <div class="row">
+                        <div class="col-md-3" style="font-size: 18px">发布议题</div>
+
+                    </div>
+                </div>
+
+                <div class="card-body" style="min-height: 500px;">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="input-group mb-1 mt-2 ml-0 mr-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">议题标题</span>
+                                </div>
+                                <input id="titleInput" type="text" class="form-control" placeholder="不多于100字"
+                                       style="margin-right: 5px">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div style="padding: 8px 0; color: #ccc"></div>
+                    <div id="div1" class="toolbar">
+                    </div>
+
+                    <div id="div2" class="text" placeholder="不多于4000字">
+                    </div>
+
+                    <div class="row" style="padding: 30px 15px;">
+                        <div class="col-md-8 "></div>
+                        <div class="col-md-2 ml-0">
+                            <button type="button" id="publishBtn" class="btn btn-primary" ipublishBtnd="" >发布</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-light">返回</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="min-height: 30px"></div>
+
+    </div>
+
+</body>
+
+</html>

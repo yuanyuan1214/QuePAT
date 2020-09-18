@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="12.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CMNT">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+            <PropertyRef Name="USR_ID" />
+            <PropertyRef Name="CMNT_TIME" />
+          </Key>
+          <Property Name="DISC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CMNT_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar2" MaxLength="4000" Nullable="false" />
+          <Property Name="IS_DELETE" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DISCUSSION">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+          </Key>
+          <Property Name="DISC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PUT_UP_USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TOPIC" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="CONTENT" Type="varchar2" MaxLength="4000" Nullable="false" />
+          <Property Name="INIT_TIME" Type="timestamp" Precision="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RELATED_FILED">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+            <PropertyRef Name="RELA_FIELD" />
+          </Key>
+          <Property Name="DISC_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="RELA_FIELD" Type="varchar2" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USR">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LOGIN_NAME" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar2" MaxLength="20" Nullable="false" />
+          <Property Name="REG_TIME" Type="timestamp" Precision="6" Nullable="false" />
+          <Property Name="PHONE" Type="varchar2" MaxLength="20" />
+          <Property Name="EMAIL" Type="varchar2" MaxLength="255" />
+          <Property Name="COMPANY" Type="varchar2" MaxLength="255" />
+          <Property Name="ADDRESS" Type="varchar2" MaxLength="255" />
+        </EntityType>
+        <Association Name="SYS_C0010071">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="DISCUSSION">
+              <PropertyRef Name="PUT_UP_USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0010073">
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="1" />
+          <End Role="RELATED_FILED" Type="Self.RELATED_FILED" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISCUSSION">
+              <PropertyRef Name="DISC_ID" />
+            </Principal>
+            <Dependent Role="RELATED_FILED">
+              <PropertyRef Name="DISC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0010079">
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISCUSSION">
+              <PropertyRef Name="DISC_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="DISC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0010080">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="CMNT" EntityType="Self.CMNT" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="DISCUSSION" EntityType="Self.DISCUSSION" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="RELATED_FILED" EntityType="Self.RELATED_FILED" Schema="SYSTEM" store:Type="Tables" />
+          <EntitySet Name="USR" EntityType="Self.USR" Schema="SYSTEM" store:Type="Tables" />
+          <AssociationSet Name="SYS_C0010071" Association="Self.SYS_C0010071">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0010073" Association="Self.SYS_C0010073">
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+            <End Role="RELATED_FILED" EntitySet="RELATED_FILED" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0010079" Association="Self.SYS_C0010079">
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0010080" Association="Self.SYS_C0010080">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CMNT">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+            <PropertyRef Name="USR_ID" />
+            <PropertyRef Name="CMNT_TIME" />
+          </Key>
+          <Property Name="DISC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="CMNT_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IS_DELETE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DISCUSSION" Relationship="Self.SYS_C0010079" FromRole="CMNT" ToRole="DISCUSSION" />
+          <NavigationProperty Name="USR" Relationship="Self.SYS_C0010080" FromRole="CMNT" ToRole="USR" />
+        </EntityType>
+        <EntityType Name="DISCUSSION">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+          </Key>
+          <Property Name="DISC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="PUT_UP_USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="TOPIC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTENT" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INIT_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <NavigationProperty Name="CMNT" Relationship="Self.SYS_C0010079" FromRole="DISCUSSION" ToRole="CMNT" />
+          <NavigationProperty Name="USR" Relationship="Self.SYS_C0010071" FromRole="DISCUSSION" ToRole="USR" />
+          <NavigationProperty Name="RELATED_FILED" Relationship="Self.SYS_C0010073" FromRole="DISCUSSION" ToRole="RELATED_FILED" />
+        </EntityType>
+        <EntityType Name="RELATED_FILED">
+          <Key>
+            <PropertyRef Name="DISC_ID" />
+            <PropertyRef Name="RELA_FIELD" />
+          </Key>
+          <Property Name="DISC_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="RELA_FIELD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DISCUSSION" Relationship="Self.SYS_C0010073" FromRole="RELATED_FILED" ToRole="DISCUSSION" />
+        </EntityType>
+        <EntityType Name="USR">
+          <Key>
+            <PropertyRef Name="USR_ID" />
+          </Key>
+          <Property Name="USR_ID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="LOGIN_NAME" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="REG_TIME" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="PHONE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CMNT" Relationship="Self.SYS_C0010080" FromRole="USR" ToRole="CMNT" />
+          <NavigationProperty Name="DISCUSSION" Relationship="Self.SYS_C0010071" FromRole="USR" ToRole="DISCUSSION" />
+        </EntityType>
+        <Association Name="SYS_C0010079">
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISCUSSION">
+              <PropertyRef Name="DISC_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="DISC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0010080">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="CMNT" Type="Self.CMNT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="CMNT">
+              <PropertyRef Name="USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0010071">
+          <End Role="USR" Type="Self.USR" Multiplicity="1" />
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USR">
+              <PropertyRef Name="USR_ID" />
+            </Principal>
+            <Dependent Role="DISCUSSION">
+              <PropertyRef Name="PUT_UP_USR_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="SYS_C0010073">
+          <End Role="DISCUSSION" Type="Self.DISCUSSION" Multiplicity="1" />
+          <End Role="RELATED_FILED" Type="Self.RELATED_FILED" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DISCUSSION">
+              <PropertyRef Name="DISC_ID" />
+            </Principal>
+            <Dependent Role="RELATED_FILED">
+              <PropertyRef Name="DISC_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CommunityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CMNT" EntityType="Self.CMNT" />
+          <EntitySet Name="DISCUSSION" EntityType="Self.DISCUSSION" />
+          <EntitySet Name="RELATED_FILED" EntityType="Self.RELATED_FILED" />
+          <EntitySet Name="USR" EntityType="Self.USR" />
+          <AssociationSet Name="SYS_C0010079" Association="Self.SYS_C0010079">
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0010080" Association="Self.SYS_C0010080">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="CMNT" EntitySet="CMNT" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0010071" Association="Self.SYS_C0010071">
+            <End Role="USR" EntitySet="USR" />
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+          </AssociationSet>
+          <AssociationSet Name="SYS_C0010073" Association="Self.SYS_C0010073">
+            <End Role="DISCUSSION" EntitySet="DISCUSSION" />
+            <End Role="RELATED_FILED" EntitySet="RELATED_FILED" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CommunityEntities">
+          <EntitySetMapping Name="CMNT">
+            <EntityTypeMapping TypeName="Model.CMNT">
+              <MappingFragment StoreEntitySet="CMNT">
+                <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="CMNT_TIME" ColumnName="CMNT_TIME" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="IS_DELETE" ColumnName="IS_DELETE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DISCUSSION">
+            <EntityTypeMapping TypeName="Model.DISCUSSION">
+              <MappingFragment StoreEntitySet="DISCUSSION">
+                <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+                <ScalarProperty Name="PUT_UP_USR_ID" ColumnName="PUT_UP_USR_ID" />
+                <ScalarProperty Name="TOPIC" ColumnName="TOPIC" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="INIT_TIME" ColumnName="INIT_TIME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RELATED_FILED">
+            <EntityTypeMapping TypeName="Model.RELATED_FILED">
+              <MappingFragment StoreEntitySet="RELATED_FILED">
+                <ScalarProperty Name="DISC_ID" ColumnName="DISC_ID" />
+                <ScalarProperty Name="RELA_FIELD" ColumnName="RELA_FIELD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USR">
+            <EntityTypeMapping TypeName="Model.USR">
+              <MappingFragment StoreEntitySet="USR">
+                <ScalarProperty Name="USR_ID" ColumnName="USR_ID" />
+                <ScalarProperty Name="LOGIN_NAME" ColumnName="LOGIN_NAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="REG_TIME" ColumnName="REG_TIME" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="COMPANY" ColumnName="COMPANY" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

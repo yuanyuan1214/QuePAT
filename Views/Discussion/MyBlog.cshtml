@@ -1,0 +1,307 @@
+﻿@{
+    Layout = null;
+    const int DISCUSSIONS_PER_PAGE = 5;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>QuePAT--议题</title>
+    <link rel="stylesheet" href="~/Content/Blog.css">
+    <style>
+        .disc-hid {
+            display: none;
+        }
+
+        #this-page {
+            background-color: #1c66de;
+            color: white;
+            pointer-events: none;
+        }
+    </style>
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        var i = document.getElementsByClassName("disc-delete");
+        console.log(i);
+
+
+        function del(thisBtn) {
+            if (!confirm("确认要删除？")) {
+                window.event.returnValue = false;
+            }
+            else {
+                var did = thisBtn.parentElement.id;
+
+                $.ajax({
+                    type: "post",
+                    url: "./DeleteDisc",
+                    data: { disc_id: did },
+                    success: function (res) {
+
+                        var start = (new Date()).getTime();
+                        // 阻塞0.5s
+                        while ((new Date()).getTime() - start < 500) {
+                            continue;
+                        }
+
+                        window.location.href = 'MyBlog'
+                    }
+                })
+            }
+        };
+
+        function getQueryString(name) {
+            let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            let r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return decodeURIComponent(r[2]);
+            };
+            return null;
+        }
+
+        function pageManage() {
+            var pageNum = parseInt($(".all-page").text());
+            $(".all-page").addClass("disc-hid");
+            var page = getQueryString("page");
+            if (page == null) {
+                page = 1;
+            }
+            else {
+                page = parseInt(page);
+            }
+
+            console.log("pageNum:" + pageNum);
+            console.log(page);
+
+            if (page - 2 < 1) {
+                $(".last-2page").addClass("disc-hid");
+            }
+            if (page - 1 < 1) {
+                $(".last-page").addClass("disc-hid");
+            }
+            if (page + 1 > pageNum) {
+                $(".next-page").addClass("disc-hid");
+            }
+            if (page + 2 > pageNum) {
+                $(".next-2page").addClass("disc-hid");
+            }
+
+            if (page == 1) {
+                //console.log("suc");
+                $("#page-up").attr("disabled", true);
+                $("#page-up").css("pointer-events", "none");
+            }
+            if (page == pageNum) {
+                //console.log("suc");
+                $("#page-down").attr("disabled", true);
+                $("#page-down").css("pointer-events", "none");
+            }
+        }
+
+        window.onload = function () {
+
+            $('#disc_query').click(function () {
+                var keyword = $("#disc_keyword").val();
+                var url = "MyBlog?keyword=" + keyword;
+
+                //$.ajax({
+                //    type: "post",
+                //    url: "./QueryByKeywords",
+                //    data: { keyword: postData.keyword },
+                //    success: function (res) {
+                //        console.log(res);
+                //    }
+                //})
+                if (keyword != "") {
+                    console.log(url);
+                    window.location.href = url;
+                }
+                else {
+                    window.location.href = "MyBlog";
+                }
+            })
+
+
+            pageManage();
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="top">
+        <div id="menu">
+            <ul>
+                <li class="logo"><img src="~/Img/logo.png"></li>
+                <li><a href=""> 首页</a></li>
+                <li><a href="BlogMain"> 全部议题</a></li>
+                <li><a href="MyBlog"> 我的议题</a></li>
+                <li><a href="BlogEdit"> 发布议题</a></li>
+                <li class="tab"><a href="">登录 / 注册</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="searchForm">
+        <!-- Search Form -->
+
+            <input id="disc_keyword" type="search" placeholder="输入关键字搜索你的议题" />
+
+            <button id="disc_query" type="submit">查找文章</button>
+    </div>
+
+    <div id="blog">
+        <ul>
+            @{
+                // 获取议题列表
+                int usr_id = 1;//获取用户ID
+                var discCont = new Community_Module_of_QuePAT.Controllers.DiscussionController();
+                var discList = discCont.QueryByUsrID(usr_id);
+
+                // 获取当前页数
+                var pageAttr = Request["page"];
+                var page = 0;
+                if (pageAttr == null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    page = Convert.ToInt32(pageAttr);
+                }
+
+                // 获取关键词查找该用户的议题
+                var keyword = Request["keyword"];
+                var queryList = discCont.QueryByKeywordsAndUsrID(keyword, usr_id);
+                int first = (page - 1) * DISCUSSIONS_PER_PAGE;
+
+                double pageNum = 0;// 页面数量
+                string url = "";// 当前url
+                var count = 0;// 议题数量
+
+                if (keyword == null)
+                {
+                    // 输出所有议题
+                    count = discList == null ? 0 : discList.Count();
+                    pageNum = Math.Ceiling(Convert.ToDouble(discList == null ? 0 : discList.Count()) / Convert.ToDouble(DISCUSSIONS_PER_PAGE));
+                    url = "MyBlog?";
+
+                    for (int i = first; i < first + 5; i++)
+                    {
+                        if (i >= count)
+                        {
+                            break;
+                        }
+                        var item = discList[i];
+                        var hrefstr = "BlogDetail?disc_id=" + item.DISC_ID;
+
+                        <li>
+                            <div class="blog-left">
+                                <p><a href=@hrefstr class="title">@item.TOPIC</a></p>
+                                <p style="margin-top: 20px">
+                                    @item.CONTENT
+                                </p>
+                                <p style="margin-top: 90px" id=@item.DISC_ID>
+                                    <img src="~/Img/photo.png">
+                                    @item.PUT_UP_USR_ID
+                                    <img src="~/Img/time.png"
+                                         style="margin-left: 20px">
+                                    @item.INIT_TIME
+                                    <input class="disc-delete" type="button" value="删除" onclick="del(this)"/>
+                                </p>
+
+                            </div>
+                            <div class="blog-right">
+                                <img src="~/Img/title.jpg">
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    // 搜索结果
+                    count = queryList == null ? 0 : queryList.Count();
+                    pageNum = Math.Ceiling(Convert.ToDouble(queryList == null ? 0 : queryList.Count()) / Convert.ToDouble(DISCUSSIONS_PER_PAGE));
+                    url = "MyBlog?keyword=" + keyword + "&";
+
+                    for (int i = first; i < first + 5; i++)
+                    {
+                        if (i >= count)
+                        {
+                            break;
+                        }
+                        var item = queryList[i];
+                        var hrefstr = "BlogDetail?disc_id=" + item.DISC_ID;
+                        <li>
+                            <div class="blog-left">
+
+                                <p><a href=@hrefstr class="title">@item.TOPIC</a></p>
+                                <p style="margin-top: 20px">
+                                    @item.CONTENT
+                                </p>
+                                <p style="margin-top: 90px">
+                                    <img src="~/Img/photo.png">
+                                    @item.PUT_UP_USR_ID
+                                    <img src="~/Img/time.png"
+                                         style="margin-left: 20px">
+                                    @item.INIT_TIME
+                                </p>
+                            </div>
+                            <div class="blog-right">
+                                <img src="~/Img/title.jpg">
+                            </div>
+                        </li>
+                    }
+                }
+
+            }
+
+        </ul>
+
+        <div class="page">
+            <div class="all-page">@(pageNum) @(count)</div>
+            <a href=@(url + "page=1")>首页</a>
+            <a href=@(url + "page=" + (page - 1)) id="page-up">上一页</a>
+            <a href=@(url + "page=" + (page - 2)) class="last-2page">@(page - 2)</a>
+            <a href=@(url + "page=" + (page - 1)) class="last-page">@(page - 1)</a>
+            <a href=@(url + "page=" + page) id="this-page">@(page)</a>
+            <a href=@(url + "page=" + (page + 1)) class="next-page">@(page + 1)</a>
+            <a href=@(url + "page=" + (page + 2)) class="next-2page">@(page + 2)</a>
+            <a href=@(url + "page=" + (page + 1)) id="page-down">下一页</a>
+            <a href=@(url + "page=" + pageNum)>尾页</a>
+        </div>
+    </div>
+    <!--footer 开始-->
+    <div class="footer">
+        <div class="footerbg"></div>
+        <div class="d_nav">
+            <a href="/web/c_000000040014">网站地图</a>|
+            <a href="/web/c_0000000400100002">联系我们</a>|
+
+            <a>业务投诉:123456789@tongji.edu.cn</a>
+        </div>
+        <p>同济大学专利管理系统</p>
+    </div>
+
+    <!--footer 结束-->
+    <script>
+
+        document.getElementsByClassName("disc-delete").onClick = function () {
+            console.log("1");
+            if (!confirm("确认要删除？")) {
+                window.event.returnValue = false;
+            }
+            else {
+                var disc_id = this.parentElement.id;
+                console.log(disc_id);
+            }
+        }
+    </script>
+
+</body>
+
+
+</html>
