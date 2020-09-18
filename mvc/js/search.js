@@ -17,8 +17,20 @@ var makeArray = function (likeArray) {
 
 var normal_word = document.getElementById('normal');
 var normal_button = document.querySelector("#normal-button");
+var law_word = document.getElementById('law');
+var law_button = document.querySelector("#law-button");
+
+var n1_s = document.querySelector("#n5");
+var n2_s = document.querySelector("#n6");
+var n3_s = document.querySelector("#n7");
+var n4_s = document.querySelector("#n8");
+var n5_s = document.querySelector("#n1");
+var n6_s = document.querySelector("#n2");
+var n7_s = document.querySelector("#n3");
+var n8_s = document.querySelector("#n4");
+var n_button = document.querySelector("#n-button");
 //var wrappers = $$(".wrapper");
-var keyword="";
+var keyword = "";
 var normal_key = "";
 var now_index = 1;
 
@@ -50,37 +62,251 @@ var _search_word = "";
 
 
 window.onload = function () {
-    //window.model.CookieToModel();
-    
-   /* search_key = window.model.data.keyword;
-    if (search_key != "") {
-        $$(".xxx").innerHTML = [
-            '<div class=""><p class="text">',
-            '   加载中...',
-            '</p><!----></div>'
-        ].join('');
 
 
-        window.model.data.keyword = "";
-        var queryJson = [];
-        var row = {};
-        row.keyword = search_key;
-        if (row.keyword === "") row.keyword = "666";
-        queryJson.push(row);
+    normal_button.addEventListener('click', function () {
+        let keyword = normal_word.value;
+        if (keyword === "") {
+            alert("检索关键词不能为空！");
+        }
+        else {
+            var queryJson = [];
+            var row = {};
+            row.type = 0;
+            row.w1 = keyword;
+            row.w2 = "";
+            row.w3 = "";
+            row.w4 = "";
+            row.w5 = "";
+            row.w6 = "";
+            row.w7 = "";
+            row.w8 = "";
+            if (row.w1 === "") row.w1 = "666";
+            queryJson.push(row);
+            var d_test = JSON.stringify(queryJson[0]);
+
+            $.ajax({
+                url: "/Main/Search",
+                async: false,
+                type: 'post',
+                contentType: "application/json",
+                data: JSON.stringify(queryJson[0]),
+                dataType: "json",
+                traditional: true,
+                success: function (data) {
+                    var json = eval(data);
+                    /*if (json.length === 0) {
+                        alert("检索结果为空！");
+                        return;
+                    }*/
+                    console.log(json);
+                    window.location.href = "SearchResult?id=" + encodeURI(keyword);
+
+                },
+                error: function (message) {
+                    alert("请求查询数据失败！");
+                }
+            });
+        }
+    })
+
+    law_button.addEventListener('click', function () {
+        let lawword = law_word.value;
+        if (lawword === "") {
+            alert("检索关键词不能为空！");
+        }
+        else {
+            var queryJson2 = [];
+            var row2 = {};
+            row2.type = 2;
+            row2.w1 = lawword;
+            row2.w2 = "";
+            row2.w3 = "";
+            row2.w4 = "";
+            row2.w5 = "";
+            row2.w6 = "";
+            row2.w7 = "";
+            row2.w8 = "";
+            if (row2.w1 === "") row2.w1 = "666";
+            queryJson2.push(row2);
+            var d_test = JSON.stringify(queryJson2[0]);
+
+            $.ajax({
+                url: "/Main/Search",
+                async: false,
+                type: 'post',
+                contentType: "application/json",
+                data: JSON.stringify(queryJson2[0]),
+                dataType: "json",
+                traditional: true,
+                success: function (data) {
+                    var json = eval(data);
+                    /*if (json.length === 0) {
+                        alert("检索结果为空！");
+                        return;
+                    }*/
+                    console.log(json);
+                    window.location.href = "SearchResult?id=" + encodeURI(lawword);
+                    /*normal_list = data.info;
+                    _search_word = keyword;
+                    if (normal_list.length != 0) {
+                        normal_list.forEach(function (v) {
+                            var copy = [];
+                            v.tags.forEach(function (t) {
+                                copy.push(t['tagName']);
+                            });
+                            v.tags = copy;
+                        });
+                    }*/
+                },
+                error: function (message) {
+                    alert("请求查询数据失败！");
+                }
+            });
+        }
+    })
+
+    n_button.addEventListener('click', function () {
+        let word1 = n1_s.value;
+        let word2 = n2_s.value;
+        let word3 = n3_s.value;
+        let word4 = n4_s.value;
+        let word5 = n5_s.value;
+        let word6 = n6_s.value;
+        let word7 = n7_s.value;
+        let word8 = n8_s.value;
+        if ((word1 === "" || word1 === null) && (word2 === null || word2 === "") && (word3 === null || word3 === "") && (word4 === null || word4 === "") && (word5 === null || word5 === "") && (word6 === null || word6 === "") && (word7 === null || word7 === "") && (word8 === null || word8 === "")) {
+            alert("检索关键词不能为空！");
+            //return;
+        }
+        if (word1 === "") {
+            word1 = null;
+        }
+        if (word2 === "") {
+            word2 = null;
+        }
+        if (word3 === "") {
+            word3 = null;
+        }
+        if (word4 === "") {
+            word4 = null;
+        }
+        if (word5 === "") {
+            word5 = null;
+        }
+        if (word6 === "") {
+            word6 = null;
+        }
+        if (word7 === "") {
+            word7 = null;
+        }
+        if (word8 === "") {
+            word8 = null;
+        }
+
+        let row3 = {
+            "type": 1,
+            "w1": null,
+            "w2": null,
+            "w3": null,
+            "w4": null,
+            "w5": null,
+            "w6": null,
+            "w7": null,
+            "w8": null
+        }
+        row3.w1 = word1;
+        row3.w2 = word2;
+        row3.w3 = word3;
+        row3.w4 = word4;
+        row3.w5 = word5;
+        row3.w6 = word6;
+        row3.w7 = word7;
+        row3.w8 = word8;
+
+        var queryJson3 = [];
+        /*var row2 = {};
+        row2.type = 2;
+        row2.w1 = lawword;
+        row2.w2 = "";
+        row2.w3 = "";
+        row2.w4 = "";
+        row2.w5 = "";
+        row2.w6 = "";
+        row2.w7 = "";
+        row2.w8 = "";
+        if (row2.w1 === "") row2.w1 = "666";*/
+        queryJson3.push(row3);
+        var d_test = JSON.stringify(queryJson3[0]);
+
         $.ajax({
-            url: "Main/Search",
+            url: "/Main/Search",
             async: false,
             type: 'post',
             contentType: "application/json",
-            data: JSON.stringify(queryJson[0]),
+            data: JSON.stringify(queryJson3[0]),
             dataType: "json",
             traditional: true,
             success: function (data) {
-                var data = eval("(" + data + ")");
-                normal_list = data.info;
-                _search_word = keyword;
+                var json = eval(data);
+                /*if (json.length === 0) {
+                    alert("检索结果为空！");
+                    return;
+                }*/
+                console.log(json);
+                var address0 = "SearchResult?expression=";
+                var address = "";
+                if (word1 !== null) {
+                    address = address + word1 + "/IC"
+                }
+                if (word2 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word2 + "/IN";
+                }
+                if (word3 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word3 + "/AN";
+                }
+                if (word4 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word4 + "/PA";
+                }
+                if (word5 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word5 + "/TX";
+                }
+                if (word6 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word6 + "/CO";
+                }
+                if (word7 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word7 + "/AD";
+                }
+                if (word8 !== null) {
+                    if (address !== "") {
+                        address = address + "*"
+                    }
+                    address = address + word8 + "/CS";
+                }
 
-                if (normal_list.length !== 0) {
+
+                window.location.href = address0 + address;//"SearchResult?expression=" + word1 + "/IC*" + word2 + "/IN*" + word3 + "/AN*" + word4 + "/PA*" + word5 + "/TX*" + word6 + "CO*" + word7 + "/AD*" + word8 + "/CS";
+                /*normal_list = data.info;
+                _search_word = keyword;
+                if (normal_list.length != 0) {
                     normal_list.forEach(function (v) {
                         var copy = [];
                         v.tags.forEach(function (t) {
@@ -88,100 +314,14 @@ window.onload = function () {
                         });
                         v.tags = copy;
                     });
-                }
+                }*/
             },
             error: function (message) {
                 alert("请求查询数据失败！");
             }
         });
-    }
-    else {
-        var queryJson = [];
-        var row = {};
-        row.user_id = userID;
-        row.keyword = "111";
-        queryJson.push(row);
-        $.ajax({
-            url: "/Main/Search",
-            async: false,
-            type: 'post',
-            contentType: "application/json",
-            data: JSON.stringify(queryJson[0]),
-            dataType: "json",
-            traditional: true,
-            success: function (data) {
-
-            },
-            error: function (message) {
-                alert("请求查询数据失败！");
-            }
-        });
-    }*/
-
-    normal_button.addEventListener('click', function () {
-        let keyword = normal_word.value;
-        if (keyword === "") {
-            alert("搜索关键词不能为空！");
-        }
-        else {
-            var queryJson = [];
-            var row = {};
-            row.keyword = keyword;
-            if (row.keyword === "") row.keyword = "666";
-            queryJson.push(row);
-
-            //$.ajax({
-            //    url: "/Main/Search",
-            //    async: false,
-            //    type: 'post',
-            //    contentType: "application/json",
-            //    data: JSON.stringify(queryJson[0]),
-            //    dataType: "json",
-            //    traditional: true,
-            //    success: function (data) {
-            //        var json = eval(data);
-            //        /*if (json.length === 0) {
-            //            alert("检索结果为空！");
-            //            return;
-            //        }*/
-            //        console.log(json);
-                    window.location.href = "SearchResult?id=" + encodeURI(keyword);
-            //        /*normal_list = data.info;
-            //        _search_word = keyword;
-            //        if (normal_list.length != 0) {
-            //            normal_list.forEach(function (v) {
-            //                var copy = [];
-            //                v.tags.forEach(function (t) {
-            //                    copy.push(t['tagName']);
-            //                });
-            //                v.tags = copy;
-            //            });
-            //        }*/
-            //    },
-            //    error: function (message) {
-            //        alert("请求查询数据失败！");
-            //    }
-            //});
-        }
     })
 }
 
 
 
-/*function sendAjax() {
-    var formData = new formData();
-    formData.append('normal_word');
-
-    var xhr = new XMLHttpRequest();
-    xhr.timeout = 3000;
-    xhr.responseType = "text";
-
-    xhr.open('POST', '/server', true);
-
-    xhr.onload = function (e) {
-
-    };
-    
-
-    xhr.send(formData);
-}*/

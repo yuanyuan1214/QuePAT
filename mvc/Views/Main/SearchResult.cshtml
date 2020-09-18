@@ -14,36 +14,118 @@
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script>
+        var pageNum = 1;
+        var obj;
+        var lPageNum = 1;
         $(function () {
-            //$(".searchBtn").trigger("click");
-            
             $(".searchBtn").click(function () {
-                console.log("kkkkkk");
                 var str = $("#inputBox").val();
-                console.log(str);
+                var url = "SearchResult?keyword=" + str;
                 $.ajax({
                     type: "post",
                     url: "./SearchByName",
                     data: { searchStr: str },
                     success: function (res) {
                         //var json = eval(res);
-                        var obj = eval(res)[0];
-                        console.log(obj.NAME);
-
-                        $("#line1").text(obj.NAME);
-                        $("#li1").css("display", "block");
-                        //    .css({
-                        //    width: 10,
-                        //    marginTop: 20
-                        //})
+                        obj = eval(res);
+                        for (var i = 1; i < 10; i++) {
+                            $("#li" + i).css("display", "none");
+                        }
+                        console.log(obj);
+                        console.log(typeof obj);
+                        if (typeof obj == undefined) {
+                            $("#line1").text("没有搜索结果，请输入其他关键字");
+                            $("#li1").css("display", "block");
+                        } else {
+                            lPageNum = Math.ceil(obj.length / 9);
+                            $("#totalPagehtml").text("总页数：" + lPageNum);
+                            $("#totalSumhtml").text("总条数：" + obj.length);
+                            for (var i = 0; i < obj.length && i <= 9; i++) {
+                                var arr = obj[i].APP_DATE.split("T");
+                                $("#line" + (i + 1)).text(obj[i].NAME);
+                                $("#date" + (i + 1)).text(arr[0]);
+                                $("#li" + (i + 1)).css("display", "block");
+                            }
+                        }
                         $("#a1").attr("title", obj.NAME );
                     },
                     error: function () {
+                        console.log("err");
                     }
                 });
+                
             });
             document.getElementsByClassName("searchBtn")[0].click();
+            
         });
+        function nextPage() {
+            for (var i = 1; i < 10; i++) {
+                $("#li" + i).css("display", "none");
+            }
+            if (pageNum + 1 > lPageNum) {
+                return;
+            } else {
+                for (var i = pageNum * 9; i < obj.length && i < pageNum * 9 + 9; i++) {
+                    var arr = obj[i].APP_DATE.split("T");
+                    $("#line" + (i - pageNum * 9 + 1)).text(obj[i].NAME);
+                    $("#date" + (i - pageNum * 9 + 1)).text(arr[0]);
+                    $("#li" + (i - pageNum * 9 + 1)).css("display", "block");
+                }
+                pageNum += 1;
+                $("#currenthtml").text("当前页：" + pageNum);
+            }
+        }
+        function lastPage() {
+            for (var i = 1; i < 10; i++) {
+                $("#li" + i).css("display", "none");
+            }
+            if (pageNum - 1 < 1) {
+                return;
+            } else {
+                pageNum -= 2;
+                for (var i = pageNum * 9; i < obj.length && i < pageNum * 9 + 9; i++) {
+                    var arr = obj[i].APP_DATE.split("T");
+                    $("#line" + (i - pageNum * 9 + 1)).text(obj[i].NAME);
+                    $("#date" + (i - pageNum * 9 + 1)).text(arr[0]);
+                    $("#li" + (i - pageNum * 9 + 1)).css("display", "block");
+                }
+                pageNum += 1;
+                $("#currenthtml").text("当前页：" + pageNum);
+            }
+        }
+        function gotoFirstPage() {
+            for (var i = 1; i < 10; i++) {
+                $("#li" + i).css("display", "none");
+            }
+            pageNum = 0;
+            for (var i = pageNum * 9; i < obj.length && i < pageNum * 9 + 9; i++) {
+                var arr = obj[i].APP_DATE.split("T");
+                $("#line" + (i - pageNum * 9 + 1)).text(obj[i].NAME);
+                $("#date" + (i - pageNum * 9 + 1)).text(arr[0]);
+                $("#li" + (i - pageNum * 9 + 1)).css("display", "block");
+            }
+            pageNum += 1;
+            $("#currenthtml").text("当前页：" + pageNum);
+        }
+        function gotoEndPage() {
+            for (var i = 1; i < 10; i++) {
+                $("#li" + i).css("display", "none");
+            }
+            pageNum = lPageNum - 1;
+            for (var i = pageNum * 9; i < obj.length && i < pageNum * 9 + 9; i++) {
+                var arr = obj[i].APP_DATE.split("T");
+                $("#line" + (i - pageNum * 9 + 1)).text(obj[i].NAME);
+                $("#date" + (i - pageNum * 9 + 1)).text(arr[0]);
+                $("#li" + (i - pageNum * 9 + 1)).css("display", "block");
+            }
+            pageNum += 1;
+            $("#currenthtml").text("当前页：" + pageNum);
+        }
+        function openPatentDetail(num) {
+            var patentNum = (pageNum - 1) * 9 + num - 1;
+            var patentCode = obj[i].APP_NUM;
+            // 将patentCode接在url后面调用俊妍的页面
+        }
     </script>
 </head>
 <body>
@@ -88,11 +170,7 @@
     <!-- Search Form -->
     <div class="searchForm">
         <input type="search" id="inputBox" placeholder="请输入要检索的内容">
-        <select name="searchType" id="search-type">
-            <option value="1">智能检索</option>
-            <option value="2">专家检索</option>
-        </select>
-        <button class="searchBtn">开始检索</button>
+        <button class="searchBtn">智能检索</button>
     </div>
     <div class="dxal_content">
         <div class="position1">
@@ -100,31 +178,25 @@
                 所在位置：<a href="/">首页</a>&gt;<a href="">检索结果</a>
             </p>
         </div>
-        <div class="dxr_content1 dy1 dy_lszx zcfgul">
-            @*@{
-                    var Patent = new QuePAT.Controllers.PATENTsController.FindByNameContains();
-                }*@
-            <ul class="dyul1">
-                <li style="display:none;" id="li1"><a href="" target="" title="" id="a1"><span class="resultLi" id="line1"></span><span class="date"></span></a></listyle="display:none;">
-                <li style="display:none;"><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
-                <li style="display:none;"><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
-                <li style="display:none;"><a href="/web/c_000000040001/d_188951.htm" target="_blank" title="关于启用电子检索报告的通告"><span class="lslinr2">关于启用电子检索报告的通告</span><span class="date">2019/12/20 13:22:50</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400050001/d_2705.htm" target="_blank" title="关于专利电子申请的规定"><span class="lslinr2">关于专利电子申请的规定</span><span class="date">2015/5/7 14:53:56</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400090003/d_1384.htm" target="_blank" title="专利电子申请中的10种常见问题"><span class="lslinr2">专利电子申请中的10种常见问题</span><span class="date">2015/1/23 11:06:55</span></a></li>
-                <li style="display:none;"><a href="/web/c_0000000400090003/d_1383.htm" target="_blank" title="巧用网站功能提高电子申请效率"><span class="lslinr2">巧用网站功能提高电子申请效率</span><span class="date">2015/1/23 11:05:27</span></a></li>
+        <div class="resultList">
+            <ul class="list">
+                <li style="display:none;" id="li1"><a href="javascript:openPatentDetail(1)" target="" title="" id="a1"><span class="resultLi" id="line1"></span><span class="date" id="date1"></span></a></li>
+                <li style="display:none;" id="li2"><a href="javascript:openPatentDetail(2)" target="" title="" id="a2"><span class="resultLi" id="line2"></span><span class="date" id="date2"></span></a></li>
+                <li style="display:none;" id="li3"><a href="javascript:openPatentDetail(3)" target="" title="" id="a3"><span class="resultLi" id="line3"></span><span class="date" id="date3"></span></a></li>
+                <li style="display:none;" id="li4"><a href="javascript:openPatentDetail(4)" target="" title="" id="a4"><span class="resultLi" id="line4"></span><span class="date" id="date4"></span></a></li>
+                <li style="display:none;" id="li5"><a href="javascript:openPatentDetail(5)" target="" title="" id="a5"><span class="resultLi" id="line5"></span><span class="date" id="date5"></span></a></li>
+                <li style="display:none;" id="li6"><a href="javascript:openPatentDetail(6)" target="" title="" id="a6"><span class="resultLi" id="line6"></span><span class="date" id="date6"></span></a></li>
+                <li style="display:none;" id="li7"><a href="javascript:openPatentDetail(7)" target="" title="" id="a7"><span class="resultLi" id="line7"></span><span class="date" id="date7"></span></a></li>
+                <li style="display:none;" id="li8"><a href="javascript:openPatentDetail(8)" target="" title="" id="a8"><span class="resultLi" id="line8"></span><span class="date" id="date8"></span></a></li>
+                <li style="display:none;" id="li9"><a href="javascript:openPatentDetail(9)" target="" title="" id="a9"><span class="resultLi" id="line9"></span><span class="date" id="date9"></span></a></li>
             </ul>
             <div style="clear:both"></div>
             <div class="page" style="text-align:center">
-                <a href="javascript:Search.go('1',1)">&lt;&lt; 首页</a>
-                &nbsp<a href="javascript:Search.go('1',1)">上一页</a>
-                &nbsp<a href="javascript:Search.go('1',1)">下一页</a>
-                &nbsp<a href="javascript:Search.go('1',1)">尾 页 </a>
-                &nbsp<a href="javascript:void(0)" id="currenthtml">当前页：1</a>&nbsp<a href="javascript:void(0)" id="totalPagehtml">总页数：1</a>&nbsp<a href="javascript:void(0)" id="totalSumhtml">总条数：4</a>&nbsp<a href=#>&gt;&gt;</a>
+                <a href="javascript:gotoFirstPage()">&lt;&lt; 首页</a>
+                &nbsp<a href="javascript:lastPage()">上一页</a>
+                &nbsp<a href="javascript:nextPage()">下一页</a>
+                &nbsp<a href="javascript:gotoEndPage()">尾 页 </a>
+                &nbsp<a id="currenthtml">当前页：1</a>&nbsp<a id="totalPagehtml">总页数：1</a>&nbsp<a id="totalSumhtml">总条数：0</a>&nbsp<a>&gt;&gt;</a>
             </div>
         </div>
     </div>
@@ -140,7 +212,6 @@
         </div>
         <p>同济大学专利管理系统</p>
     </div>
-    @*<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />*@
     <script type="text/javascript" src="../../js/searchRst.js"></script>
     <!--footer 结束-->
 </body>

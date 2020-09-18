@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "专利检索";
-}
+﻿@{ ViewBag.Title = "专利检索"; }
 
 <html>
 <head>
@@ -8,12 +6,12 @@
     <link rel="stylesheet" href="../../css/reset.css" title="" type="text/css" media="screen">
     <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen">
     <!-- <script type="text/javascript" src="../../../../ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
-    
+
     <script type="text/javascript" src="../../js/jquery.countdown.min.js"></script>
     <script type="text/javascript" src="../../js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="../../js/main.js"></script>
     <script type="text/javascript" src="../../js/html5.js"></script>
-    
+
     <script>
     </script>
 </head>
@@ -54,55 +52,50 @@
     </div>
     <aside id="secondary">
         <div class="wrapper">
-            <section id="about">
-                <h2>专家检索</h2>
-                <p>
-                    申请号（AN）
-                    申请日（AD）
-                    公开号（PN）
-                    公开日（PD）
-                    公告号（GN）
-                    分类号(IC)
-                    主分类号（MC）
-                    范畴分类（CT)
-                    优先权号(PR)
-                    国省代码(CO)
-                    发明人(IN)
-                    申请人(PA)
-                    关键词(TX)
-                    发明名称(TI)
-                    代理机构代码(AG)
-                    代理人(AT)
-                    申请人地址（DZ）
-                    摘要（AB）
-                    主权利要求（CL）
-                    权利要求（CS）
-                    说明书（DS）
+            <section id="contact">
+                <h2>表格检索</h2>
+                <p class="n1">
+                    <label for="n1">关键词(TX)</label>
+                    <input id="n1" type="text" class="required" placeholder="关键词(TX)" name="name" />
                 </p>
-                <!-- <p>Maecenas ut quam pellentesque ligula vestibulum lobortis ut ut sapien. Ut consectetur interdum erat ac fermentum. Sed sollicitudin, lacus vitae dictum imperdiet, orci augue vestibulum ante, aliquam dictum est risus ullamcorper risus. Sed sollicitudin, lacus vitae dictum imperdiet.</p> -->
+                <p class="n2">
+                    <label for="n2">Email</label>
+                    <input id="n2" class="email required" type="text" placeholder="国省代码(CO)" name="sender" />
+                </p>
+                <p class="n3">
+                    <label for="n3">Your message</label>
+                    <input id="n3" class="required" placeholder="专利权人(PT)" name="msg"></input>
+                </p>
+                <p class="n4">
+                    <label for="n4">Your message</label>
+                    <input id="n4" class="required" placeholder="权利要求(CS)" name="msg"></input>
+                </p>
             </section>
             <section id="contact">
-                <!-- <h2>Contact</h2> -->
-                <form method="post" id="contact-form" action="contact.php">
+                <h2>QuePAT检索系统</h2>
 
-                    <!-- <p class="name">
-                        <label for="name">Name</label>
-                        <input id="name" type="text" class="required" placeholder="Name" name="name" />
-                    </p>
-                    <p class="sender">
-                        <label for="email">Email</label>
-                        <input id="sender" class="email required" type="text" placeholder="Email address" name="sender" />
-                    </p> -->
-                    <p class="msg">
-                        <label for="msg">Your message</label>
-                        <textarea id="msg" class="required" placeholder="请输入检索式" name="msg"></textarea>
-                    </p>
-                    <input class="submit-button" type="submit" value="Submit" />
-                </form>
+                <p class="n5">
+                    <label for="n5">分类号(IC)</label>
+                    <input id="n5" type="text" class="required" placeholder="分类号(IC)" name="name" />
+                </p>
+                <p class="n6">
+                    <label for="n6">发明人(IN)</label>
+                    <input id="n6" class="email required" type="text" placeholder="发明人(IN)" name="sender" />
+                </p>
+                <p class="n7">
+                    <label for="n7">申请号(AN)</label>
+                    <input id="n7" class="required" placeholder="申请号(AN)" name="msg"></input>
+                </p>
+                <p class="n8">
+                    <label for="n8">申请人(PA)</label>
+                    <input id="n8" class="required" placeholder="申请人(PA)" name="msg"></input>
+                </p>
+                <input class="submit-button" type="submit" value="submit" id="n-button" />
+
                 <div class="decor"></div>
             </section>
         </div>
-        <!-- <footer id="footer">
+        <footer id="footer">
             <div class="wrapper">
                 <ul>
                     <li class="email">hello@freshidea.sk</li>
@@ -110,7 +103,7 @@
                     <li class="fb"><a href="http://sc.chinaz.com/">sc.chinaz.com</a></li>
                 </ul>
             </div>
-        </footer> -->
+        </footer>
     </aside>
 
     <div id="wrapper">
@@ -123,13 +116,13 @@
         </section>
         <aside id="newsletter">
             <div class="wrapper">
-                <form action="/" id="newsletter-form" method="post">
-                    <p>
-                        <label for="email" class="main">Stay informed when we will be back</label>
-                        <input type="text" name="email" class="email required" id="email" placeholder="输入关键词" />
-                    </p>
-                    <input type="submit" value="检索" class="submit" />
-                </form>
+
+                <p>
+                    <label for="email" class="main">Stay informed when we will be back</label>
+                    <input type="text" name="email" class="email required" id="law" placeholder="请输入专利申请号" />
+                </p>
+                <input type="submit" value="检索" class="submit" id="law-button" />
+
             </div>
         </aside>
     </div>

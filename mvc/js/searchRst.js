@@ -14,5 +14,4 @@ if (url.indexOf("?") != -1) {  //判断URL？后面不为空
         //$(".searchBtn").trigger("click");
         //document.getElementsByClassName("searchBtn")[0].click();
     }
-    
 }
