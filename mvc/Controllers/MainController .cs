@@ -13,9 +13,10 @@ using QuePAT.Models;
 
 namespace QuePAT.Controllers
 {
-
+    
     public class MainController : Controller
     {
+        static public JsonSerializerSettings jsSettings = new JsonSerializerSettings();
         private Entities db = new Entities();
 
         public MainController()
@@ -137,5 +138,11 @@ namespace QuePAT.Controllers
             return View();
         }
 
+        public ActionResult SearchByName()
+        {
+            string name = Request["searchStr"];
+            var data = FindByNameContains(name);
+            return data;
+        }
     }
 }
