@@ -18,6 +18,8 @@ namespace QuePAT.Controllers
     {
         private Entities db = new Entities();
 
+        JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+
         public MainController()
         {
             jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
