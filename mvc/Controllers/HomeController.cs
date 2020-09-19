@@ -70,5 +70,117 @@ namespace QuePAT.Controllers
             PATENTQuery pATENTQuery = new PATENTQuery();
             return pATENTQuery.PatentNumOfType(str);
         }
+
+
+
+        public ActionResult MainPage()
+        {
+            return View();
+        }
+        public ActionResult RegisterPage()
+        {
+            return View();
+        }
+        public ActionResult initial()
+        {
+            return View();
+        }
+
+
+        public ActionResult Register()
+        {
+            string reuserid = Request["re_userid"];
+            string conrepwd = Request["con_re_pwd"];
+            string repwd = Request["re_pwd"];
+
+            string phone = Request["Phone"];
+            string email = Request["Email"];
+
+            string queryStr = "SELECT * FROM SYSTEM.USR ORDER BY USR_ID";
+            IEnumerable<USR> allDisc = db.Database.SqlQuery<USR>(queryStr);
+            // 获取DISC_ID
+            var disc_id = allDisc.Last().USR_ID + 1;
+            string str = "INSERT INTO SYSTEM.USR VALUES('" + disc_id + "','" + reuserid + "', '" + repwd + "','2020-09-19 05:41:12'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'0')";
+            return Content(db.Database.ExecuteSqlCommand(str).ToString());
+            // return Content("Register success.");
+        }
+        public ActionResult Logout()
+        {
+            string uid = Request["user_id"];
+            string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='1'WHERE LOGIN_NAME='" + uid + "'";
+            db.Database.ExecuteSqlCommand(updateStr);
+            return Content("Logout success.");
+
+        }
+        public ActionResult Login()
+        {
+            string uid = Request["user_id"];
+            string pwd = Request["password"];
+            string Mark = Request["mark"];
+            if (int.Parse(Mark) == 1)//管理员
+            {
+                if (uid != "cfjy")
+                {
+                    return Content("You are not admin");
+                }
+                string str1 = "SELECT PASSWORD FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
+                IEnumerable<string> result1 = db.Database.SqlQuery<string>(str1);
+                if (result1.Count() == 0) return Content("No such user.");
+                if (result1.ToList().First() != pwd) return Content("Wrong password.");
+
+                string loginStr1 = "SELECT ONLOGIN FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
+                IEnumerable<decimal> onlogin1 = db.Database.SqlQuery<decimal>(loginStr1);
+
+                // 获取DISC_ID
+                var judge1 = onlogin1.First();
+                if (judge1 == 1)
+                {
+
+                    return Content("You have logined");
+
+                }
+                if (judge1 == 0)
+                {
+                    string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='1'WHERE LOGIN_NAME='" + uid + "'";
+                    db.Database.ExecuteSqlCommand(updateStr);
+                    return Content("Login success.");
+
+                }
+
+            }
+            string str = "SELECT PASSWORD FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
+            IEnumerable<string> result = db.Database.SqlQuery<string>(str);
+
+
+
+            if (result.Count() == 0) return Content("No such user.");
+            if (result.ToList().First() != pwd) return Content("Wrong password.");
+
+            string loginStr = "SELECT ONLOGIN FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
+            IEnumerable<decimal> onlogin = db.Database.SqlQuery<decimal>(loginStr);
+
+            // 获取DISC_ID
+            var judge = onlogin.First();
+            if (judge == 1)
+            {
+
+                return Content("You have logined");
+
+            }
+            if (judge == 0)
+            {
+                string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='1'WHERE LOGIN_NAME='" + uid + "'";
+                db.Database.ExecuteSqlCommand(updateStr);
+                return Content("Login success.");
+
+            }
+
+
+
+
+
+            return Content("lalala");
+        }
     }
+
 }

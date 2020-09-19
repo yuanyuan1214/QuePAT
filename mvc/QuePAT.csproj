@@ -216,12 +216,48 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\bg-img\1.png" />
+    <Content Include="img\bg-img\10.jpg" />
+    <Content Include="img\bg-img\11.jpg" />
+    <Content Include="img\bg-img\12.jpg" />
+    <Content Include="img\bg-img\13.jpg" />
+    <Content Include="img\bg-img\14.jpg" />
+    <Content Include="img\bg-img\15.jpg" />
+    <Content Include="img\bg-img\16.jpg" />
+    <Content Include="img\bg-img\17.jpg" />
+    <Content Include="img\bg-img\18.jpg" />
+    <Content Include="img\bg-img\2.png" />
+    <Content Include="img\bg-img\3.jpg" />
+    <Content Include="img\bg-img\4.jpg" />
+    <Content Include="img\bg-img\404.png" />
+    <Content Include="img\bg-img\5.png" />
+    <Content Include="img\bg-img\6.jpg" />
+    <Content Include="img\bg-img\7.jpg" />
+    <Content Include="img\bg-img\8.jpg" />
+    <Content Include="img\bg-img\9.jpg" />
     <Content Include="img\body-bg-1.png" />
     <Content Include="img\circle-blue.png" />
     <Content Include="img\circle-green.png" />
     <Content Include="img\circle-orange.png" />
     <Content Include="img\circle-red.png" />
     <Content Include="img\circle-violet.png" />
+    <Content Include="img\core-img\banner.png" />
+    <Content Include="img\core-img\cloud-1.png" />
+    <Content Include="img\core-img\cloud-2.png" />
+    <Content Include="img\core-img\cloud-3.png" />
+    <Content Include="img\core-img\cloud-4.png" />
+    <Content Include="img\core-img\cloud-5.png" />
+    <Content Include="img\core-img\eng.png" />
+    <Content Include="img\core-img\favicon.png" />
+    <Content Include="img\core-img\logo.png" />
+    <Content Include="img\core-img\logo2.png" />
+    <Content Include="img\core-img\que%281%29.jpg" />
+    <Content Include="img\core-img\que.png" />
+    <Content Include="img\core-img\que2.jpg" />
+    <Content Include="img\core-img\que3.png" />
+    <Content Include="img\core-img\quote.png" />
+    <Content Include="img\core-img\support-pattern.png" />
+    <Content Include="img\core-img\welcome-pattern.png" />
     <Content Include="img\footer-border-blue.png" />
     <Content Include="img\footer-border-green.png" />
     <Content Include="img\footer-border-orange.png" />
@@ -242,6 +278,10 @@
     <Content Include="img\notifyme-orange.png" />
     <Content Include="img\notifyme-red.png" />
     <Content Include="img\notifyme-violet.png" />
+    <Content Include="img\personalCenter\center_selected_icon.png" />
+    <Content Include="img\personalCenter\center_selected_icon_u.png" />
+    <Content Include="img\personalCenter\exit_selected_icon.png" />
+    <Content Include="img\personalCenter\exit_selected_icon_u.png" />
     <Content Include="img\secondary-decor.png" />
     <Content Include="img\settings-button.png" />
     <Content Include="img\stay-informed.png" />
@@ -252,6 +292,8 @@
     <Content Include="img\submit-violet.png" />
     <Content Include="img\support-pattern.png" />
     <Content Include="js\result\echarts.min.js" />
+    <Content Include="js\searchForm.js" />
+    <Content Include="js\searcnLaw .js" />
     <Content Include="js\searchRst.js" />
     <Content Include="js\result\basic.js" />
     <Content Include="js\result\jquery.min.js" />
@@ -284,6 +326,7 @@
     <Content Include="fonts\bebasneue-webfont.eot%40" />
     <Content Include="fonts\bebasneue-webfont.ttf" />
     <Content Include="fonts\bebasneue-webfont.woff" />
+    <Content Include="img\core-img\.DS_Store" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -295,6 +338,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\navigator.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -327,6 +371,10 @@
     <Content Include="Views\Main\Search.cshtml" />
     <Content Include="Views\Main\SearchResult.cshtml" />
     <Content Include="Views\Home\Result.cshtml" />
+    <Content Include="Views\Main\SearchLaw.cshtml" />
+    <Content Include="Views\Main\SearchForm.cshtml" />
+    <Content Include="Views\Home\MainPage.cshtml" />
+    <Content Include="Views\Home\initial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

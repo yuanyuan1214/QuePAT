@@ -19,15 +19,21 @@
         var lPageNum = 1;
         $(function () {
             $(".searchBtn").click(function () {
-                var str = $("#inputBox").val();
-                var url = "SearchResult?keyword=" + str;
+                var strLaw = $("#inputBox").val();
+                var rowLaw = {};
+                rowLaw.lawStr = strLaw;
+                //var url = "SearchResult?keyword=" + strLaw;
                 $.ajax({
-                    type: "post",
-                    url: "./SearchByName",
-                    data: { searchStr: str },
+                    url: "/Main/SearchLaw",
+                    async: false,
+                    type: 'post',
+                    contentType: "application/json",
+                    data: JSON.stringify(rowLaw),
+                    dataType: "json",
+                    traditional: true,
                     success: function (res) {
                         //var json = eval(res);
-                        obj = eval(res);
+                        obj = eval(res);//原json
                         for (var i = 1; i < 10; i++) {
                             $("#li" + i).css("display", "none");
                         }
@@ -40,23 +46,23 @@
                             lPageNum = Math.ceil(obj.length / 9);
                             $("#totalPagehtml").text("总页数：" + lPageNum);
                             $("#totalSumhtml").text("总条数：" + obj.length);
-                            for (var i = 0; i < obj.length && i <= 9; i++) {
-                                var arr = obj[i].APP_DATE.split("T");
-                                $("#line" + (i + 1)).text(obj[i].NAME);
-                                $("#date" + (i + 1)).text(arr[0]);
-                                $("#li" + (i + 1)).css("display", "block");
-                            }
+                            //for (var i = 0; i < obj.length && i <= 9; i++) {
+                            var arr = obj.ANNOUNCE_DATE.split("T");
+                            $("#line" + 1).text(arr[0]);
+                            $("#date" + 1).text(obj.MSG);
+                            $("#li" + 1).css("display", "block");
+                            //}
                         }
-                        $("#a1").attr("title", obj.NAME );
+                        $("#a1").attr("title", obj.NAME);
                     },
                     error: function () {
                         console.log("err");
                     }
                 });
-                
+
             });
             document.getElementsByClassName("searchBtn")[0].click();
-            
+
         });
         function nextPage() {
             for (var i = 1; i < 10; i++) {
@@ -123,13 +129,8 @@
         }
         function openPatentDetail(num) {
             var patentNum = (pageNum - 1) * 9 + num - 1;
-            var patentCode = obj[patentNum].APP_NUM;
+            var patentCode = obj[i].APP_NUM;
             // 将patentCode接在url后面调用俊妍的页面
-            console.log(window.location.href);
-            console.log(patentCode);
-            var reff = "../Home/Result?ap=" + encodeURI(patentCode);
-            console.log(reff);
-            window.location.href = reff;
         }
     </script>
 </head>
@@ -217,7 +218,9 @@
         </div>
         <p>同济大学专利管理系统</p>
     </div>
-    <script type="text/javascript" src="../../js/searchRst.js"></script>
+    @*<script type="text/javascript" src="~/js/searcnLaw .js"></script>*@
+    <script type="text/javascript" src="~/js/searchRst.js"></script>
+
     <!--footer 结束-->
 </body>
 </html>
