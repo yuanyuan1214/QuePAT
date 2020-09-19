@@ -100,7 +100,7 @@ namespace QuePAT.Controllers
             IEnumerable<USR> allDisc = db.Database.SqlQuery<USR>(queryStr);
             // 获取DISC_ID
             var disc_id = allDisc.Last().USR_ID + 1;
-            string str = "INSERT INTO SYSTEM.USR VALUES('" + disc_id + "','" + reuserid + "', '" + repwd + "','19-9月 -20 05.41.12.407000000 上午','" + repwd + "','" + repwd + "','" + repwd + "','" + repwd + "','0')";
+            string str = "INSERT INTO SYSTEM.USR VALUES('" + disc_id + "','" + reuserid + "', '" + repwd + "','2020-09-19 05:41:12'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'0')";
             return Content(db.Database.ExecuteSqlCommand(str).ToString());
             // return Content("Register success.");
         }
@@ -150,6 +150,9 @@ namespace QuePAT.Controllers
             }
             string str = "SELECT PASSWORD FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
             IEnumerable<string> result = db.Database.SqlQuery<string>(str);
+
+
+
             if (result.Count() == 0) return Content("No such user.");
             if (result.ToList().First() != pwd) return Content("Wrong password.");
 
@@ -175,7 +178,9 @@ namespace QuePAT.Controllers
 
 
 
+
             return Content("lalala");
         }
     }
-    }
+
+}

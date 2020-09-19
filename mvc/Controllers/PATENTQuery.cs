@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuePAT.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Web.Helpers;
 
 namespace QuePAT.Controllers
 {
@@ -18,10 +16,6 @@ namespace QuePAT.Controllers
 
         public PATENTQuery()
         {
-            jsSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-            jsSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
-            jsSettings.Formatting = Newtonsoft.Json.Formatting.None;
-            jsSettings.NullValueHandling = NullValueHandling.Include;
             jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         }
 
@@ -58,25 +52,8 @@ namespace QuePAT.Controllers
         // Find patent by apply number.
         public ActionResult FindByApplyNumber(string app_num)
         {
-            JObject jObject = null;
-            var pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num)).Include(p => p.CLASSIFICATION).Include(p => p.COMPANY).Include(p => p.COMPANY1).Include(p => p.PERSON).Include(p => p.PROVINCE).FirstOrDefault();
-            jObject = JObject.FromObject(pATENT, new JsonSerializer
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                PreserveReferencesHandling = PreserveReferencesHandling.Arrays
-            }
-            );
-            var cite = db.CITE.Where(p => p.CITING_APP_NUM.Equals(app_num));
-            JToken jToken = JToken.FromObject(cite, new JsonSerializer
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-            jObject.Remove("CITE");
-            jObject.Add("CITE", jToken);
-            return new ContentResult
-            {
-                Content = jObject.ToString()
-            };
+            PATENT pATENT = db.PATENT.Where(p => p.APP_NUM.Equals(app_num)).FirstOrDefault();
+            return new ContentResult { Content = JsonConvert.SerializeObject(pATENT, jsSettings) };
         }
 
         public IQueryable<PATENT> findByClassCode(string code)

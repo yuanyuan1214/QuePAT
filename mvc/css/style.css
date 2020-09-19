@@ -1,499 +1,568 @@
-@font-face {
-    font-family: 'BebasNeueRegular';
-    src: url('../fonts/bebasneue-webfont.eot');
-    src: url('../fonts/bebasneue-webfont.eot@#iefix') format('eot'), url('../fonts/bebasneue-webfont.woff') format('woff'), url('../fonts/bebasneue-webfont.ttf') format('truetype'), url('../fonts/bebasneue-webfont.svg#webfontX0YNjQNl') format('svg');
-    font-weight: normal;
-    font-style: normal;
+/*适配分辨率需要加入*/
+
+@media (min-width: 1024px) {
+    html {
+        font-size: 70px
+    }
 }
 
-header, footer, section, aside, nav, article {
-    display: block
+
+/*>=1024的设备*/
+
+@media (min-width: 1360px) {
+    html {
+        font-size: 75px;
+    }
 }
 
-/* [] LAYOUT */
+@media (min-width: 1440px) {
+    html {
+        font-size: 85px;
+    }
+}
+
+@media (min-width: 1680px) {
+    html {
+        font-size: 100px;
+    }
+}
+
+@media (min-width: 1920px) {
+    html {
+        font-size: 110px;
+    }
+}
+
 body {
-    margin: auto;
-    padding: 0;
-    background: #fff url(../img/body-bg-1.png) repeat;
-    font-family: 'PT Sans', Arial, sans-serif;
-    font-size: 62.5%;
-    text-align: left;
-    color: #818181;
+    background-color: #f5f5f5;
+}
+
+.col-lg-1,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-md-1,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-sm-1,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-xs-1,
+.col-xs-10,
+.col-xs-11,
+.col-xs-12,
+.col-xs-2,
+.col-xs-3,
+.col-xs-4,
+.col-xs-5,
+.col-xs-6,
+.col-xs-7,
+.col-xs-8,
+.col-xs-9 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 0.15rem;
+    padding-left: 0.15rem;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+form {
+    margin: 0
+}
+
+ul {
+    padding-left: 0;
+    list-style-type: none
+}
+
+ol {
+    padding-left: 0
 }
 
 a {
-    color: #014d7c;
-    text-decoration: underline;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer
 }
 
-    a:hover, a:focus {
-        text-decoration: none;
-    }
-
-h1, h2, h3 {
-    font-family: 'BebasNeueRegular';
+a:hover {
+    color: #0096db;
+    text-decoration: none;
+    cursor: pointer
 }
 
-input, textarea {
-    color: #7f7f7f;
-    font-family: 'Lucida Grande';
+a:active {
+    cursor: default
 }
 
-#wrapper {
-    width: 960px;
-    overflow: hidden;
-    margin: 100px auto 100px auto;
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+i {
+    font-style: normal;
+    font-size: 0.16rem;
+}
+
+div,
+label,
+input,
+a,
+li,
+span,
+p {
+    box-sizing: border-box
+}
+
+article,
+aside,
+dialog,
+footer,
+header,
+section,
+footer,
+nav,
+figure,
+menu {
+    display: block
+}
+
+button {
+    border: none;
+    outline: none
+}
+
+ul,
+li {
+    padding: 0;
+    margin: 0;
+    list-style: none
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:visited {
+    text-decoration: none
+}
+
+.container-fluid {
+    min-width: 12rem;
+    /*background-color: wheat;*/
+    height: 100%;
+    padding: 0;
+}
+
+.footer-fp {
+    width: 100%;
+    height: 1rem;
+    background-color: #FFFFFF;
+    border-top: 4px solid #2b6ec9;
+}
+
+.footer-fp .footer-fp-content {
+    width: 9rem;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0.18rem 0;
+    /*background-color: #CCCCCC;*/
+}
+
+.footer-fp .footer-fp-content div {
     text-align: center;
 }
 
-#content {
-    overflow: hidden;
-    margin-bottom: 50px;
+.footer-fp .footer-fp-content .col-xs-10 {
+    padding: 0.1rem 0;
 }
 
-#settings {
-    position: absolute;
-    left: 0;
-    top: 100px;
+.footer-fp .footer-fp-content .col-xs-10 p {
+    font-size: 0.13rem;
 }
 
-    #settings li a {
-        width: 20px;
-        height: 20px;
-        margin-bottom: 5px;
-        text-indent: -9999px;
-        display: block;
-    }
-
-    #settings .button {
-        width: 32px;
-        height: 39px;
-        background: url(../img/settings-button.png) 0 0 no-repeat;
-        display: block;
-        text-indent: -9999px;
-    }
-
-.active .button {
-    background-position: -33px 0 !important;
+.col-xs-10 {
+    width: 100%;
 }
 
-#settings .content {
+.contenter {
+    width: 100%;
+    min-height: calc(100% - 1.7rem);
+    /*padding: 10% 0;*/
+}
+
+.contenter .contenter-content {
+    width: 12rem;
+    margin: 0 auto;
+    /*overflow: hidden;*/
+    padding-top: 0.15rem;
+}
+
+
+/*专利详情页*/
+
+.detail-head {
+    width: 100%;
+    height: 0.6rem;
+    border-bottom: 3px solid #2b6ec9;
     position: relative;
-    left: -35px;
-    background: #c8c8c8;
-    padding: 5px;
-    margin-top: 10px;
 }
 
-#settings .red a {
-    background: red;
+.detail-head p {
+    display: inline-block;
+    height: 0.5rem;
+    min-width: 1rem;
+    font-size: 0.18rem;
+    margin: 0;
+    line-height: 0.35rem;
+    padding: 0.1rem 0.2rem;
+    cursor: pointer;
+    position: relative;
+    top: -0.64rem;
+    left: -2.8rem;
+    transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    /* Firefox 4 */
+    -webkit-transition: all 0.3s;
+    /* Safari 和 Chrome */
+    -o-transition: all 0.3s;
+    /* Opera */
 }
 
-#settings .blue a {
-    background: #066fc3;
+
+/*鼠标浮到按钮上效果*/
+
+.detail-head p:hover {
+    color: #FFFFFF;
+    background-color: rgba(43, 110, 201, 0.7);
+    border-radius: 0.08rem 0.08rem 0 0;
+    height: 0.6rem;
+    top: -0.71rem;
 }
 
-#settings .green a {
-    background: #14b43e;
+.detail-head .active {
+    background-color: #2b6ec9;
+    color: #FFFFFF;
+    border-radius: 8px 8px 0 0;
 }
 
-#settings .violet a {
-    background: #c02fc9;
-    margin-bottom: 0;
+.dnp {
+    display: none;
+    font-size: 14px;
 }
 
-#settings .orange a {
-    background: #e66205;
+.dn {
+    display: none;
 }
 
-#settings .backgrounds a {
+#itemyear {
+    display: none;
+    position: relative;
+    left: 90px;
+    top: 20px;
 }
 
-#settings .bg {
-    background: #fff;
+#itemdynam {
+    display: none;
+    position: relative;
+    left: 80px;
+    top: 20px;
 }
 
-/* [] MAIN SECTION */
-#main-head {
-    font-size: 7em;
-    text-align: center;
-    margin: 0 auto 70px auto;
+#itemfam {
+    display: none;
 }
 
-#timer {
-    overflow: hidden;
+#itemInfoContainer {
+    display: block;
+}
+
+.detail-content .itemInfo .item-title {
+    width: 100%;
+    border-bottom: 1px dashed #c9c9c9;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #2b6ec9;
+}
+
+.detail-content .title-color {
+    float: none;
+    margin-bottom: 0.2rem;
+    margin-top: 0.1rem;
+    position: relative;
+    left: -2.8rem;
     display: inline-block;
 }
 
-    #timer .countdown_section {
-        width: 208px;
-        height: 208px;
-        background: url(../img/circle-green.png) no-repeat;
-        float: left;
-        display: block;
-        overflow: hidden;
-        font-size: 1.8em;
-        color: #404040;
-        margin-right: 25px;
-    }
-
-        #timer .countdown_section:last-child {
-            margin-right: 0 !important;
-        }
-
-    #timer .countdown_amount {
-        font-size: 2.67em;
-        margin-top: 45px;
-        display: block;
-        font-weight: bold;
-    }
-
-
-/* # SECONDARY */
-#secondary {
-    background: #0b8528 url(../img/secondary-decor.png) top no-repeat;
-    padding-top: 50px;
+.detail-content .subtitle-color {
+    line-height: 0.25rem;
 }
 
-    #secondary .wrapper {
-        width: 900px;
-        margin: auto;
-        overflow: hidden;
-    }
-
-    #secondary h2 {
-        font-size: 3.6em;
-        color: #fff;
-        margin-bottom: 10px;
-    }
-
-#about {
-    width: 380px;
-    float: left;
-}
-
-    #about p {
-        font-size: 1.4em;
-        line-height: 1.9em;
-        color: #fff;
-        margin-bottom: 20px;
-    }
-
-#contact {
-    float: right;
+.itemInfo .item-title .trans-btn span {
     position: relative;
-    overflow: hidden;
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    margin-right: 90px;
+    top: -0.19rem;
+    margin: 0;
+    left: 0.05rem;
 }
 
-    #contact h2 {
-        margin-bottom: 17px;
-    }
-
-    #contact .decor {
-        position: absolute;
-        width: 170px;
-        height: 45px;
-        background: url(../img/leave-us-a-message.png) no-repeat;
-        bottom: 0px;
-        right: 30px;
-    }
-
-    #contact label {
-        display: none;
-    }
-
-        #contact label.error {
-            color: #fff;
-            font-size: 1.2em;
-        }
-
-    #contact input.error, #contact textarea.error {
-        margin-bottom: 5px;
-    }
-
-    #contact input, #contact textarea {
-        border: 0;
-        padding: 0;
-        background-color: #fff;
-        display: block;
-        font-size: 1.3em;
-    }
-
-    #contact .n1, #contact .n2, #contact .n3, #contact .n4, #contact .n5, #contact .n6, #contact .n7, #contact .n8 {
-        margin-bottom: 20px;
-    }
-
-    #contact input {
-        width: 311px;
-        height: 36px;
-        padding-left: 50px;
-        line-height: 36px;
-    }
-
-    #contact .n1 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n2 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n3 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n4 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n5 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n6 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n7 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .n8 input {
-        background: url(../img/input-email.png) no-repeat;
-    }
-
-    #contact .submit-button {
-        background: url(../img/submit-green.png) 0 0 no-repeat;
-        width: 131px;
-        height: 36px;
-        text-indent: -9999px;
-    }
-
-        #contact .submit-button:hover, #kontakt .submit-button:focus {
-            background-position: -131px 0;
-            cursor: pointer;
-        }
-
-        #contact .submit-button:active {
-            background-position: -262px;
-        }
-
-#footer {
-    background: url(../img/footer-border-green.png) top repeat-x;
+.itemInfo .item-content {
+    width: 75%;
+    padding: 0.15rem 0;
 }
 
-    #footer .wrapper {
-        width: 900px;
-        margin: auto;
-        text-align: center;
-        padding: 30px 0;
-    }
+.itemInfo .item-content div {
+    float: left;
+    min-width: 50%;
+    margin-bottom: 0.1rem;
+}
 
-    #footer ul {
-        display: inline-block;
-    }
+.itemInfo .item-img {
+    width: 25%;
+    padding: 0.15rem 0;
+}
 
-    #footer li {
-        float: left;
-        height: 31px;
-        padding-left: 40px;
-        line-height: 31px;
-        color: #fff;
-        font-size: 1.4em;
-        margin-right: 76px;
-    }
+.itemInfo .item-summary {
+    width: 100%;
+    /*min-height: 200px;*/
+}
 
-    #footer .email {
-        background: url(../img/icon-email.png) no-repeat;
-    }
+.itemInfo .item-content,
+.itemInfo .item-summary {
+    font-size: 0.15rem;
+}
 
-    #footer .address {
-        background: url(../img/icon-address.png) no-repeat;
-    }
-
-    #footer .fb {
-        background: url(../img/icon-facebook.png) no-repeat;
-    }
-
-    #footer .twitter {
-        background: url(../img/icon-twitter.png) no-repeat;
-        margin-right: 0;
-    }
-
-    #footer a {
-        color: #fff;
-    }
+.itemInfo .item-content p {
+    display: inline-block;
+    width: 0.95rem;
+    margin-bottom: 0.06rem;
+}
 
 
-/* [] NEWSLETTER */
-#newsletter {
+/*可点击条目*/
+
+.item-bc {
+    color: #2b6ec9;
+    cursor: pointer;
+}
+
+.item-bc:hover {
+    color: #221df7;
+}
+
+.itemInfo .item-img img {
+    width: 100%;
+}
+
+.itemInfo .item-summary p {
+    line-height: 0.25rem;
+    margin-bottom: 0.05rem;
+    text-align: justify;
+}
+
+
+/*条目下内容样式*/
+
+.ti {
+    text-indent: 2em;
+}
+
+.itemDemand,
+.itemIntro,
+.itemLaw {
+    padding: 0.15rem 0.02rem;
+}
+
+.itemDemand p,
+.itemIntro p,
+.itemLaw p {
+    font-size: 0.16rem;
+    text-align: justify;
+    text-indent: 2em;
+}
+
+#itemfam {
+    padding: 0.15rem 0.02rem;
+}
+
+#itemfam p {
+    font-size: 0.16rem;
+    text-align: justify;
+    text-indent: 2em;
+}
+
+.itemPdf {
+    height: 7rem;
+}
+
+.itemIntro h3 {
     text-align: center;
 }
 
-    #newsletter .wrapper {
-        display: inline-block;
-    }
-
-    #newsletter p {
-        display: block;
-        float: left;
-    }
-
-    #newsletter label.main {
-        display: inline-block;
-        width: 212px;
-        height: 79px;
-        background: url(../img/stay-informed.png) no-repeat;
-        text-indent: -9999px;
-        margin-right: 20px;
-    }
-
-    #newsletter label.error {
-        display: block;
-        margin-left: 235px;
-        font-size: 1.2em;
-        text-align: left;
-    }
-
-    #newsletter .email {
-        width: 303px;
-        height: 33px;
-        background: url(../img/input-bg.png) no-repeat;
-        border: 0;
-        padding: 0 5px;
-        line-height: 33px;
-        font-size: 1.3em;
-    }
-
-    #newsletter .submit {
-        width: 130px;
-        height: 33px;
-        background: url(../img/notifyme-green.png) no-repeat;
-        text-indent: -9999px;
-        border: 0;
-        float: left;
-        margin-left: 10px;
-    }
-
-        #newsletter .submit:hover {
-            cursor: pointer;
-            background-position: -130px;
-        }
-
-        #newsletter .submit:active {
-            background-position: -260px;
-        }
-
-    #newsletter .email, #newsletter .submit {
-        position: relative;
-        top: 50px;
-    }
-
-
-/* [] RED COLOR */
-.color-red #newsletter .submit {
-    background-image: url(../img/notifyme-red.png);
+.item-other {
+    margin-bottom: 0.5rem;
+    margin-top: 0.3rem;
 }
 
-.color-red #timer .countdown_section {
-    background: url(../img/circle-red.png) no-repeat;
+.item-other .item-other-title {
+    position: relative;
+    bottom: -1px;
 }
 
-.color-red #secondary {
-    background-color: #d00303;
+.item-other .item-other-title p {
+    display: inline-block;
+    margin: 0;
+    margin-right: 0.2rem;
+    padding: 0 0.2rem;
+    min-width: 1.2rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    font-size: 0.16rem;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #cfcfcf;
+    cursor: pointer;
+    background-color: #eaeaea;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    /* Firefox 4 */
+    -webkit-transition: all 0.3s;
+    /* Safari 和 Chrome */
+    -o-transition: all 0.3s;
+    /* Opera */
 }
 
-.color-red #footer {
-    background-image: url(../img/footer-border-red.png);
+.bn {
+    border-bottom: none!important;
+    background-color: #FFFFFF!important;
+    color: #2b6ec9;
 }
 
-.color-red #contact .submit-button {
-    background-image: url(../img/submit-red.png);
+.item-other .item-other-title p:hover {
+    color: #2b6ec9;
 }
 
-/* [] BLUE COLOR */
-.color-blue #newsletter .submit {
-    background-image: url(../img/notifyme-blue.png);
+.item-other .item-other-content {
+    width: 100%;
+    min-height: 1rem;
+    border: 1px solid #cfcfcf;
+    padding: 0.2rem;
 }
 
-.color-blue #timer .countdown_section {
-    background: url(../img/circle-blue.png) no-repeat;
+.item-other .item-other-content p {
+    margin: 0;
 }
 
-.color-blue #secondary {
-    background-color: #1279c5;
+.itemDemand claim,
+.itemDemand claim-texts {
+    font-size: 0.16rem;
+    text-align: justify;
+    text-indent: 2em;
+    margin: 0 0 0.1rem;
 }
 
-.color-blue #footer {
-    background-image: url(../img/footer-border-blue.png);
+.leftlink {
+    position: relative;
+    left: 31%;
 }
 
-.color-blue #contact .submit-button {
-    background-image: url(../img/submit-blue.png);
+.linkline {
+    position: relative;
+    left: 34%;
 }
 
-/* [] GREEN COLOR */
-.color-green #newsletter .submit {
-    background-image: url(../img/notifyme-green.png);
+.rightlink {
+    position: relative;
+    left: 37%;
 }
 
-.color-green #timer .countdown_section {
-    background: url(../img/circle-green.png) no-repeat;
+.table-striped thead {
+    display: table-header-group;
+    vertical-align: middle;
+    font-size: 14px;
+    border-bottom: 2px solid #c0c0c0;
 }
 
-.color-green #secondary {
-    background-color: #0b8528;
+tr {
+    display: table-row;
 }
 
-.color-green #footer {
-    background-image: url(../img/footer-border-green.png);
+.table-striped {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    text-align: left;
+    margin-left: 10px;
+    font-size: 14px;
 }
 
-.color-green #contact .submit-button {
-    background-image: url(../img/submit-green.png);
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: gray;
 }
 
-/* [] ORANGE COLOR */
-.color-orange #newsletter .submit {
-    background-image: url(../img/notifyme-orange.png);
+.table-striped tbody tr {
+    background-color: #f9f9f9;
+    height: 45px;
 }
 
-.color-orange #timer .countdown_section {
-    background: url(../img/circle-orange.png) no-repeat;
-}
-
-.color-orange #secondary {
-    background-color: #e15d07;
-}
-
-.color-orange #footer {
-    background-image: url(../img/footer-border-orange.png);
-}
-
-.color-orange #contact .submit-button {
-    background-image: url(../img/submit-orange.png);
-}
-
-/* [] VIOLET COLOR */
-.color-violet #newsletter .submit {
-    background-image: url(../img/notifyme-violet.png);
-}
-
-.color-violet #timer .countdown_section {
-    background: url(../img/circle-violet.png) no-repeat;
-}
-
-.color-violet #secondary {
-    background-color: #b82ec4;
-}
-
-.color-violet #footer {
-    background-image: url(../img/footer-border-violet.png);
-}
-
-.color-violet #contact .submit-button {
-    background-image: url(../img/submit-violet.png);
+.table-striped tr th {
+    height: 35px;
 }
