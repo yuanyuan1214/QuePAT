@@ -35,9 +35,9 @@
                         console.log(typeof obj);
                         if (typeof obj == "undefined" || obj.length == 0) {
                             $("#line1").text("没有搜索结果，请输入其他关键字");
-                            $("#date1" ).text("");
+                            $("#date1").text("");
                             $("#li1").css("display", "block");
-                            $("#totalPagehtml").text("总页数：1" );
+                            $("#totalPagehtml").text("总页数：1");
                             $("#totalSumhtml").text("总条数：0");
                         } else {
                             lPageNum = Math.ceil(obj.length / 9);
@@ -50,16 +50,16 @@
                                 $("#li" + (i + 1)).css("display", "block");
                             }
                         }
-                        $("#a1").attr("title", obj.NAME );
+                        $("#a1").attr("title", obj.NAME);
                     },
                     error: function () {
                         console.log("err");
                     }
                 });
-                
+
             });
             document.getElementsByClassName("searchBtn")[0].click();
-            
+
         });
         function nextPage() {
             for (var i = 1; i < 10; i++) {
@@ -129,11 +129,10 @@
             var patentCode = obj[patentNum].APP_NUM;
             console.log(patentCode);
             // 将patentCode接在url后面调用俊妍的页面
-            console.log(window.location.href);
-            console.log(patentCode);
-            var reff = "../Home/Result?ap=" + encodeURI(patentCode);
-            console.log(reff);
-            window.location.href = reff;
+            var uids = $(".username-box.fl .username").attr("title");
+            var uid = parseInt(uids);
+            var name = $(".username-box.fl .username").text();
+            window.location.href = "../Home/Result?uid=" + uid + "&user_name=" + name + "&app_num=" + encodeURI(patentCode);
         }
     </script>
 </head>
@@ -149,17 +148,14 @@
                     <div class="box-title">
                         <div class="userinfo">
                             <div class="username-box fl">
-                                <span class="username" title="1174851652">1174851652</span>
+                                <span class="username" title=""></span>
                             </div>
                         </div>
                     </div>
                     <div class="box-content">
                         <ul class="personalmenu">
                             <li>
-                                <a href=""><img src="~/img/personalCenter/center_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/center_selected_icon.png" /><span>专利管理</span></a>
-                            </li>
-                            <li>
-                                <a href=""><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
+                                <a onclick="clicka()"><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
                             </li>
                         </ul>
 
@@ -222,6 +218,8 @@
         <p>同济大学专利管理系统</p>
     </div>
     <script type="text/javascript" src="../../js/searchRst.js"></script>
+    <script type="text/javascript" src="~/js/result/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/navigator.js"></script>
     <!--footer 结束-->
 </body>
 </html>

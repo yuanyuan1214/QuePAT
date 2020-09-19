@@ -13,7 +13,7 @@ using QuePAT.Models;
 
 namespace QuePAT.Controllers
 {
-    
+
     public class MainController : Controller
     {
         static public JsonSerializerSettings jsSettings = new JsonSerializerSettings();
@@ -61,7 +61,14 @@ namespace QuePAT.Controllers
             string json = JsonConvert.SerializeObject(lAW_STATUS.ToList(), jsSettings);
             return new ContentResult { Content = json };
         }
+        public ActionResult Logout()
+        {
+            string uid = Request["user_id"];
+            string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='0'WHERE LOGIN_NAME='" + uid + "'";
+            db.Database.ExecuteSqlCommand(updateStr);
+            return Content("Logout success.");
 
+        }
         public LAW_STATUS getNewestLawStatus(string app_num)
         {
             LAW_STATUS lAW_STATUS = getLawStatus(app_num).FirstOrDefault();
@@ -81,7 +88,7 @@ namespace QuePAT.Controllers
             return View();
         }
         [HttpPost]
-        
+
 
         public ActionResult Search
             (
@@ -152,7 +159,7 @@ namespace QuePAT.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SearchForm(string w1,string w2,string w3,string w4,string w5,string w6,string w7,string w8)
+        public ActionResult SearchForm(string w1, string w2, string w3, string w4, string w5, string w6, string w7, string w8)
         {
             PATENTQuery pATENTQuery = new PATENTQuery();
             return pATENTQuery.SearchExpert

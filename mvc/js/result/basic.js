@@ -17,16 +17,22 @@ var appnums_data = '';
 
 
 $(document).ready(function () {
-    
-    console.log(window.location.href);
-    var url = document.location.toString();//获取当前URL
+    var url = window.location.toString();//获取当前URL
     if (url.indexOf("?") != -1) {  //判断URL？后面不为空
         var arrUrl = url.split("?");//分割？
         var para = decodeURI(arrUrl[1]);//获取参数部分
         if (para)//判断传入的参数部分不为空
         {
-            var arr = para.split("=");//分割=
-            appnums = arr[1];//获取参数的值
+            var arr = para.split("&");//分割=
+            var arr0 = arr[0].split("=");
+            uid = arr0[1];
+            var arr1 = arr[1].split("=");
+            var name = arr1[1];
+            var arr2 = arr[2].split("=");
+            var value = arr2[1];
+            $(".username-box.fl .username").attr("title", uid);
+            $(".username-box.fl .username").text(name);
+            appnums = value;
         }
         else {
             alert("查询数据失败！");
@@ -37,7 +43,7 @@ $(document).ready(function () {
     }
     appnums_data = "{str:" + "'" + appnums + "'}";
     console.log(appnums_data);
-   
+
     $.ajax({
         url: "/Home/Result", //改成相应函数接口
         async: false,
@@ -136,11 +142,11 @@ function switchs() {
                     traditional: true,
                     success: function (data) {
                         console.log(data);
-                        for (var i = 0; i < data.length; ++i){
-                    x.push(data[i].YEAR);
-                    y.push(data[i].QUANT);
-                    x.sort();
-                }
+                        for (var i = 0; i < data.length; ++i) {
+                            x.push(data[i].YEAR);
+                            y.push(data[i].QUANT);
+                            x.sort();
+                        }
 
                     },
                     error: function (message) {
@@ -308,4 +314,18 @@ function switchs() {
             }
             break;
     }
+}
+
+function clicka() {
+    $.ajax({
+        type: "post",
+        url: "./Logout",
+        data: { user_id: uid },
+        success: function (res) {
+            alert("log out");
+            window.open("../Home/MainPage");
+
+        }
+    });
+
 }

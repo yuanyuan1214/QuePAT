@@ -39,21 +39,22 @@
                         }
                         console.log(obj);
                         console.log(typeof obj);
-                        if (typeof obj == undefined) {
+                        if (typeof obj == "undefined" || obj == null) {
                             $("#line1").text("没有搜索结果，请输入其他关键字");
+                            $("#date1").text("");
                             $("#li1").css("display", "block");
                         } else {
-                            lPageNum = Math.ceil(obj.length / 9);
-                            $("#totalPagehtml").text("总页数：" + lPageNum);
-                            $("#totalSumhtml").text("总条数：" + obj.length);
+                            //lPageNum = Math.ceil(obj.length / 9);
+                            $("#totalPagehtml").text("总页数：1");
+                            $("#totalSumhtml").text("总条数：1");
                             //for (var i = 0; i < obj.length && i <= 9; i++) {
                             var arr = obj.ANNOUNCE_DATE.split("T");
-                            $("#line" + 1).text(arr[0]);
-                            $("#date" + 1).text(obj.MSG);
-                            $("#li" + 1).css("display", "block");
+                            $("#date1").text(arr[0]);
+                            $("#line1").text(obj.MSG);
+                            $("#li1").css("display", "block");
                             //}
                         }
-                        $("#a1").attr("title", obj.NAME);
+                        //$("#a1").attr("title", obj.NAME);
                     },
                     error: function () {
                         console.log("err");
@@ -129,8 +130,13 @@
         }
         function openPatentDetail(num) {
             var patentNum = (pageNum - 1) * 9 + num - 1;
-            var patentCode = obj[i].APP_NUM;
+            var patentCode = obj[patentNum].APP_NUM;
+            console.log(patentCode);
             // 将patentCode接在url后面调用俊妍的页面
+            var uids = $(".username-box.fl .username").attr("title");
+            var uid = parseInt(uids);
+            var name = $(".username-box.fl .username").text();
+            window.location.href = "../Home/Result?uid=" + uid + "&user_name=" + name + "&app_num=" + encodeURI(patentCode);
         }
     </script>
 </head>
@@ -146,17 +152,14 @@
                     <div class="box-title">
                         <div class="userinfo">
                             <div class="username-box fl">
-                                <span class="username" title="1174851652">1174851652</span>
+                                <span class="username" title=""></span>
                             </div>
                         </div>
                     </div>
                     <div class="box-content">
                         <ul class="personalmenu">
                             <li>
-                                <a href=""><img src="~/img/personalCenter/center_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/center_selected_icon.png" /><span>专利管理</span></a>
-                            </li>
-                            <li>
-                                <a href=""><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
+                                <a onclick="clicka()"><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
                             </li>
                         </ul>
 
@@ -176,7 +179,7 @@
     <!-- Search Form -->
     <div class="searchForm">
         <input type="search" id="inputBox" placeholder="请输入要检索的内容">
-        <button class="searchBtn">智能检索</button>
+        <button class="searchBtn">法律状态检索</button>
     </div>
     <div class="dxal_content">
         <div class="position1">

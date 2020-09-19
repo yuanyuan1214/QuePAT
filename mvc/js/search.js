@@ -70,43 +70,48 @@ window.onload = function () {
             alert("检索关键词不能为空！");
         }
         else {
-            var queryJson = [];
-            var row = {};
-            row.type = 0;
-            row.w1 = keyword;
-            row.w2 = "";
-            row.w3 = "";
-            row.w4 = "";
-            row.w5 = "";
-            row.w6 = "";
-            row.w7 = "";
-            row.w8 = "";
-            if (row.w1 === "") row.w1 = "666";
-            queryJson.push(row);
-            var d_test = JSON.stringify(queryJson[0]);
+            /* var queryJson = [];
+             var row = {};
+             row.type = 0;
+             row.w1 = keyword;
+             row.w2 = "";
+             row.w3 = "";
+             row.w4 = "";
+             row.w5 = "";
+             row.w6 = "";
+             row.w7 = "";
+             row.w8 = "";
+             if (row.w1 === "") row.w1 = "666";
+             queryJson.push(row);
+             var d_test = JSON.stringify(queryJson[0]);
+ 
+             $.ajax({
+                 url: "/Main/Search",
+                 async: false,
+                 type: 'post',
+                 contentType: "application/json",
+                 data: JSON.stringify(queryJson[0]),
+                 dataType: "json",
+                 traditional: true,
+                 success: function (data) {
+                     var json = eval(data);
+                     *//*if (json.length === 0) {
+                alert("检索结果为空！");
+                return;
+            }*//*
+            console.log(json);*/
+            var uids = $(".username-box.fl .username").attr("title");
+            var uid = parseInt(uids);
+            var name = $(".username-box.fl .username").text();
+            window.location.href = "SearchResult?uid=" + uid + "&user_name=" + name + "&app_num=" + encodeURI(keyword);
 
-            $.ajax({
-                url: "/Main/Search",
-                async: false,
-                type: 'post',
-                contentType: "application/json",
-                data: JSON.stringify(queryJson[0]),
-                dataType: "json",
-                traditional: true,
-                success: function (data) {
-                    var json = eval(data);
-                    /*if (json.length === 0) {
-                        alert("检索结果为空！");
-                        return;
-                    }*/
-                    console.log(json);
-                    window.location.href = "SearchResult?id=" + encodeURI(keyword);
 
-                },
-                error: function (message) {
-                    alert("请求查询数据失败！");
-                }
-            });
+
+            /*},
+            error: function (message) {
+                alert("请求查询数据失败！");
+            }
+        });*/
         }
     })
 
@@ -116,7 +121,7 @@ window.onload = function () {
             alert("检索关键词不能为空！");
         }
         else {
-            var queryJson2 = [];
+            /*var queryJson2 = [];
             var row2 = {};
             row2.type = 2;
             row2.w1 = lawword;
@@ -141,28 +146,28 @@ window.onload = function () {
                 traditional: true,
                 success: function (data) {
                     var json = eval(data);
-                    /*if (json.length === 0) {
-                        alert("检索结果为空！");
-                        return;
-                    }*/
-                    console.log(json);
-                    window.location.href = "SearchLaw?id=" + encodeURI(lawword);
-                    /*normal_list = data.info;
-                    _search_word = keyword;
-                    if (normal_list.length != 0) {
-                        normal_list.forEach(function (v) {
-                            var copy = [];
-                            v.tags.forEach(function (t) {
-                                copy.push(t['tagName']);
-                            });
-                            v.tags = copy;
-                        });
-                    }*/
-                },
-                error: function (message) {
-                    alert("请求查询数据失败！");
-                }
-            });
+                    *//*if (json.length === 0) {
+                alert("检索结果为空！");
+                return;
+            }*//*
+            console.log(json);*/
+            window.location.href = "SearchLaw?id=" + encodeURI(lawword);
+            /*normal_list = data.info;
+            _search_word = keyword;
+            if (normal_list.length != 0) {
+                normal_list.forEach(function (v) {
+                    var copy = [];
+                    v.tags.forEach(function (t) {
+                        copy.push(t['tagName']);
+                    });
+                    v.tags = copy;
+                });
+            }*/
+            /*},
+            error: function (message) {
+                alert("请求查询数据失败！");
+            }
+        });*/
         }
     })
 
@@ -239,43 +244,43 @@ window.onload = function () {
         queryJson3.push(row3);
         var d_test = JSON.stringify(queryJson3[0]);
 
-        $.ajax({
-            url: "/Main/Search",
-            async: false,
-            type: 'post',
-            contentType: "application/json",
-            data: JSON.stringify(queryJson3[0]),
-            dataType: "json",
-            traditional: true,
-            success: function (data) {
-                var json = eval(data);
-                /*if (json.length === 0) {
-                    alert("检索结果为空！");
-                    return;
-                }*/
-                var address2 = "word1=" + word1 + "*word2=" + word2 + "*word3=" + word3 + "*word4=" + word4 + "*word5=" + word5 + "*word6=" + word6 + "*word7=" + word7 + "*word8=" + word8;
-                console.log(data);
-                var address0 = "SearchForm?expression=";
-                
+        /* $.ajax({
+             url: "/Main/Search",
+             async: false,
+             type: 'post',
+             contentType: "application/json",
+             data: JSON.stringify(queryJson3[0]),
+             dataType: "json",
+             traditional: true,
+             success: function (data) {
+                 var json = eval(data);*/
+        /*if (json.length === 0) {
+            alert("检索结果为空！");
+            return;
+        }*/
+        var address2 = "word1=" + word1 + "*word2=" + word2 + "*word3=" + word3 + "*word4=" + word4 + "*word5=" + word5 + "*word6=" + word6 + "*word7=" + word7 + "*word8=" + word8;
+        //console.log(data);
+        var address0 = "SearchForm?expression=";
 
 
-                window.location.href = address0 + address2;//"SearchResult?expression=" + word1 + "/IC*" + word2 + "/IN*" + word3 + "/AN*" + word4 + "/PA*" + word5 + "/TX*" + word6 + "CO*" + word7 + "/AD*" + word8 + "/CS";
-                /*normal_list = data.info;
-                _search_word = keyword;
-                if (normal_list.length != 0) {
-                    normal_list.forEach(function (v) {
-                        var copy = [];
-                        v.tags.forEach(function (t) {
-                            copy.push(t['tagName']);
-                        });
-                        v.tags = copy;
-                    });
-                }*/
-            },
-            error: function (message) {
-                alert("请求查询数据失败！");
-            }
-        });
+
+        window.location.href = address0 + address2;//"SearchResult?expression=" + word1 + "/IC*" + word2 + "/IN*" + word3 + "/AN*" + word4 + "/PA*" + word5 + "/TX*" + word6 + "CO*" + word7 + "/AD*" + word8 + "/CS";
+        /*normal_list = data.info;
+        _search_word = keyword;
+        if (normal_list.length != 0) {
+            normal_list.forEach(function (v) {
+                var copy = [];
+                v.tags.forEach(function (t) {
+                    copy.push(t['tagName']);
+                });
+                v.tags = copy;
+            });
+        }*/
+        //},
+        /*error: function (message) {
+            alert("请求查询数据失败！");
+        }
+    });*/
     })
 }
 

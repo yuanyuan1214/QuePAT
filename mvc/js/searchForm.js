@@ -215,8 +215,10 @@ function gotoEndPage() {
 function openPatentDetail(num) {
     var patentNum = (pageNum - 1) * 9 + num - 1;
     var patentCode = obj[patentNum].APP_NUM;
+    console.log(patentCode);
     // 将patentCode接在url后面调用俊妍的页面
-    var reff = "../Home/Result?ap=" + encodeURI(patentCode);
-    console.log(reff);
-    window.location.href = reff;
+    var uids = $(".username-box.fl .username").attr("title");
+    var uid = parseInt(uids);
+    var name = $(".username-box.fl .username").text();
+    window.location.href = "../Home/Result?uid=" + uid + "&user_name=" + name + "&app_num=" + encodeURI(patentCode);
 }

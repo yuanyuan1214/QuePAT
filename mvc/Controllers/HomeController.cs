@@ -15,7 +15,7 @@ namespace QuePAT.Controllers
     public class HomeController : Controller
     {
         private Entities db = new Entities();
-        
+
 
         public ActionResult Index()
         {
@@ -40,6 +40,10 @@ namespace QuePAT.Controllers
         {
             return View();
         }
+        public ActionResult homepage()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Result(string str)
         {
@@ -49,13 +53,13 @@ namespace QuePAT.Controllers
         [HttpPost]
         public ActionResult Law(string str)
         {
-            LAW_STATUSQuery lAW  = new LAW_STATUSQuery();
+            LAW_STATUSQuery lAW = new LAW_STATUSQuery();
             return lAW.GetLawStatus(str);
         }
         [HttpPost]
         public ActionResult Famliy(string str)
         {
-            FAMILYQuery fAMILYQuery  = new FAMILYQuery();
+            FAMILYQuery fAMILYQuery = new FAMILYQuery();
             return fAMILYQuery.FamilyOf(str);
         }
         [HttpPost]
@@ -100,14 +104,14 @@ namespace QuePAT.Controllers
             IEnumerable<USR> allDisc = db.Database.SqlQuery<USR>(queryStr);
             // 获取DISC_ID
             var disc_id = allDisc.Last().USR_ID + 1;
-            string str = "INSERT INTO SYSTEM.USR VALUES('" + disc_id + "','" + reuserid + "', '" + repwd + "','2020-09-19 05:41:12'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'0')";
+            string str = "INSERT INTO SYSTEM.USR VALUES('" + disc_id + "','" + reuserid + "', '" + repwd + "','19-9月 -20 05.41.12.407000000 上午'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'" + repwd + "'，'0')";
             return Content(db.Database.ExecuteSqlCommand(str).ToString());
             // return Content("Register success.");
         }
         public ActionResult Logout()
         {
             string uid = Request["user_id"];
-            string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='1'WHERE LOGIN_NAME='" + uid + "'";
+            string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='0'WHERE LOGIN_NAME='" + uid + "'";
             db.Database.ExecuteSqlCommand(updateStr);
             return Content("Logout success.");
 
@@ -130,9 +134,14 @@ namespace QuePAT.Controllers
 
                 string loginStr1 = "SELECT ONLOGIN FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
                 IEnumerable<decimal> onlogin1 = db.Database.SqlQuery<decimal>(loginStr1);
+                string loginStr2 = "SELECT USR_ID FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
+                IEnumerable<decimal> onlogin2 = db.Database.SqlQuery<decimal>(loginStr2);
+
+
 
                 // 获取DISC_ID
                 var judge1 = onlogin1.First();
+                var loginusrid = onlogin2.First();
                 if (judge1 == 1)
                 {
 
@@ -143,7 +152,7 @@ namespace QuePAT.Controllers
                 {
                     string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='1'WHERE LOGIN_NAME='" + uid + "'";
                     db.Database.ExecuteSqlCommand(updateStr);
-                    return Content("Login success.");
+                    return Content(loginusrid.ToString());
 
                 }
 
@@ -158,9 +167,11 @@ namespace QuePAT.Controllers
 
             string loginStr = "SELECT ONLOGIN FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
             IEnumerable<decimal> onlogin = db.Database.SqlQuery<decimal>(loginStr);
-
+            string loginStr3 = "SELECT USR_ID FROM SYSTEM.USR WHERE LOGIN_NAME = '" + uid + "'";
+            IEnumerable<decimal> onlogin3 = db.Database.SqlQuery<decimal>(loginStr3);
             // 获取DISC_ID
             var judge = onlogin.First();
+            var loginusrid2 = onlogin3.First();
             if (judge == 1)
             {
 
@@ -171,7 +182,7 @@ namespace QuePAT.Controllers
             {
                 string updateStr = "UPDATE SYSTEM.USR SET ONLOGIN='1'WHERE LOGIN_NAME='" + uid + "'";
                 db.Database.ExecuteSqlCommand(updateStr);
-                return Content("Login success.");
+                return Content(loginusrid2.ToString());
 
             }
 

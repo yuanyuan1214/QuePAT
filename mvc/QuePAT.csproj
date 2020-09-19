@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ADMINsController.cs" />
     <Compile Include="Controllers\FAMILYQuery.cs" />
     <Compile Include="Controllers\LAW_STATUSQuery.cs" />
     <Compile Include="Controllers\PATENTQuery.cs" />
@@ -206,6 +207,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="css\admin.css" />
+    <Content Include="css\animate.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\default-assets\classy-nav.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\fonts\ElegantIcons.svg" />
+    <Content Include="css\magnific-popup.css" />
+    <Content Include="css\owl.carousel.min.css" />
+    <Content Include="css\navigator.css" />
     <Content Include="css\reset.css" />
     <Content Include="css\result\header.css" />
     <Content Include="css\result\style.css" />
@@ -291,6 +301,9 @@
     <Content Include="img\submit-red.png" />
     <Content Include="img\submit-violet.png" />
     <Content Include="img\support-pattern.png" />
+    <Content Include="js\admin.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\main.js" />
     <Content Include="js\result\echarts.min.js" />
     <Content Include="js\searchForm.js" />
     <Content Include="js\searcnLaw .js" />
@@ -302,7 +315,6 @@
     <Content Include="js\html5.js" />
     <Content Include="js\jquery.countdown.min.js" />
     <Content Include="js\jquery.validate.min.js" />
-    <Content Include="js\main.js" />
     <Content Include="Models\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
@@ -327,6 +339,10 @@
     <Content Include="fonts\bebasneue-webfont.ttf" />
     <Content Include="fonts\bebasneue-webfont.woff" />
     <Content Include="img\core-img\.DS_Store" />
+    <Content Include="css\.DS_Store" />
+    <Content Include="css\fonts\ElegantIcons.eot" />
+    <Content Include="css\fonts\ElegantIcons.ttf" />
+    <Content Include="css\fonts\ElegantIcons.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -338,7 +354,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\navigator.js" />
+    <Content Include="js\navigator.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -352,7 +368,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\PATENTs\Create.cshtml" />
     <Content Include="Views\PATENTs\Delete.cshtml" />
     <Content Include="Views\PATENTs\Details.cshtml" />
@@ -375,6 +390,7 @@
     <Content Include="Views\Main\SearchForm.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
     <Content Include="Views\Home\initial.cshtml" />
+    <Content Include="Views\ADMINs\AdminMain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

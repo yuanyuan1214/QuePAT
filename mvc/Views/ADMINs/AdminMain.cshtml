@@ -1,0 +1,284 @@
+﻿@{
+    Layout = null;
+    var home_ctl = new QuePAT.Controllers.ADMINsController();
+    var load_res = home_ctl.ListInfo();
+    int row_num = load_res.Count();
+    int btn_num = 5, page_num = (row_num - 1) / 50 + 1;
+    if (row_num <= 200)
+    {
+        if (row_num == 0)
+        {
+            page_num = 1;
+        }
+        btn_num = page_num;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>QUEPAT管理员系统</title>
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="~/Content/bootstrap3.min.css" />
+
+    <link rel="stylesheet" href="~/css/admin.css" />
+
+    <!-- **** All JS Files ***** -->
+
+    
+
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <h1 class="navbar-brand">QUEPAT&nbsp;<small>管理员系统</small></h1>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse" id="bs-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:admin_logout()">退出登录</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br><br><br>
+
+    <div class="container manage-main">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped" trnum="@row_num">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2>
+                                系统中共有@(row_num)件专利 &nbsp;
+                                <small><a href="javascript:deal_create()">添加专利</a></small>
+                            </h2>
+                        </div>
+                    </div>
+                    <br />
+                    <thead>
+                        <tr>
+                            <th>专利编号</th>
+                            <th>专利名称</th>
+                            <th>专利权人</th>
+                            <th>专利操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < row_num; i++)
+                            {
+                                var obj = load_res.ElementAt(i);
+                                <tr id="row@(i+1)" class="hid-element">
+                                    <td>@obj.APP_NUM</td>
+                                    <td>
+                                        @obj.NAME
+                                    </td>
+                                    <td>@obj.PATENTEE_NAME</td>
+                                    <td>
+                                        <a href="javascript:deal_modify('@obj.APP_NUM')">修改</a>&nbsp;
+                                        <a href="javascript:deal_delete('@obj.APP_NUM')">删除</a>&nbsp;
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br /><br />
+
+        <nav aria-label="Page navigation" class="bottom-page">
+            <ul class="pagination" linum="@btn_num" pgnum="@page_num">
+                <li>
+                    <a href="javascript: display_row(0)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @{
+                    for (int i = 1; i <= btn_num; i++)
+                    {
+                        <li id="li@(i)">
+                            <a href="javascript: display_row(@i)">@i</a>
+                        </li>
+                    }
+                }
+                <li>
+                    <a href="javascript: display_row(-1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <br /><br />
+    </div>
+
+    <div class="container input-area hid-element">
+        <div class="row">
+            <h2 class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-10 col-sm-offset-1" id="input-item">新建专利</h2>
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+
+                <div class="my-input-form">
+                    <label for="basic-url">申请号</label>
+                    <p id="warning-app_num" class="warning-info hid-element">申请号必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="app_num" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利名称</label>
+                    <p id="warning-patent_name" class="warning-info hid-element">专利名称必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="patent_name" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利类型</label>
+                    <p id="warning-patent_type" class="warning-info hid-element">专利类型必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="patent_type" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利分类号</label>
+                    <p id="warning-class_code" class="warning-info hid-element">专利分类号必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="class_code" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">发明人 ID</label>
+                    <p id="warning-designer_id" class="warning-info hid-element">发明人 ID必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="designer_id" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利权人</label>
+                    <p id="warning-patentee_name" class="warning-info hid-element">专利权人必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="patentee_name" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">申请机构</label>
+                    <p id="warning-proposer_name" class="warning-info hid-element">申请机构必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="proposer_name" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">所在行政区划代码</label>
+                    <p id="warning-place_code" class="warning-info hid-element">所在行政区划代码必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="place_code" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">申请日</label>
+                    <p id="warning-app_date" class="warning-info hid-element">申请日必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="app_date" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">公开号</label>
+                    <p id="warning-public_num" class="warning-info hid-element">公开号必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="public_num" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">摘要（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="abstract" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">主权利要求（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="main_claim" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">权利要求（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="claim" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利年龄</label>
+                    <p id="warning-patent_age" class="warning-info hid-element">专利年龄必须填写</p>
+                    <div class="input-group">
+                        <input type="number" min="1" step="1" class="form-control myinput" id="patent_age" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">有效位</label>
+                    <p id="warning-is_valid" class="warning-info hid-element">有效位必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="is_valid" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">全文链接（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="full_link" aria-describedby="basic-addon3">
+                    </div>
+                    <h5 class="warning-item">如果以上内容出现了数据库中不存在的公司，请在下面输入其详细信息创建！</h5>
+                    <label for="basic-url">专利权人公司名称</label>
+                    <p id="warning-com_name1" class="warning-info hid-element">公司名称必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="com_name1" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利权人公司地址（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="com_address1" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">专利权人公司简介（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="com_abstract1" aria-describedby="basic-addon3">
+                    </div>
+                    <br />
+
+                    <label for="basic-url">申请机构公司名称</label>
+                    <p id="warning-com_name2" class="warning-info hid-element">公司名称必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="com_name2" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">申请机构公司地址（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="com_address2" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">申请机构公司简介（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="com_abstract2" aria-describedby="basic-addon3">
+                    </div>
+
+                    <h5 class="warning-item">如果以上内容出现了数据库中不存在的自然人，请在下面输入其详细信息创建！</h5>
+                    <label for="basic-url">自然人ID</label>
+                    <p id="warning-person_id" class="warning-info hid-element">ID必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="person_id" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">自然人姓名</label>
+                    <p id="warning-person_name" class="warning-info hid-element">人名必须填写</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="person_name" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">自然人地址（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="person_address" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">自然人电话（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="person_phone" aria-describedby="basic-addon3">
+                    </div>
+                    <label for="basic-url">自然人邮箱（非必填项）</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control myinput" id="person_email" aria-describedby="basic-addon3">
+                    </div>
+                </div>
+                <br /><br />
+                <div class="btn-form">
+                    <button class="btn btn-info">创建</button>&nbsp;&nbsp;
+                    <button class="btn btn-warning">取消</button>
+                </div>
+                <br /><br />
+            </div>
+
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <script src="~/js/admin.js"></script>
+
+
+</body>
+
+</html>

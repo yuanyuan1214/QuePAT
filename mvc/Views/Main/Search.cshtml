@@ -1,4 +1,6 @@
-﻿@{ ViewBag.Title = "专利检索"; }
+﻿@{ ViewBag.Title = "专利检索";
+    Layout = null;
+ }
 
 <html>
 <head>
@@ -16,6 +18,40 @@
     </script>
 </head>
 <body id="body" class="color-blue">
+    <div class="header unselect">
+        <div class="header-content">
+            <p class="fl">
+                <img img src="~/img/logo_navi3.png" width="27" alt="logo" />
+            </p>
+            <div class="header-menu fr">
+                <div class="box user-box fr">
+                    <div class="box-title">
+                        <div class="userinfo">
+                            <div class="username-box fl">
+                                <span class="username" title=""></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <ul class="personalmenu">
+                            <li>
+                                <a onclick="clicka()"><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="cut-line fr"></div>
+                <div class="box menu-box fr">
+                    <ul style="list-style:none;">
+                        <li><a href="">主界面</a></li>
+                        <li><a href="">专利检索</a></li>
+                        <li><a href="">社区</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="settings">
         <a href="#" class="button">Show panel</a>
         <div class="content">
@@ -129,8 +165,11 @@
 
     <div style="display:none">
         <script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script>
+
     </div>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="~/js/result/jquery.min.js"></script>
+    <script type="text/javascript" src="~/js/navigator.js"></script>
     <script charset="gb2312" language="javascript" type="text/javascript" src="../../js/search.js"></script>
 </body>
 

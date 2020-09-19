@@ -15,12 +15,10 @@
     <title>Hami - Web Hosting HTML Template</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="~/Img/img/core-img/favicon.png">
+    <link rel="icon" href="img/core-img/favicon.png">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <link rel="stylesheet" type="text/css" href="~/Content/navigator.css" />
 </head>
 
 <body>
@@ -66,18 +64,8 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/navigator.js"></script>
 
-    <script type="text/javascript">
+    <script>
 
-
-        var admin = {
-            account: 'cfjy',
-            password: '666666'
-        };
-        var loginType = 0;
-        var iserror1 = false;
-        var iserror2 = false;
-        var iserror3 = false;
-        var iserror4 = false;
         function logout() {
             var uid = $("#userid").val();
             // var pwd = $("#pwd").val();
@@ -92,6 +80,26 @@
             });
             alert("logout");
         }
+
+
+
+
+    </script>
+
+
+
+    <script type="text/javascript">
+
+
+        var admin = {
+            account: 'cfjy',
+            password: '666666'
+        }
+        var loginType = 0;
+        var iserror1 = false;
+        var iserror2 = false;
+        var iserror3 = false;
+        var iserror4 = false;
 
         $("#btn-login").click(function () {
             //alert("login");
@@ -108,11 +116,8 @@
                     url: "./Login",
                     data: { user_id: uid, password: pwd, mark: 0 },
                     success: function (res) {
-                        console.log(res);
-                        if (res == "Login success.") {
-                            console.log("here tiaozhuan")
-                            window.location.href = "initial?uid=" + uid;
-                        }
+                        var val = parseInt(res);
+                        console.log(val);//打到旁边控制台
                         if (res == "You have logined") {
                             alert('对不起，您的账号已在别处登录');
                         }
@@ -122,15 +127,26 @@
                         if (res == "Wrong password.") {
                             alert('密码错误');
                         }
+                        if (res == "You are not admin") {
+                            alert('你不是管理员');
+                        }
+                        if (val > 0) {
+                            console.log("here tiaozhuan")
+                            window.location.href = "../Main/Search?uid=" + val + "&user_name=" + uid;
+                        }
+
                     }
                 });
             }
 
         });
         $("#btn-register").click(function () {
-      
+            console.log(iserror1)
+            console.log(iserror2)
+            console.log(iserror3)
+            console.log(iserror4)
             if (iserror1 == true || iserror2 == true || iserror3 == true || iserror4 == true) {
-                alert('注册失败');
+                alert("注册失败");
             }
             else {
                 var reuserid = $("#re_userid").val();
@@ -145,18 +161,56 @@
                     data: { re_userid: reuserid, re_pwd: repwd, con_re_pwd: conrepwd, Phone: phone, Email: email },
                     success: function (res) {
                         console.log(res);
-                        if (res == 1) {
-                            alert('注册成功');
-                        }
+                        if (res == 1) { alert("注册成功"); }
+
                     }
                 });
             }
+            //alert("register");
 
         });
-        
+        $(".login-but").click(function () {
+            console.log(111);
+            var userName = $('#userid').val();
+            var password = $('#pwd').val();
+            var uid = $("#userid").val();
+            var pwd = $("#pwd").val();
+            console.log('userName: ', userName);
+            var mark = $("#tag-user").css("color");
+            if (mark == 'rgb(0, 0, 0)') {
+                loginType = 0;
+            }
+            else
+                loginType = 1;
+            console.log(loginType);
+
+            if (loginType === 0) {
+                // 用户登录
+            } else {
+                // 管理员登录
+                $.ajax({
+                    type: "post",
+                    url: "./Login",
+                    data: { user_id: uid, password: pwd, mark: 1 },//管理员
+                    success: function (res) {
+                        console.log(res);
+                        var val1 = parseInt(res);
+                        if (val1 > 0) {
+                            console.log("here tiaozhuan")
+                            window.location.href = "../Main/Search?uid=" + val1 + "&user_name=" + uid;
+                        }
+                        if (res == "You have logined") {
+                            alert('对不起，您的账号已在别处登录');
+                        }
+
+                    }
+                });
+
+            }
+        });
 
 
-       
+
         function chooseNav(index) {
             let nav = document.getElementsByClassName('login-com')
             let loginBox = document.getElementById('login-box')
@@ -192,11 +246,11 @@
         function cheackUserPassword() {
             let passBox = document.getElementById('re_pwd')
             if (passBox.value.length > 16 || passBox.value.length < 4) {
-                document.getElementById('cheack-password-error').style.display = 'block';
-                iserror2 = true;
+                document.getElementById('cheack-password-error').style.display = 'block'
+                iserror2 = true
             } else {
-                document.getElementById('cheack-password-error').style.display = 'none';
-                iserror2 = false;
+                document.getElementById('cheack-password-error').style.display = 'none'
+                iserror2 = false
             }
         }
         function cheackPassword() {
@@ -204,22 +258,22 @@
             let cheackPass = document.getElementById('con_re_pwd')
             console.log(passBox.value, cheackPass.value)
             if (passBox.value !== cheackPass.value) {
-                document.getElementById('cheack-cheack-error').style.display = 'block';
-                iserror3 = true;
+                document.getElementById('cheack-cheack-error').style.display = 'block'
+                iserror3 = true
 
             } else {
-                document.getElementById('cheack-cheack-error').style.display = 'none';
-                iserror3 = false;
+                document.getElementById('cheack-cheack-error').style.display = 'none'
+                iserror3 = false
             }
         }
         function cheackLoginPassword() {
             let passBox = document.getElementById('pwd')
             if (passBox.value.length > 16 || passBox.value.length < 4) {
-                document.getElementById('login-password-error').style.display = 'block';
-                iserror4 = true;
+                document.getElementById('login-password-error').style.display = 'block'
+                iserror4 = true
             } else {
-                document.getElementById('login-password-error').style.display = 'none';
-                iserror4 = false;
+                document.getElementById('login-password-error').style.display = 'none'
+                iserror4 = false
             }
         }
     </script>

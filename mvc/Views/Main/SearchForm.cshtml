@@ -229,10 +229,12 @@
         function openPatentDetail(num) {
             var patentNum = (pageNum - 1) * 9 + num - 1;
             var patentCode = obj[patentNum].APP_NUM;
+            console.log(patentCode);
             // 将patentCode接在url后面调用俊妍的页面
-            var reff = "../Home/Result?ap=" + encodeURI(patentCode);
-            console.log(reff);
-            window.location.href = reff;
+            var uids = $(".username-box.fl .username").attr("title");
+            var uid = parseInt(uids);
+            var name = $(".username-box.fl .username").text();
+            window.location.href = "../Home/Result?uid=" + uid + "&user_name=" + name + "&app_num=" + encodeURI(patentCode);
         }
     </script>
 </head>
@@ -259,6 +261,39 @@
                             </li>
                             <li>
                                 <a href=""><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="cut-line fr"></div>
+                <div class="box menu-box fr">
+                    <ul style="list-style:none;">
+                        <li><a href="">主界面</a></li>
+                        <li><a href="">专利检索</a></li>
+                        <li><a href="">社区</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> <div class="header unselect">
+        <div class="header-content">
+            <p class="fl">
+                <img img src="~/img/logo_navi3.png" width="27" alt="logo" />
+            </p>
+            <div class="header-menu fr">
+                <div class="box user-box fr">
+                    <div class="box-title">
+                        <div class="userinfo">
+                            <div class="username-box fl">
+                                <span class="username" title=""></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <ul class="personalmenu">
+                            <li>
+                                <a onclick="clicka()"><img src="~/img/personalCenter/exit_selected_icon_u.png" /><img class="dn" src="/img/personalCenter/exit_selected_icon.png" /><span>退出登录</span></a>
                             </li>
                         </ul>
 
