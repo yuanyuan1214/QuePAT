@@ -33,9 +33,12 @@
                         }
                         console.log(obj);
                         console.log(typeof obj);
-                        if (typeof obj == undefined) {
+                        if (typeof obj == "undefined" || obj.length == 0) {
                             $("#line1").text("没有搜索结果，请输入其他关键字");
+                            $("#date1" ).text("");
                             $("#li1").css("display", "block");
+                            $("#totalPagehtml").text("总页数：1" );
+                            $("#totalSumhtml").text("总条数：0");
                         } else {
                             lPageNum = Math.ceil(obj.length / 9);
                             $("#totalPagehtml").text("总页数：" + lPageNum);

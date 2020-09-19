@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="~/css/rltStyle.css" />
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    @*<script>
+    <script>
         var pageNum = 1;
         var obj;
         var lPageNum = 1;
@@ -31,11 +31,11 @@
                 var arr5 = arr[5].split("=");
                 var arr6 = arr[6].split("=");
                 var arr7 = arr[7].split("=");
-                var word1 = arr0[1];//获取参数的值
+                var word1 = arr0[2];//获取参数的值
                 var word2 = arr1[1];
                 var word3 = arr2[1];
                 var word4 = arr3[1];
-                var word5 = arr4[2];//有个exppression
+                var word5 = arr4[1];//有个exppression
                 var word6 = arr5[1];
                 var word7 = arr6[1];
                 var word8 = arr7[1];
@@ -79,7 +79,7 @@
                 if (address !== "") {
                     address = address + "*"
                 }
-                address = address + word5 + "/TX";
+                address = address + word5 + "/AB";
             }
             else {
                 word5 = null;
@@ -112,7 +112,7 @@
                 word8 = null;
             }
 
-            
+
             if (address != null) {
                 //alert("11111");
                 //$(".searchBtn").trigger("click");
@@ -228,10 +228,13 @@
         }
         function openPatentDetail(num) {
             var patentNum = (pageNum - 1) * 9 + num - 1;
-            var patentCode = obj[i].APP_NUM;
+            var patentCode = obj[patentNum].APP_NUM;
             // 将patentCode接在url后面调用俊妍的页面
+            var reff = "../Home/Result?ap=" + encodeURI(patentCode);
+            console.log(reff);
+            window.location.href = reff;
         }
-    </script>*@
+    </script>
 </head>
 <body>
     <!--头部-->
@@ -317,7 +320,7 @@
         </div>
         <p>同济大学专利管理系统</p>
     </div>
-    <script type="text/javascript" src="../../js/searchForm.js"></script>
+    @*<script type="text/javascript" src="../../js/searchForm.js"></script>*@
     <!--footer 结束-->
 </body>
 </html>
