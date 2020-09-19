@@ -124,6 +124,7 @@
         function openPatentDetail(num) {
             var patentNum = (pageNum - 1) * 9 + num - 1;
             var patentCode = obj[patentNum].APP_NUM;
+            console.log(patentCode);
             // 将patentCode接在url后面调用俊妍的页面
             console.log(window.location.href);
             console.log(patentCode);

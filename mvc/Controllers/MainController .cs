@@ -19,8 +19,6 @@ namespace QuePAT.Controllers
         static public JsonSerializerSettings jsSettings = new JsonSerializerSettings();
         private Entities db = new Entities();
 
-        JsonSerializerSettings jsSettings = new JsonSerializerSettings();
-
         public MainController()
         {
             jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -42,7 +40,7 @@ namespace QuePAT.Controllers
                 db.PATENT.Where(
                     p => p.NAME.Contains(str)
                     )
-                .Select(p => new { NAME = p.NAME, APP_DATE = p.APP_DATE }
+                .Select(p => new { APP_NUM = p.APP_NUM, NAME = p.NAME, APP_DATE = p.APP_DATE }
                 )
                 .ToList(), jsSettings);
             return new ContentResult { Content = json };
